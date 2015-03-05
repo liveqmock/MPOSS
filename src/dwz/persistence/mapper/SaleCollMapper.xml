@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.SaleCollMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.RptSaleColl">
+        <result property="saleCollId" jdbcType="INTEGER" column="SALE_COLL_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="saleType" jdbcType="VARCHAR" column="SALE_TYPE"/>
+        <result property="transTime" jdbcType="TIMESTAMP" column="TRANS_TIME"/>
+        <result property="consumerId" jdbcType="INTEGER" column="CONSUMER_ID"/>
+        <result property="consumerName" jdbcType="VARCHAR" column="CONSUMER_NAME"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="quantity" jdbcType="INTEGER" column="QUANTITY"/>
+        <result property="price" jdbcType="INTEGER" column="PRICE"/>
+        <result property="amount" jdbcType="INTEGER" column="AMOUNT"/>
+        <result property="costPrice" jdbcType="INTEGER" column="COST_PRICE"/>
+        <result property="profitAmount" jdbcType="INTEGER" column="PROFIT_AMOUNT"/>
+        
+        <result property="transDate" jdbcType="VARCHAR" column="TRANS_DATE"/>
+        <result property="sumAmount" jdbcType="INTEGER" column="SUM_AMOUNT"/>
+        <result property="sumProfitAmount" jdbcType="INTEGER" column="SUM_PROFIT_AMOUNT"/>
+	</resultMap>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="saleCollId">
+	    INSERT INTO RPT_SALE_COLL(
+	        SALE_COLL_ID,
+	        ORG_ID,
+	        SALE_TYPE,
+	        TRANS_TIME,
+	        CONSUMER_ID,
+	        CONSUMER_NAME,
+	        PRODUCT_MODEL,
+	        PRODUCT_NAME,
+	        STANDARD,
+	        QUANTITY,
+	        PRICE,
+	        AMOUNT,
+	        COST_PRICE,
+	        PROFIT_AMOUNT
+	    )VALUES(
+	        #{saleCollId},
+	        #{orgId},
+	        #{saleType},
+	        #{transTime},
+	        #{consumerId},
+	        #{consumerName},
+	        #{productModel},
+	        #{productName},
+	        #{standard},
+	        #{quantity},
+	        #{price},
+	        #{amount},
+	        #{costPrice},
+	        #{profitAmount}
+	    )
+	</insert>
+	
+	<select id="findByQC" parameterType="dwz.business.rpt.SearchSaleCollVO" resultMap="rm">
+    	SELECT 
+		    DATE_FORMAT(T.TRANS_TIME,'%Y-%m-%d') TRANS_DATE,
+		    T.CONSUMER_ID,
+		    T.CONSUMER_NAME,
+		    SUM(T.AMOUNT) SUM_AMOUNT,
+		    SUM(T.PROFIT_AMOUNT) SUM_PROFIT_AMOUNT
+		FROM 
+		    RPT_SALE_COLL T 
+		WHERE 
+		    T.ORG_ID = #{orgId}
+		    <if test="saleType != null and saleType != ''">
+		    AND T.SALE_TYPE = #{saleType}
+		    </if>
+		    <if test="consumer != null and consumer.consumerId != null">
+		    AND T.CONSUMER_ID = #{consumer.consumerId}
+		    </if>
+	        AND T.TRANS_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day)
+		GROUP BY TRANS_DATE,T.CONSUMER_ID,T.CONSUMER_NAME
+		ORDER BY TRANS_DATE DESC
+    </select>
+	
+	<select id="findDetail" parameterType="java.util.Map" resultMap="rm">
+    	SELECT * FROM RPT_SALE_COLL T WHERE T.ORG_ID = #{orgId}
+	    AND T.CONSUMER_ID = #{consumerId}
+	    AND DATE_FORMAT(T.TRANS_TIME,'%Y-%m-%d') = #{transDate}
+	    ORDER BY T.TRANS_TIME DESC
+    </select>
+    
+</mapper>

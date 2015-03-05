@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+#footer .footerNav li a, #footer .copyright a { line-height:23px;}
+
+.crumbs li, .crumbs a { line-height:21px;}
+
+.buttonBuy, .buttonMsg, .buttonSearch { line-height:32px;}

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/cache/memcache/client
+END
+Logger.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/cache/memcache/client/Logger.java
+END
+SockIOPool.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/cache/memcache/client/SockIOPool.java
+END
+LineInputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/cache/memcache/client/LineInputStream.java
+END
+NativeHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/cache/memcache/client/NativeHandler.java
+END
+MemcachedClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/cache/memcache/client/MemcachedClient.java
+END
+ContextObjectInputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 187
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/cache/memcache/client/ContextObjectInputStream.java
+END
+ErrorHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/cache/memcache/client/ErrorHandler.java
+END
+NestedIOException.java
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/cache/memcache/client/NestedIOException.java
+END
+ByteBufArrayInputStream.java
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/cache/memcache/client/ByteBufArrayInputStream.java
+END

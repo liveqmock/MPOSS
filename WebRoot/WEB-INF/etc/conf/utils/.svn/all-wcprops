@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/WebRoot/WEB-INF/etc/conf/utils
+END
+app-validation-code.xml
+K 25
+svn:wc:ra_dav:version-url
+V 182
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/WebRoot/WEB-INF/etc/conf/utils/app-validation-code.xml
+END
+app-session-config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/WebRoot/WEB-INF/etc/conf/utils/app-session-config.xml
+END
+app-mail-template.xml
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/WebRoot/WEB-INF/etc/conf/utils/app-mail-template.xml
+END
+app-website-template.xml
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/WebRoot/WEB-INF/etc/conf/utils/app-website-template.xml
+END
+app-mail.properties
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/WebRoot/WEB-INF/etc/conf/utils/app-mail.properties
+END
+app-timer-task.xml
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/WebRoot/WEB-INF/etc/conf/utils/app-timer-task.xml
+END

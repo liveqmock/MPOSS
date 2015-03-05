@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.SaleBackDetailMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.SalSaleBackDetail">
+        <result property="saleBackDetailId" jdbcType="INTEGER" column="SALE_BACK_DETAIL_ID"/>
+        <result property="no" jdbcType="INTEGER" column="NO"/>
+        <result property="saleBackDetailNo" jdbcType="VARCHAR" column="SALE_BACK_DETAIL_NO"/>
+        <result property="saleBackId" jdbcType="INTEGER" column="SALE_BACK_ID"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="backQuantity" jdbcType="INTEGER" column="BACK_QUANTITY"/>
+        <result property="backUnitPrice" jdbcType="INTEGER" column="BACK_UNIT_PRICE"/>
+        <result property="backDesc" jdbcType="VARCHAR" column="BACK_DESC"/>
+        <result property="backPrice" jdbcType="INTEGER" column="BACK_PRICE"/>
+        <result property="stockQuantity" jdbcType="INTEGER" column="STOCK_QUANTITY"/>
+        <result property="providerQuantity" jdbcType="INTEGER" column="PROVIDER_QUANTITY"/>
+        <result property="destroyQuantity" jdbcType="INTEGER" column="DESTROY_QUANTITY"/>
+        
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="pic" jdbcType="VARCHAR" column="PIC"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+	</resultMap>
+	
+    <insert id="insert" useGeneratedKeys="true" keyProperty="saleBackDetailId">
+        INSERT INTO SAL_SALE_BACK_DETAIL (
+            SALE_BACK_DETAIL_ID,
+            NO,
+            SALE_BACK_DETAIL_NO,
+            SALE_BACK_ID,
+            PROVIDER_PRODUCT_ID,
+            BACK_QUANTITY,
+            STANDARD,
+            BACK_UNIT_PRICE,
+            BACK_DESC,
+            BACK_PRICE
+        )VALUES(
+            #{saleBackDetailId},
+            #{no},
+            #{saleBackDetailNo},
+            #{saleBackId},
+            #{providerProductId},
+            #{backQuantity},
+            #{standard},
+            #{backUnitPrice},
+            #{backDesc},
+            #{backPrice}
+        )
+    </insert>
+    
+    <select id="findSaleBackDetailBySaleBackId" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T1.SALE_BACK_DETAIL_ID,
+            T1.SALE_BACK_DETAIL_NO,
+            T1.SALE_BACK_ID,
+            T1.PROVIDER_PRODUCT_ID,
+            T1.BACK_QUANTITY,
+            T1.BACK_UNIT_PRICE,
+            T1.STANDARD,
+            T1.BACK_DESC,
+            T1.BACK_PRICE,
+            T1.STOCK_QUANTITY,
+            T1.PROVIDER_QUANTITY,
+            T1.DESTROY_QUANTITY,
+            T2.PROVIDER_NAME,
+            T2.PRODUCT_MODEL,
+            T2.PRODUCT_NAME,
+            T2.PIC,
+            T2.UNIT
+        FROM 
+            SAL_SALE_BACK_DETAIL T1,
+            PRO_PROVIDER_PRODUCT T2 
+        WHERE 
+            T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND 
+            T1.SALE_BACK_ID = #{saleBackId} 
+        ORDER BY T1.NO
+    </select>
+    
+    <select id="findSaleBackDetail" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T1.SALE_BACK_DETAIL_ID,
+            T1.SALE_BACK_DETAIL_NO,
+            T1.SALE_BACK_ID,
+            T1.PROVIDER_PRODUCT_ID,
+            T1.BACK_QUANTITY,
+            T1.BACK_UNIT_PRICE,
+            T1.STANDARD,
+            T1.BACK_DESC,
+            T1.BACK_PRICE,
+        FROM 
+            SAL_SALE_BACK_DETAIL T1
+        WHERE 
+            T1.SALE_BACK_ID = #{saleBackId} 
+    </select>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM SAL_SALE_BACK_DETAIL T WHERE T.SALE_BACK_DETAIL_ID = #{saleBackDetailId}
+    </select>
+    
+    <update id="update" parameterType="dwz.persistence.beans.SalSaleBackDetail">
+        UPDATE
+            SAL_SALE_BACK_DETAIL T
+        SET 
+            T.STOCK_QUANTITY = #{stockQuantity},
+            T.PROVIDER_QUANTITY = #{providerQuantity},
+            T.DESTROY_QUANTITY = #{destroyQuantity}
+        WHERE 
+            T.SALE_BACK_DETAIL_ID = #{saleBackDetailId}
+    </update>
+    
+</mapper>
+

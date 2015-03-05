@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.ProductMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.ProProduct">
+        <result property="productId" jdbcType="INTEGER" column="PRODUCT_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="engLetter" jdbcType="VARCHAR" column="ENG_LETTER"/>
+        <result property="productEngName" jdbcType="VARCHAR" column="PRODUCT_ENG_NAME"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+        <result property="pic" jdbcType="VARCHAR" column="PIC"/>
+        <result property="packQuantity" jdbcType="INTEGER" column="PACK_QUANTITY"/>
+        <result property="packWeight" jdbcType="DOUBLE" column="PACK_WEIGHT"/>
+        <result property="packVolume" jdbcType="DOUBLE" column="PACK_VOLUME"/>
+        
+        <result property="standard" jdbcType="DOUBLE" column="STANDARD"/>
+	</resultMap>
+	
+	<select id="load" resultMap="rm">
+		SELECT *
+		FROM pro_product 
+	    WHERE 
+	        PRODUCT_ID = #{productId} 
+	</select>
+	
+	<select id="getProProduct" parameterType="dwz.persistence.beans.ProProduct" resultMap="rm">
+	    SELECT * FROM PRO_PRODUCT T WHERE T.ORG_ID = #{orgId} AND T.PRODUCT_MODEL = #{productModel} AND T.PRODUCT_NAME = #{productName}
+	</select>
+
+	<select id="findByOrg" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT *
+	    FROM pro_product WHERE ORG_ID = #{orgId}
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="productId">
+        INSERT INTO pro_product (
+        	PRODUCT_ID ,
+        	ORG_ID ,
+        	PRODUCT_MODEL ,
+        	PRODUCT_NAME ,
+        	ENG_LETTER,
+        	PRODUCT_ENG_NAME ,
+        	UNIT,
+        	PACK_QUANTITY,
+        	PACK_WEIGHT,
+        	PACK_VOLUME
+        ) VALUES (
+        	#{productId} ,
+        	#{orgId} ,
+        	#{productModel} ,
+        	#{productName} ,
+        	#{engLetter},
+        	#{productEngName} ,
+        	#{unit},
+        	#{packQuantity},
+        	#{packWeight},
+        	#{packVolume}
+        )
+	</insert>
+	
+	<insert id="insertSimple" useGeneratedKeys="true" keyProperty="productId">
+        INSERT INTO pro_product (
+        	PRODUCT_ID ,
+        	ORG_ID ,
+        	PRODUCT_MODEL ,
+        	PRODUCT_NAME ,
+        	ENG_LETTER,
+        	UNIT
+        ) VALUES (
+        	#{productId} ,
+        	#{orgId} ,
+        	#{productModel} ,
+        	#{productName} ,
+        	#{engLetter},
+        	#{unit}
+        )
+	</insert>
+	
+    <select id="loadProduct" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT *
+	    FROM pro_product 
+	    WHERE ORG_ID = #{orgId} 
+	    ORDER BY PRODUCT_MODEL,PRODUCT_NAME
+    </select>
+    
+    <select id="loadProductModel" parameterType="java.lang.Integer" resultType="java.lang.String">
+    	SELECT DISTINCT(PRODUCT_MODEL)
+	    FROM pro_product 
+	    WHERE ORG_ID = #{orgId} 
+	    ORDER BY PRODUCT_MODEL
+    </select>
+    
+    <select id="loadProductName" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT DISTINCT(PRODUCT_NAME) PRODUCT_NAME,ENG_LETTER
+	    FROM pro_product 
+	    WHERE ORG_ID = #{orgId} 
+	    ORDER BY ENG_LETTER
+    </select>
+    
+    <select id="findCountByQC" parameterType="dwz.business.sale.SearchProductVO" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM PRO_PRODUCT T WHERE T.ORG_ID = #{orgId} 
+        <if test="product != null and product.productModel != ''">
+	    AND T.PRODUCT_MODEL = #{product.productModel}
+	    </if>
+	    <if test="product != null and product.productName != ''">
+	    AND T.PRODUCT_NAME = #{product.productName}
+	    </if>
+    </select>
+    
+    <select id="findByQC" parameterType="dwz.business.sale.SearchProductVO" resultMap="rm">
+        SELECT * FROM PRO_PRODUCT T WHERE T.ORG_ID = #{orgId} 
+        <if test="product != null and product.productModel != ''">
+	    AND T.PRODUCT_MODEL = #{product.productModel}
+	    </if>
+	    <if test="product != null and product.productName != ''">
+	    AND T.PRODUCT_NAME = #{product.productName}
+	    </if>
+	    ORDER BY T.PRODUCT_MODEL,T.PRODUCT_NAME LIMIT #{startIndex},#{pageSize}
+    </select>
+
+    <select id="findJoinCountByQC" parameterType="dwz.business.sale.SearchProductVO" resultType="java.lang.Integer">
+        SELECT SUM(T.MYCOUNT) 
+        FROM 
+        (SELECT 
+            COUNT(*) MYCOUNT 
+        FROM 
+            PRO_PRODUCT T1 
+        WHERE 
+            T1.ORG_ID = #{orgId} 
+	        <if test="product != null and product.productModel != ''">
+		    AND T1.PRODUCT_MODEL = #{product.productModel}
+		    </if>
+		    <if test="product != null and product.productName != ''">
+		    AND T1.PRODUCT_NAME = #{product.productName}
+		    </if>
+		UNION ALL
+        SELECT 
+            COUNT(*) MYCOUNT 
+        FROM 
+            PRO_PRODUCT T1 
+        RIGHT JOIN 
+            PRO_STANDARD T2 
+        ON 
+            T1.PRODUCT_ID = T2.PRODUCT_ID
+        WHERE 
+            T1.ORG_ID = #{orgId} 
+	        <if test="product != null and product.productModel != ''">
+		    AND T1.PRODUCT_MODEL = #{product.productModel}
+		    </if>
+		    <if test="product != null and product.productName != ''">
+		    AND T1.PRODUCT_NAME = #{product.productName}
+		    </if>) T
+    </select>
+    
+    <select id="findJoinByQC" parameterType="dwz.business.sale.SearchProductVO" resultMap="rm">
+        SELECT * FROM
+        (SELECT 
+            T1.PRODUCT_ID,
+            T1.ORG_ID,
+            T1.PRODUCT_MODEL,
+            T1.PRODUCT_NAME,
+            T1.PRODUCT_ENG_NAME,
+            T1.UNIT,
+            T1.PACK_QUANTITY,
+            T1.PACK_WEIGHT,
+            T1.PACK_VOLUME,
+            '' STANDARD 
+        FROM 
+            PRO_PRODUCT T1 
+        WHERE 
+            T1.ORG_ID = #{orgId} 
+	        <if test="product != null and product.productModel != ''">
+		    AND T1.PRODUCT_MODEL = #{product.productModel}
+		    </if>
+		    <if test="product != null and product.productName != ''">
+		    AND T1.PRODUCT_NAME = #{product.productName}
+		    </if>
+		UNION ALL
+        SELECT 
+            T1.PRODUCT_ID,
+            T1.ORG_ID,
+            T1.PRODUCT_MODEL,
+            T1.PRODUCT_NAME,
+            T1.PRODUCT_ENG_NAME,
+            T1.UNIT,
+            T1.PACK_QUANTITY,
+            T1.PACK_WEIGHT,
+            T1.PACK_VOLUME,
+            T2.STANDARD 
+        FROM 
+            PRO_PRODUCT T1 
+        RIGHT JOIN 
+            PRO_STANDARD T2 
+        ON 
+            T1.PRODUCT_ID = T2.PRODUCT_ID
+        WHERE 
+            T1.ORG_ID = #{orgId} 
+	        <if test="product != null and product.productModel != ''">
+		    AND T1.PRODUCT_MODEL = #{product.productModel}
+		    </if>
+		    <if test="product != null and product.productName != ''">
+		    AND T1.PRODUCT_NAME = #{product.productName}
+		    </if>
+		) T    
+	    ORDER BY T.PRODUCT_MODEL,T.PRODUCT_NAME LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <update id="updatePic" parameterType="dwz.persistence.beans.ProProduct">
+        UPDATE PRO_PRODUCT T SET T.PIC = #{pic} WHERE T.PRODUCT_ID = #{productId}
+    </update>
+    
+    <update id="update" parameterType="dwz.persistence.beans.ProProduct">
+        UPDATE 
+            PRO_PRODUCT T 
+        SET 
+            T.PRODUCT_ENG_NAME = #{productEngName},
+            T.UNIT = #{unit},
+            T.PACK_QUANTITY = #{packQuantity},
+            T.PACK_WEIGHT = #{packWeight},
+            T.PACK_VOLUME = #{packVolume}
+        WHERE 
+            T.PRODUCT_ID = #{productId}
+    </update>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM PRO_PRODUCT WHERE PRODUCT_ID = #{productId}
+    </delete>
+    
+    <select id="findExistProduct" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT CONCAT(T.PRODUCT_MODEL,'=',T.PRODUCT_NAME) FROM PRO_PRODUCT T WHERE T.ORG_ID = #{orgId}
+    </select>
+    
+</mapper>
+

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.SaleDetailMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.SalSaleDetail">
+        <result property="saleDetailId" jdbcType="INTEGER" column="SALE_DETAIL_ID"/>
+        <result property="no" jdbcType="INTEGER" column="NO"/>
+        <result property="saleDetailNo" jdbcType="VARCHAR" column="SALE_DETAIL_NO"/>
+        <result property="saleId" jdbcType="INTEGER" column="SALE_ID"/>
+        <result property="productId" jdbcType="INTEGER" column="PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="saleQuantity" jdbcType="INTEGER" column="SALE_QUANTITY"/>
+        <result property="saleUnitPrice" jdbcType="INTEGER" column="SALE_UNIT_PRICE"/>
+        <result property="saleDesc" jdbcType="VARCHAR" column="SALE_DESC"/>
+        <result property="salePrice" jdbcType="INTEGER" column="SALE_PRICE"/>
+        <result property="purchaseQuantity" jdbcType="INTEGER" column="PURCHASE_QUANTITY"/>
+        <result property="arrivalQuantity" jdbcType="INTEGER" column="ARRIVAL_QUANTITY"/>
+        <result property="bakQuantity" jdbcType="INTEGER" column="BAK_QUANTITY"/>
+        <result property="packAmount" jdbcType="INTEGER" column="PACK_AMOUNT"/>
+        <result property="providerDesc" jdbcType="VARCHAR" column="PROVIDER_DESC"/>
+        <result property="remainBakQuantity" jdbcType="INTEGER" column="REMAIN_BAK_QUANTITY"/>
+        <result property="deliverQuantity" jdbcType="INTEGER" column="DELIVER_QUANTITY"/>
+        <result property="deliverCostPrice" jdbcType="INTEGER" column="DELIVER_COST_PRICE"/>
+        
+        <result property="totalSaleQuantity" jdbcType="INTEGER" column="TOTAL_SALE_QUANTITY"/>
+        <result property="totalSalePrice" jdbcType="INTEGER" column="TOTAL_SALE_PRICE"/>
+        <result property="totalRemainBakQuantity" jdbcType="INTEGER" column="TOTAL_REMAIN_BAK_QUANTITY"/>
+        <result property="totalDeliverQuantity" jdbcType="INTEGER" column="TOTAL_DELIVER_QUANTITY"/>
+        <result property="totalCostPrice" jdbcType="INTEGER" column="TOTAL_COST_PRICE"/>
+        
+        <result property="saleNo" jdbcType="VARCHAR" column="SALE_NO"/>
+        <result property="consumerName" jdbcType="VARCHAR" column="CONSUMER_NAME"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="pic" jdbcType="VARCHAR" column="PIC"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+        <result property="packQuantity" jdbcType="INTEGER" column="PACK_QUANTITY"/>
+        <result property="packWeight" jdbcType="DOUBLE" column="PACK_WEIGHT"/>
+        <result property="packVolume" jdbcType="DOUBLE" column="PACK_VOLUME"/>
+	</resultMap>
+	
+	<select id="getSaleDetailForPur" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T1.SALE_DETAIL_ID,
+            T1.SALE_DETAIL_NO,
+            T1.SALE_ID,
+            T1.PRODUCT_ID,
+            T1.STANDARD,
+            T1.SALE_QUANTITY,
+            T1.SALE_UNIT_PRICE,
+            T1.SALE_DESC,
+            T1.SALE_PRICE,
+            T1.PURCHASE_QUANTITY,
+            T1.ARRIVAL_QUANTITY,
+            T2.PRODUCT_MODEL,
+            T2.PRODUCT_NAME,
+            T2.UNIT,
+            T2.PIC
+        FROM 
+            SAL_SALE_DETAIL T1,
+            PRO_PRODUCT T2 
+        WHERE 
+            T1.PRODUCT_ID = T2.PRODUCT_ID 
+            AND T1.SALE_DETAIL_ID = #{saleDetailId}
+    </select>
+	
+    <update id="decRemainBakQuantityOfSaleDetail" parameterType="dwz.business.sale.SaleDetail">
+        UPDATE SAL_SALE_DETAIL T 
+        SET T.REMAIN_BAK_QUANTITY = T.REMAIN_BAK_QUANTITY - #{decRemainBakQuantity} 
+        WHERE T.SALE_DETAIL_ID = #{saleDetailId}
+    </update>
+    
+    <update id="incRemainBakQuantityOfSaleDetail" parameterType="dwz.business.sale.SaleDetail">
+        UPDATE SAL_SALE_DETAIL T 
+        SET T.REMAIN_BAK_QUANTITY = T.REMAIN_BAK_QUANTITY + #{incRemainBakQuantity} 
+        WHERE T.SALE_DETAIL_ID = #{saleDetailId}
+    </update>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="saleDetailId">
+        INSERT INTO SAL_SALE_DETAIL (
+            SALE_DETAIL_ID,
+            NO,
+            SALE_DETAIL_NO,
+            SALE_ID,
+            PRODUCT_ID,
+            SALE_QUANTITY,
+            STANDARD,
+            SALE_UNIT_PRICE,
+            SALE_DESC,
+            SALE_PRICE,
+            PURCHASE_QUANTITY,
+            ARRIVAL_QUANTITY,
+            BAK_QUANTITY,
+            DELIVER_QUANTITY,
+            DELIVER_COST_PRICE,
+            REMAIN_BAK_QUANTITY
+        )VALUES(
+            #{saleDetailId},
+            #{no},
+            #{saleDetailNo},
+            #{saleId},
+            #{productId},
+            #{saleQuantity},
+            #{standard},
+            #{saleUnitPrice},
+            #{saleDesc},
+            #{salePrice},
+            #{purchaseQuantity},
+            #{arrivalQuantity},
+            #{bakQuantity},
+            #{deliverQuantity},
+            #{deliverCostPrice},
+            #{remainBakQuantity}
+        )
+    </insert>
+    
+    <select id="findSaleDetailBySaleId" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T1.SALE_DETAIL_ID,
+            T1.SALE_DETAIL_NO,
+            T1.SALE_ID,
+            T1.PRODUCT_ID,
+            T1.SALE_QUANTITY,
+            T1.SALE_UNIT_PRICE,
+            T1.STANDARD,
+            T1.SALE_DESC,
+            T1.SALE_PRICE,
+            T1.PURCHASE_QUANTITY,
+            T1.ARRIVAL_QUANTITY,
+            T1.BAK_QUANTITY,
+            T1.PACK_AMOUNT,
+            T1.DELIVER_QUANTITY,
+            T1.PROVIDER_DESC,
+            T1.DELIVER_COST_PRICE,
+            T1.REMAIN_BAK_QUANTITY,
+            T2.PRODUCT_MODEL,
+            T2.PRODUCT_NAME,
+            T2.PIC,
+            T2.UNIT,
+            T2.PACK_QUANTITY,
+            T2.PACK_WEIGHT,
+            T2.PACK_VOLUME 
+        FROM 
+            SAL_SALE_DETAIL T1,
+            PRO_PRODUCT T2 
+        WHERE 
+            T1.PRODUCT_ID = T2.PRODUCT_ID AND 
+            T1.SALE_ID = #{saleId} 
+        ORDER BY T1.NO
+    </select>
+    
+    <update id="decRemainBakQuantity" parameterType="dwz.persistence.beans.SalDeliverDetail">
+        UPDATE SAL_SALE_DETAIL T SET T.REMAIN_BAK_QUANTITY = T.REMAIN_BAK_QUANTITY - #{bakQuantity} WHERE T.SALE_DETAIL_ID = #{saleDetailId}
+    </update>
+    
+    <update id="incRemainBakQuantity" parameterType="dwz.persistence.beans.SalDeliverDetail">
+        UPDATE SAL_SALE_DETAIL T SET T.REMAIN_BAK_QUANTITY = T.REMAIN_BAK_QUANTITY + #{bakQuantity} WHERE T.SALE_DETAIL_ID = #{saleDetailId}
+    </update>
+    
+    <update id="updateByDeliver" parameterType="dwz.persistence.beans.SalSaleDetail">
+        UPDATE SAL_SALE_DETAIL T SET T.DELIVER_QUANTITY = T.DELIVER_QUANTITY + #{deliverQuantity}, T.DELIVER_COST_PRICE = T.DELIVER_COST_PRICE + #{deliverCostPrice} WHERE T.SALE_DETAIL_ID = #{saleDetailId}
+    </update>
+    
+    <select id="findForUpdateSaleStatus" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT SUM(T.SALE_QUANTITY) TOTAL_SALE_QUANTITY,SUM(T.DELIVER_QUANTITY) TOTAL_DELIVER_QUANTITY,SUM(T.DELIVER_COST_PRICE) TOTAL_COST_PRICE FROM SAL_SALE_DETAIL T WHERE T.SALE_ID = #{saleId}
+    </select>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM SAL_SALE_DETAIL T WHERE T.SALE_DETAIL_ID = #{saleDetailId}
+    </select>
+    
+    <update id="updateForCustomer" parameterType="dwz.persistence.beans.SalSaleDetail">
+        UPDATE SAL_SALE_DETAIL T SET T.NO = #{no},T.SALE_DETAIL_NO = #{saleDetailNo},T.SALE_QUANTITY = #{saleQuantity},T.SALE_UNIT_PRICE = #{saleUnitPrice},T.SALE_DESC = #{saleDesc},T.SALE_PRICE = #{salePrice},T.REMAIN_BAK_QUANTITY = T.REMAIN_BAK_QUANTITY + #{remainBakQuantity} WHERE T.SALE_DETAIL_ID = #{saleDetailId}
+    </update>
+    
+    <select id="getColumnSum" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT SUM(T.SALE_QUANTITY) TOTAL_SALE_QUANTITY, SUM(T.SALE_PRICE) TOTAL_SALE_PRICE, SUM(T.REMAIN_BAK_QUANTITY) TOTAL_REMAIN_BAK_QUANTITY, SUM(T.DELIVER_QUANTITY) TOTAL_DELIVER_QUANTITY FROM SAL_SALE_DETAIL T WHERE T.SALE_ID = #{saleId}
+    </select>
+    
+    <select id="findSaleDetailBySaleNo" parameterType="java.util.Map" resultMap="rm">
+        SELECT 
+            T1.SALE_DETAIL_ID,
+            T1.SALE_DETAIL_NO,
+            T1.SALE_ID,
+            T1.PRODUCT_ID,
+            T1.SALE_QUANTITY,
+            T1.SALE_UNIT_PRICE,
+            T1.STANDARD,
+            T1.SALE_DESC,
+            T1.SALE_PRICE,
+            T1.PURCHASE_QUANTITY,
+            T1.REMAIN_BAK_QUANTITY,
+            T1.DELIVER_QUANTITY,
+            T1.DELIVER_COST_PRICE,
+            T2.PRODUCT_MODEL,
+            T2.PRODUCT_NAME,
+            T2.PIC,
+            T2.UNIT 
+        FROM 
+            SAL_SALE_DETAIL T1,
+            PRO_PRODUCT T2 
+        WHERE 
+            T1.PRODUCT_ID = T2.PRODUCT_ID AND 
+            T1.SALE_ID = (
+                          SELECT 
+                              T3.SALE_ID 
+                          FROM 
+                              SAL_SALE T3 
+                          WHERE 
+                              T3.ORG_ID = #{orgId} AND 
+                              T3.SALE_NO = #{saleNo}
+                         )
+        ORDER BY T1.NO
+    </select>
+    
+    <update id="incPurchaseQuantity" parameterType="dwz.persistence.beans.SalSaleDetail">
+        UPDATE SAL_SALE_DETAIL T SET T.PURCHASE_QUANTITY = T.PURCHASE_QUANTITY + #{purchaseQuantity} WHERE T.SALE_DETAIL_ID = #{saleDetailId}
+    </update>
+    
+    <update id="decPurchaseQuantity" parameterType="dwz.persistence.beans.SalSaleDetail">
+        UPDATE SAL_SALE_DETAIL T SET T.PURCHASE_QUANTITY = T.PURCHASE_QUANTITY - #{purchaseQuantity} WHERE T.SALE_DETAIL_ID = #{saleDetailId}
+    </update>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM SAL_SALE_DETAIL WHERE SALE_DETAIL_ID = #{saleDetailId}
+    </delete>
+    
+    <update id="updateArrivalQuantity" parameterType="java.util.Map">
+        UPDATE SAL_SALE_DETAIL T SET T.ARRIVAL_QUANTITY = T.ARRIVAL_QUANTITY + #{arrivalQuantity} WHERE T.SALE_DETAIL_ID = #{saleDetailId}
+    </update>
+    
+</mapper>
+

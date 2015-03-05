@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.StockChangeMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.StoStockChange">
+        <result property="stockChangeId" jdbcType="INTEGER" column="STOCK_CHANGE_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="changeTime" jdbcType="TIMESTAMP" column="CHANGE_TIME"/>
+        <result property="changeAction" jdbcType="VARCHAR" column="CHANGE_ACTION"/>
+        <result property="changeQuantity" jdbcType="INTEGER" column="CHANGE_QUANTITY"/>
+        <result property="busiType" jdbcType="VARCHAR" column="BUSI_TYPE"/>
+        <result property="topId" jdbcType="INTEGER" column="TOP_ID"/>
+        <result property="targetLeafId" jdbcType="INTEGER" column="TARGET_LEAF_ID"/>
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="productEngName" jdbcType="VARCHAR" column="PRODUCT_ENG_NAME"/>
+	</resultMap>
+	
+	<select id="findCountByQC" parameterType="dwz.business.stock.SearchStockChangeVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) 
+	    FROM sto_stock_change t1,pro_provider_product t2
+	    WHERE 
+	    t1.PROVIDER_PRODUCT_ID = t2.PROVIDER_PRODUCT_ID 
+	    AND t1.ORG_ID = #{orgId} 
+	    <if test="provider != null and provider.providerId != null">
+	    AND t2.PROVIDER_ID = #{provider.providerId}
+	    </if>
+	    <if test="product != null and product.productId != null">
+	    AND t2.PRODUCT_ID = #{product.productId}
+	    </if>
+	    <if test="changeAction != null and changeAction != ''">
+	    AND t1.CHANGE_ACTION = #{changeAction}
+	    </if>
+	    AND t1.CHANGE_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day) 
+    </select>
+	
+	<select id="findByQC" parameterType="dwz.business.stock.SearchStockChangeVO" resultMap="rm">
+    	SELECT t1.CHANGE_TIME,t1.CHANGE_ACTION,t1.CHANGE_QUANTITY,t1.BUSI_TYPE,t1.TOP_ID,t1.TARGET_LEAF_ID,t1.STANDARD,t2.PROVIDER_NAME,t2.PRODUCT_MODEL,t2.PRODUCT_NAME,t2.PRODUCT_ENG_NAME
+	    FROM sto_stock_change t1,pro_provider_product t2
+	    WHERE 
+	    t1.PROVIDER_PRODUCT_ID = t2.PROVIDER_PRODUCT_ID 
+	    AND t1.ORG_ID = #{orgId} 
+	    <if test="provider != null and provider.providerId != null">
+	    AND t2.PROVIDER_ID = #{provider.providerId}
+	    </if>
+	    <if test="product != null and product.productId != null">
+	    AND t2.PRODUCT_ID = #{product.productId}
+	    </if>
+	    <if test="changeAction != null and changeAction != ''">
+	    AND t1.CHANGE_ACTION = #{changeAction}
+	    </if>
+	    AND CHANGE_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day) 
+	    ORDER BY t1.STOCK_CHANGE_ID DESC LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="stockChangeId">
+        INSERT INTO STO_STOCK_CHANGE (
+            STOCK_CHANGE_ID,
+            ORG_ID, 
+            PROVIDER_PRODUCT_ID, 
+            STANDARD,
+            CHANGE_TIME,
+            CHANGE_ACTION,
+            CHANGE_QUANTITY,
+            BUSI_TYPE,
+            TOP_ID,
+            TARGET_LEAF_ID
+        ) VALUES (
+            #{stockChangeId},
+            #{orgId},
+            #{providerProductId},
+            #{standard},
+            #{changeTime},
+            #{changeAction},
+            #{changeQuantity},
+            #{busiType},
+            #{topId},
+            #{targetLeafId}
+        )
+    </insert>
+    
+</mapper>
+

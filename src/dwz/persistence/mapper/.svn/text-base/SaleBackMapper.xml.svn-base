@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.SaleBackMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.SalSaleBack">
+        <result property="saleBackId" jdbcType="INTEGER" column="SALE_BACK_ID"/>
+        <result property="saleBackNo" jdbcType="VARCHAR" column="SALE_BACK_NO"/>
+        <result property="saleBackType" jdbcType="VARCHAR" column="SALE_BACK_TYPE"/>
+        <result property="saleNo" jdbcType="VARCHAR" column="SALE_NO"/>
+        <result property="deliverNo" jdbcType="VARCHAR" column="DELIVER_NO"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="consumerId" jdbcType="INTEGER" column="CONSUMER_ID"/>
+        <result property="consumerName" jdbcType="VARCHAR" column="CONSUMER_NAME"/>
+        <result property="totalBackQuantity" jdbcType="INTEGER" column="TOTAL_BACK_QUANTITY"/>
+        <result property="totalBackPrice" jdbcType="INTEGER" column="TOTAL_BACK_PRICE"/>
+        <result property="createOperId" jdbcType="INTEGER" column="CREATE_OPER_ID"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="CREATE_TIME"/>
+        <result property="createDesc" jdbcType="VARCHAR" column="CREATE_DESC"/>
+        <result property="confOperId" jdbcType="INTEGER" column="CONF_OPER_ID"/>
+        <result property="confTime" jdbcType="TIMESTAMP" column="CONF_TIME"/>
+        <result property="confDesc" jdbcType="VARCHAR" column="CONF_DESC"/>
+        <result property="status" jdbcType="VARCHAR" column="STATUS"/>
+	</resultMap>
+	
+    <insert id="insert" useGeneratedKeys="true" keyProperty="saleBackId">
+        INSERT INTO SAL_SALE_BACK (
+            SALE_BACK_ID,
+            SALE_BACK_NO,
+            SALE_BACK_TYPE,
+            SALE_NO,
+            DELIVER_NO,
+            ORG_ID,
+            CONSUMER_ID,
+            CONSUMER_NAME,
+            TOTAL_BACK_QUANTITY,
+            TOTAL_BACK_PRICE,
+            CREATE_OPER_ID,
+            CREATE_TIME,
+            CREATE_DESC,
+            CONF_OPER_ID,
+            CONF_TIME,
+            CONF_DESC,
+            STATUS
+        )VALUES(
+            #{saleBackId},
+            #{saleBackNo},
+            #{saleBackType},
+            #{saleNo},
+            #{deliverNo},
+            #{orgId},
+            #{consumerId},
+            #{consumerName},
+            #{totalBackQuantity},
+            #{totalBackPrice},
+            #{createOperId},
+            #{createTime},
+            #{createDesc},
+            #{confOperId},
+            #{confTime},
+            #{confDesc},
+            #{status}
+        )
+    </insert>
+    
+    <select id="findForDo" parameterType="java.util.Map" resultMap="rm">
+    	SELECT * FROM SAL_SALE_BACK  
+	    WHERE ORG_ID = #{orgId} AND STATUS IN 
+	    <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach> 
+	    ORDER BY SALE_BACK_ID
+    </select>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM SAL_SALE_BACK WHERE SALE_BACK_ID = #{saleBackId}
+    </select>
+    
+    <update id="update" parameterType="dwz.persistence.beans.SalSaleBack">
+        UPDATE 
+            SAL_SALE_BACK T 
+        SET 
+            T.CONF_OPER_ID = #{confOperId}, 
+            T.CONF_TIME = #{confTime}, 
+            T.CONF_DESC = #{confDesc}, 
+            T.STATUS = #{status} 
+        WHERE 
+            T.SALE_BACK_ID = #{saleBackId}
+    </update>
+    
+    <select id="findCountByQC" parameterType="dwz.business.sale.SearchSaleBackVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM SAL_SALE_BACK T 
+	    WHERE T.ORG_ID = #{orgId}  
+	    <if test="deliverNo != null and deliverNo != ''">
+	    AND T.DELIVER_NO = #{deliverNo}
+	    </if>
+	    <if test="saleNo != null and saleNo != ''">
+	    AND T.SALE_NO = #{saleNo}
+	    </if>
+	    <if test="consumer != null and consumer.consumerId != null">
+	    AND T.CONSUMER_ID = #{consumer.consumerId}
+	    </if>
+    </select>
+    
+    <select id="findByQC" parameterType="dwz.business.sale.SearchSaleBackVO" resultMap="rm">
+    	SELECT * FROM SAL_SALE_BACK T 
+	    WHERE T.ORG_ID = #{orgId}  
+	    <if test="deliverNo != null and deliverNo != ''">
+	    AND T.DELIVER_NO = #{deliverNo}
+	    </if>
+	    <if test="saleNo != null and saleNo != ''">
+	    AND T.SALE_NO = #{saleNo}
+	    </if>
+	    <if test="consumer != null and consumer.consumerId != null">
+	    AND T.CONSUMER_ID = #{consumer.consumerId}
+	    </if>
+	    ORDER BY SALE_BACK_ID DESC LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+</mapper>
+

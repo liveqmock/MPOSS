@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.RoleResourceMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.SysRoleResource">
+        <result property="roleResourceId" jdbcType="INTEGER" column="ROLE_RESOURCE_ID"/>
+        <result property="roleId" jdbcType="INTEGER" column="ROLE_ID"/>
+        <result property="resourceId" jdbcType="INTEGER" column="RESOURCE_ID"/>
+	</resultMap>
+	
+    <insert id="insert" useGeneratedKeys="true" keyProperty="roleResourceId">
+        INSERT INTO SYS_ROLE_RESOURCE (ROLE_RESOURCE_ID,ROLE_ID,RESOURCE_ID) VALUES (#{roleResourceId},#{roleId},#{resourceId})
+    </insert>
+    
+    <delete id="deleteByRole" parameterType="java.lang.Integer">
+        DELETE FROM SYS_ROLE_RESOURCE WHERE ROLE_ID = #{roleId}
+    </delete>
+    
+    <select id="findResourceByRole" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT T.RESOURCE_ID FROM SYS_ROLE_RESOURCE T WHERE T.ROLE_ID = #{roleId}
+    </select>
+    
+    <delete id="deleteByRoleAndResource" parameterType="dwz.persistence.beans.SysRoleResource">
+        DELETE FROM SYS_ROLE_RESOURCE WHERE ROLE_ID = #{roleId} AND RESOURCE_ID = #{resourceId}
+    </delete>
+    
+    <select id="findCheckedResourceByRole" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT T.RESOURCE_ID FROM SYS_ROLE_RESOURCE T WHERE T.ROLE_ID = #{roleId}
+    </select>
+	
+</mapper>
+

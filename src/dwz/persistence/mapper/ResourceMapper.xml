@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.ResourceMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.SysResource">
+        <result property="resourceId" jdbcType="INTEGER" column="RESOURCE_ID"/>
+        <result property="resourceName" jdbcType="VARCHAR" column="RESOURCE_NAME"/>
+        <result property="resourceUrl" jdbcType="VARCHAR" column="RESOURCE_URL"/>
+        <result property="resourceDesc" jdbcType="VARCHAR" column="RESOURCE_DESC"/>
+        <result property="rel" jdbcType="VARCHAR" column="REL"/>
+        <result property="parentResourceId" jdbcType="INTEGER" column="PARENT_RESOURCE_ID"/>
+        <result property="resourceType" jdbcType="VARCHAR" column="RESOURCE_TYPE"/>
+        <result property="inuseFlag" jdbcType="VARCHAR" column="INUSE_FLAG"/>
+        <result property="sort" jdbcType="INTEGER" column="SORT"/>
+	</resultMap>
+	
+	<select id="findResourceByResourceType" parameterType="java.lang.String" resultMap="rm">
+	    SELECT T.RESOURCE_ID,T.RESOURCE_NAME,T.PARENT_RESOURCE_ID FROM SYS_RESOURCE T WHERE T.RESOURCE_TYPE = #{resourceType} ORDER BY T.RESOURCE_ID
+	</select>
+	
+	<select id="findForCache" resultMap="rm">
+    	SELECT T.RESOURCE_ID,T.RESOURCE_NAME,T.RESOURCE_URL,T.PARENT_RESOURCE_ID,T.RESOURCE_TYPE FROM SYS_RESOURCE T ORDER BY T.PARENT_RESOURCE_ID,T.SORT
+    </select>
+    
+    <select id="findResourceByRoles" parameterType="java.util.Map" resultMap="rm">
+        SELECT 
+            T1.RESOURCE_ID,
+            T1.RESOURCE_NAME,
+            T1.RESOURCE_URL,
+            T1.REL,
+            T1.PARENT_RESOURCE_ID,
+            T1.INUSE_FLAG 
+        FROM 
+            SYS_RESOURCE T1 
+        WHERE 
+            T1.RESOURCE_ID IN (SELECT 
+                                   T2.RESOURCE_ID 
+                               FROM 
+                                   SYS_ROLE_RESOURCE T2 
+                               WHERE 
+                                   T2.ROLE_ID IN <foreach item="item" index="index" collection="roleIdList" open="(" separator="," close=")">#{item}</foreach>) 
+        ORDER BY T1.PARENT_RESOURCE_ID,T1.SORT
+    </select>
+    
+</mapper>
+

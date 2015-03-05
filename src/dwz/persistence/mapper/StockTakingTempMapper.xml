@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.StockTakingTempMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.StoStockTakingTemp">
+        <result property="stockTakingTempId" jdbcType="INTEGER" column="STOCK_TAKING_TEMP_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="totalQuantity" jdbcType="INTEGER" column="TOTAL_QUANTITY"/>
+        <result property="lockQuantity" jdbcType="INTEGER" column="LOCK_QUANTITY"/>
+        <result property="takingQuantity" jdbcType="INTEGER" column="TAKING_QUANTITY"/>
+        
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="productEngName" jdbcType="VARCHAR" column="PRODUCT_ENG_NAME"/>
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+	</resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="stockTakingTempId">
+        INSERT INTO sto_stock_taking_temp(
+            STOCK_TAKING_TEMP_ID,
+            ORG_ID,
+            PROVIDER_PRODUCT_ID,
+            STANDARD,
+            TOTAL_QUANTITY,
+            LOCK_QUANTITY,
+            TAKING_QUANTITY
+        ) VALUES (
+            #{stockTakingTempId},
+            #{orgId},
+            #{providerProductId},
+            #{standard},
+            #{totalQuantity},
+            #{lockQuantity},
+            #{takingQuantity}
+        )
+    </insert>
+    
+    <update id="update" parameterType="dwz.persistence.beans.StoStockTakingTemp">
+        UPDATE sto_stock_taking_temp SET TOTAL_QUANTITY = #{totalQuantity},LOCK_QUANTITY = #{lockQuantity},TAKING_QUANTITY = #{takingQuantity} WHERE ORG_ID = #{orgId} AND PROVIDER_PRODUCT_ID = #{providerProductId}
+    </update>
+    
+    <select id="findProviderProductId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT PROVIDER_PRODUCT_ID FROM sto_stock_taking_temp WHERE ORG_ID = #{orgId}
+    </select>
+    
+    <select id="findByOrg" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT t1.STOCK_TAKING_TEMP_ID,t1.PROVIDER_PRODUCT_ID,t1.STANDARD,t1.TOTAL_QUANTITY,t1.LOCK_QUANTITY,t1.TAKING_QUANTITY,t2.PRODUCT_MODEL,t2.PRODUCT_NAME,t2.PRODUCT_ENG_NAME,t2.PROVIDER_NAME FROM sto_stock_taking_temp t1,pro_provider_product t2 
+        WHERE t1.PROVIDER_PRODUCT_ID = t2.PROVIDER_PRODUCT_ID AND 
+        t1.ORG_ID = #{orgId} ORDER BY t1.STOCK_TAKING_TEMP_ID
+    </select>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM sto_stock_taking_temp 
+        WHERE STOCK_TAKING_TEMP_ID = #{stockTakingTempId}
+    </delete>
+    
+    <delete id="deleteByOrg" parameterType="java.lang.Integer">
+        DELETE FROM sto_stock_taking_temp 
+        WHERE ORG_ID = #{orgId}
+    </delete>
+    
+</mapper>
+

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.ArrivalDetailMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.PurArrivalDetail">
+        <result property="arrivalDetailId" jdbcType="INTEGER" column="ARRIVAL_DETAIL_ID"/>
+        <result property="arrivalId" jdbcType="INTEGER" column="ARRIVAL_ID"/>
+        <result property="purchaseDetailId" jdbcType="INTEGER" column="PURCHASE_DETAIL_ID"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="saleNo" jdbcType="VARCHAR" column="SALE_NO"/>
+        <result property="saleDetailId" jdbcType="INTEGER" column="SALE_DETAIL_ID"/>
+        <result property="saleDetailNo" jdbcType="VARCHAR" column="SALE_DETAIL_NO"/>
+        <result property="arrivalQuantity" jdbcType="INTEGER" column="ARRIVAL_QUANTITY"/>
+        <result property="purchaseUnitPrice" jdbcType="INTEGER" column="PURCHASE_UNIT_PRICE"/>
+        <result property="arrivalPrice" jdbcType="INTEGER" column="ARRIVAL_PRICE"/>
+        
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="productEngName" jdbcType="VARCHAR" column="PRODUCT_ENG_NAME"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+        <result property="pic" jdbcType="VARCHAR" column="PIC"/>
+	</resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="arrivalDetailId">
+        INSERT INTO PUR_ARRIVAL_DETAIL(
+            ARRIVAL_DETAIL_ID,
+            ARRIVAL_ID,
+            PURCHASE_DETAIL_ID,
+            PROVIDER_PRODUCT_ID,
+            STANDARD,
+            SALE_NO,
+            SALE_DETAIL_ID,
+            SALE_DETAIL_NO,
+            ARRIVAL_QUANTITY,
+            PURCHASE_UNIT_PRICE,
+            ARRIVAL_PRICE
+        ) VALUES (
+            #{arrivalDetailId},
+            #{arrivalId},
+            #{purchaseDetailId},
+            #{providerProductId},
+            #{standard},
+            #{saleNo},
+            #{saleDetailId},
+            #{saleDetailNo},
+            #{arrivalQuantity},
+            #{purchaseUnitPrice},
+            #{arrivalPrice}
+        )
+    </insert>
+    
+    <select id="findArrivalDetailByArrivalId" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T1.ARRIVAL_DETAIL_ID,
+            T1.ARRIVAL_ID,
+            T1.PURCHASE_DETAIL_ID,
+            T1.PROVIDER_PRODUCT_ID,
+            T1.STANDARD,
+            T1.SALE_NO,
+            T1.SALE_DETAIL_ID,
+            T1.SALE_DETAIL_NO,
+            T1.ARRIVAL_QUANTITY,
+            T1.PURCHASE_UNIT_PRICE,
+            T1.ARRIVAL_PRICE,
+            T2.PROVIDER_NAME,
+            T2.PRODUCT_MODEL,
+            T2.PRODUCT_NAME,
+            T2.PRODUCT_ENG_NAME,
+            T2.UNIT,
+            T2.PIC
+        FROM 
+            PUR_ARRIVAL_DETAIL T1,
+            PRO_PROVIDER_PRODUCT T2 
+        WHERE 
+            T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND 
+            T1.ARRIVAL_ID = #{arrivalId}
+        ORDER BY 
+            T1.ARRIVAL_DETAIL_ID
+    </select>
+    
+    <select id="findArrivalDetailBySaleDetailId" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T1.ARRIVAL_DETAIL_ID,
+            T1.PROVIDER_PRODUCT_ID,
+            T1.ARRIVAL_QUANTITY
+        FROM 
+            PUR_ARRIVAL_DETAIL T1
+        WHERE 
+            T1.SALE_DETAIL_ID = #{saleDetailId}
+        ORDER BY 
+            T1.ARRIVAL_DETAIL_ID
+    </select>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM PUR_ARRIVAL_DETAIL T WHERE T.ARRIVAL_DETAIL_ID = #{arrivalDetailId}
+    </select>
+    
+</mapper>

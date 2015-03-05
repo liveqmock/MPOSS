@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods
+END
+Product.java
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/Product.java
+END
+ProductImportVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/ProductImportVO.java
+END
+ProviderProductVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/ProviderProductVO.java
+END
+Standard.java
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/Standard.java
+END
+ProviderProductServiceMgr.java
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/ProviderProductServiceMgr.java
+END
+SearchProviderProductVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/SearchProviderProductVO.java
+END
+ProductServiceMgr.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/ProductServiceMgr.java
+END
+ProductStandardServiceMgr.java
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/ProductStandardServiceMgr.java
+END
+AddProviderProductVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/AddProviderProductVO.java
+END
+AddStandard.java
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/AddStandard.java
+END
+ProviderProduct.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/ProviderProduct.java
+END
+SearchStandardVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/goods/SearchStandardVO.java
+END

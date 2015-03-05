@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.ProviderProductMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.ProProviderProduct">
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="productId" jdbcType="INTEGER" column="PRODUCT_ID"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="productEngName" jdbcType="VARCHAR" column="PRODUCT_ENG_NAME"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+        <result property="pic" jdbcType="VARCHAR" column="PIC"/>
+        <result property="providerId" jdbcType="INTEGER" column="PROVIDER_ID"/>
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="unitPrice" jdbcType="INTEGER" column="UNIT_PRICE"/>
+        
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+	</resultMap>
+	
+	<select id="findCountByQC" parameterType="dwz.business.goods.SearchProviderProductVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM pro_provider_product WHERE ORG_ID = #{orgId} 
+	    <if test="provider != null and provider.providerId != null">
+	    AND PROVIDER_ID = #{provider.providerId}
+	    </if>
+	    <if test="product != null and product.productModel != ''">
+	    AND PRODUCT_MODEL = #{product.productModel}
+	    </if>
+	    <if test="product != null and product.productName != ''">
+	    AND PRODUCT_NAME = #{product.productName}
+	    </if>
+    </select>
+
+	<select id="findByQC" parameterType="dwz.business.goods.SearchProviderProductVO" resultMap="rm">
+    	SELECT PROVIDER_PRODUCT_ID,PRODUCT_MODEL,PRODUCT_NAME,PRODUCT_ENG_NAME,UNIT,PIC,PROVIDER_NAME,UNIT_PRICE 
+	    FROM pro_provider_product WHERE ORG_ID = #{orgId} 
+	    <if test="provider != null and provider.providerId != null">
+	    AND PROVIDER_ID = #{provider.providerId}
+	    </if>
+	    <if test="product != null and product.productModel != ''">
+	    AND PRODUCT_MODEL = #{product.productModel}
+	    </if>
+	    <if test="product != null and product.productName != ''">
+	    AND PRODUCT_NAME = #{product.productName}
+	    </if>
+	    ORDER BY PROVIDER_ID,PRODUCT_MODEL,PRODUCT_NAME LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findJoinCountByQC" parameterType="dwz.business.goods.SearchProviderProductVO" resultType="java.lang.Integer">
+    	SELECT SUM(T.MYCOUNT) FROM (
+		    SELECT 
+	    	    COUNT(*) MYCOUNT
+	    	FROM 
+	    	    PRO_PROVIDER_PRODUCT T1
+	    	WHERE 
+		        T1.ORG_ID = #{orgId} 
+			    <if test="provider != null and provider.providerId != null">
+			    AND T1.PROVIDER_ID = #{provider.providerId}
+			    </if>
+			    <if test="product != null and product.productModel != ''">
+			    AND T1.PRODUCT_MODEL = #{product.productModel}
+			    </if>
+			    <if test="product != null and product.productName != ''">
+			    AND T1.PRODUCT_NAME = #{product.productName}
+			    </if>
+	    	UNION ALL
+	    	SELECT 
+	    	    COUNT(*) MYCOUNT
+		    FROM 
+		        PRO_PROVIDER_PRODUCT T1
+		    RIGHT JOIN 
+		        PRO_STANDARD T2
+		    ON 
+		        T1.PRODUCT_ID = T2.PRODUCT_ID 
+		    WHERE 
+		        T1.ORG_ID = #{orgId} 
+			    <if test="provider != null and provider.providerId != null">
+			    AND T1.PROVIDER_ID = #{provider.providerId}
+			    </if>
+			    <if test="product != null and product.productModel != ''">
+			    AND T1.PRODUCT_MODEL = #{product.productModel}
+			    </if>
+			    <if test="product != null and product.productName != ''">
+			    AND T1.PRODUCT_NAME = #{product.productName}
+			    </if>
+		) T
+    </select>
+
+	<select id="findJoinByQC" parameterType="dwz.business.goods.SearchProviderProductVO" resultMap="rm">
+	    SELECT * FROM (
+		    SELECT 
+	    	    T1.PROVIDER_PRODUCT_ID,T1.PROVIDER_ID,T1.PRODUCT_MODEL,T1.PRODUCT_NAME,T1.PRODUCT_ENG_NAME,T1.UNIT,T1.PIC,T1.PROVIDER_NAME,T1.UNIT_PRICE,'' STANDARD 
+	    	FROM 
+	    	    PRO_PROVIDER_PRODUCT T1
+	    	WHERE 
+		        T1.ORG_ID = #{orgId} 
+			    <if test="provider != null and provider.providerId != null">
+			    AND T1.PROVIDER_ID = #{provider.providerId}
+			    </if>
+			    <if test="product != null and product.productModel != ''">
+			    AND T1.PRODUCT_MODEL = #{product.productModel}
+			    </if>
+			    <if test="product != null and product.productName != ''">
+			    AND T1.PRODUCT_NAME = #{product.productName}
+			    </if>
+	    	UNION ALL
+	    	SELECT 
+	    	    T1.PROVIDER_PRODUCT_ID,T1.PROVIDER_ID,T1.PRODUCT_MODEL,T1.PRODUCT_NAME,T1.PRODUCT_ENG_NAME,T1.UNIT,T1.PIC,T1.PROVIDER_NAME,T1.UNIT_PRICE,T2.STANDARD 
+		    FROM 
+		        PRO_PROVIDER_PRODUCT T1
+		    RIGHT JOIN 
+		        PRO_STANDARD T2
+		    ON 
+		        T1.PRODUCT_ID = T2.PRODUCT_ID 
+		    WHERE 
+		        T1.ORG_ID = #{orgId} 
+			    <if test="provider != null and provider.providerId != null">
+			    AND T1.PROVIDER_ID = #{provider.providerId}
+			    </if>
+			    <if test="product != null and product.productModel != ''">
+			    AND T1.PRODUCT_MODEL = #{product.productModel}
+			    </if>
+			    <if test="product != null and product.productName != ''">
+			    AND T1.PRODUCT_NAME = #{product.productName}
+			    </if>
+		) T
+	    ORDER BY 
+	        T.PROVIDER_ID,T.PRODUCT_MODEL,T.PRODUCT_NAME LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="providerProductId">
+        INSERT INTO pro_provider_product(
+            PROVIDER_PRODUCT_ID,
+            ORG_ID,
+            PRODUCT_ID,
+            PRODUCT_MODEL,
+            PRODUCT_NAME,
+            PRODUCT_ENG_NAME,
+            UNIT,
+            PROVIDER_ID,
+            PROVIDER_NAME,
+            UNIT_PRICE
+        ) VALUES (
+            #{providerProductId},
+            #{orgId},
+            #{productId},
+            #{productModel},
+            #{productName},
+            #{productEngName},
+            #{unit},
+            #{providerId},
+            #{providerName},
+            #{unitPrice}
+        )
+    </insert>
+    
+    <update id="update" parameterType="dwz.persistence.beans.ProProviderProduct">
+        UPDATE 
+            PRO_PROVIDER_PRODUCT T 
+        SET 
+            T.UNIT_PRICE = #{unitPrice}
+        WHERE T.PROVIDER_PRODUCT_ID = #{providerProductId}
+    </update>
+    
+    <select id="findForRepeatCheck" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT PRODUCT_ID,PROVIDER_ID 
+	    FROM pro_provider_product WHERE ORG_ID = #{orgId} 
+    </select>
+    
+    <select id="findForPurchase" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT T.PRODUCT_ID,T.PROVIDER_PRODUCT_ID,T.UNIT_PRICE FROM PRO_PROVIDER_PRODUCT T WHERE T.PROVIDER_ID = #{providerId}
+    </select>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM PRO_PROVIDER_PRODUCT T WHERE T.PROVIDER_PRODUCT_ID = #{providerProductId}
+    </select>
+    
+    <select id="getProviderProductCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM PRO_PROVIDER_PRODUCT T WHERE T.PRODUCT_ID = #{productId}
+    </select>
+    
+    <update id="updateByProductUpd" parameterType="dwz.persistence.beans.ProProduct">
+        UPDATE PRO_PROVIDER_PRODUCT T SET T.PRODUCT_ENG_NAME = #{productEngName},T.UNIT = #{unit} WHERE T.PRODUCT_ID = #{productId}
+    </update>
+    
+    <update id="updatePic" parameterType="dwz.persistence.beans.ProProduct">
+        UPDATE PRO_PROVIDER_PRODUCT T SET T.PIC = #{pic} WHERE T.PRODUCT_ID = #{productId}
+    </update>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM PRO_PROVIDER_PRODUCT WHERE PROVIDER_PRODUCT_ID = #{providerProductId}
+    </delete>
+    
+    <select id="findProviderProductForPur" parameterType="java.util.Map" resultMap="rm">
+        SELECT * FROM PRO_PROVIDER_PRODUCT T WHERE T.ORG_ID = #{orgId} AND T.PRODUCT_ID = #{productId}
+    </select>
+    
+</mapper>
+

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.ConsumeMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.BalConsume">
+        <result property="consumeId" jdbcType="INTEGER" column="CONSUME_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="consumeTime" jdbcType="TIMESTAMP" column="CONSUME_TIME"/>
+        <result property="busiType" jdbcType="VARCHAR" column="BUSI_TYPE"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="quantity" jdbcType="INTEGER" column="QUANTITY"/>
+        <result property="unitPrice" jdbcType="INTEGER" column="UNIT_PRICE"/>
+        <result property="price" jdbcType="INTEGER" column="PRICE"/>
+        <result property="memo" jdbcType="VARCHAR" column="MEMO"/>
+        <result property="targetId" jdbcType="INTEGER" column="TARGET_ID"/>
+        <result property="targetName" jdbcType="VARCHAR" column="TARGET_NAME"/>
+        <result property="paperId" jdbcType="INTEGER" column="PAPER_ID"/>
+        <result property="paperNo" jdbcType="VARCHAR" column="PAPER_NO"/>
+        <result property="targetLeafId" jdbcType="INTEGER" column="TARGET_LEAF_ID"/>
+        <result property="validFlag" jdbcType="VARCHAR" column="VALID_FLAG"/>
+        
+        <result property="balancePrice" jdbcType="INTEGER" column="BALANCE_PRICE"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+        <result property="consumerId" jdbcType="INTEGER" column="CONSUMER_ID"/>
+        <result property="consumerName" jdbcType="VARCHAR" column="CONSUMER_NAME"/>
+        <result property="providerId" jdbcType="INTEGER" column="PROVIDER_ID"/>
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="totalBusiPrice" jdbcType="INTEGER" column="TOTAL_BUSI_PRICE"/>
+	</resultMap>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="consumeId">
+	    INSERT INTO BAL_CONSUME (
+	        CONSUME_ID,
+	        ORG_ID,
+	        CONSUME_TIME,
+	        BUSI_TYPE,
+	        PROVIDER_PRODUCT_ID,
+	        STANDARD,
+	        QUANTITY,
+	        UNIT_PRICE,
+	        PRICE,
+	        MEMO,
+	        TARGET_ID,
+	        TARGET_NAME,
+	        PAPER_ID,
+	        PAPER_NO,
+	        TARGET_LEAF_ID,
+	        VALID_FLAG
+	    ) VALUES (
+	        #{consumeId},
+	        #{orgId},
+	        #{consumeTime},
+	        #{busiType},
+	        #{providerProductId},
+	        #{standard},
+	        #{quantity},
+	        #{unitPrice},
+	        #{price},
+	        #{memo},
+	        #{targetId},
+	        #{targetName},
+	        #{paperId},
+	        #{paperNo},
+	        #{targetLeafId},
+	        #{validFlag}
+	    )
+	</insert>
+	
+	<select id="findForSaleBill" parameterType="java.util.Map" resultMap="rm">
+	    SELECT 
+            T1.CONSUMER_ID,
+            T1.CONSUMER_NAME,
+            SUM(T2.PRICE) TOTAL_BUSI_PRICE
+        FROM 
+           PAR_CONSUMER T1,
+           BAL_CONSUME T2 
+        WHERE 
+            T1.CONSUMER_ID = T2.TARGET_ID 
+            AND T1.ORG_ID = #{orgId} 
+            AND T2.BUSI_TYPE IN <foreach item="item" index="index" collection="busiTypeList" open="(" separator="," close=")">#{item}</foreach>
+            AND T2.VALID_FLAG = #{validFlag} 
+            AND T2.CONSUME_TIME > T1.BILL_FINISH_TIME
+        GROUP BY 
+            T1.CONSUMER_ID,
+            T1.CONSUMER_NAME
+        ORDER BY 
+            T1.CONSUMER_ID
+	</select>
+	
+	<select id="findForPurchaseBill" parameterType="java.util.Map" resultMap="rm">
+	    SELECT 
+            T1.PROVIDER_ID,
+            T1.PROVIDER_NAME,
+            (0-SUM(T2.PRICE)) TOTAL_BUSI_PRICE 
+        FROM 
+           PAR_PROVIDER T1,
+           BAL_CONSUME T2 
+        WHERE 
+            T1.PROVIDER_ID = T2.TARGET_ID AND 
+            T1.ORG_ID = #{orgId} AND 
+            T2.BUSI_TYPE IN <foreach item="item" index="index" collection="busiTypeList" open="(" separator="," close=")">#{item}</foreach> AND 
+            T2.VALID_FLAG = #{validFlag} AND 
+            T2.CONSUME_TIME > T1.BILL_FINISH_TIME
+        GROUP BY 
+            T1.PROVIDER_ID,
+            T1.PROVIDER_NAME
+        ORDER BY 
+            T1.PROVIDER_ID
+	</select>
+	
+	<select id="findDetailForBill" parameterType="java.util.Map" resultMap="rm">
+	    SELECT 
+	        T1.CONSUME_TIME,T1.STANDARD,T1.QUANTITY,T1.UNIT_PRICE,T1.PRICE,T1.PAPER_ID,T1.PAPER_NO,T2.PRODUCT_MODEL,T2.PRODUCT_NAME,T2.UNIT 
+	    FROM 
+	        BAL_CONSUME T1,PRO_PROVIDER_PRODUCT T2 
+	    WHERE 
+	        T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND 
+	        T1.ORG_ID = #{orgId} AND 
+	        T1.BUSI_TYPE IN <foreach item="item" index="index" collection="busiTypeList" open="(" separator="," close=")">#{item}</foreach> AND 
+	        T1.TARGET_ID = #{targetId} AND 
+	        T1.CONSUME_TIME > #{billFinishTime} AND  
+	        T1.VALID_FLAG = #{validFlag}
+	</select>
+	
+	<select id="findDetailForPartner" parameterType="dwz.business.partner.SearchConsumeVO" resultMap="rm">
+	    SELECT 
+	        T1.CONSUME_TIME,T1.STANDARD,T1.QUANTITY,T1.UNIT_PRICE,T1.PRICE,T1.PAPER_ID,T1.PAPER_NO,T2.PRODUCT_MODEL,T2.PRODUCT_NAME,T2.UNIT 
+	    FROM 
+	        BAL_CONSUME T1,PRO_PROVIDER_PRODUCT T2 
+	    WHERE 
+	        T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND 
+	        T1.ORG_ID = #{orgId} AND 
+	        T1.BUSI_TYPE IN <foreach item="item" index="index" collection="busiTypeList" open="(" separator="," close=")">#{item}</foreach> AND 
+	        T1.TARGET_ID = #{targetId} AND 
+	        T1.VALID_FLAG = #{validFlag}
+	    ORDER BY T1.CONSUME_ID DESC
+	    LIMIT #{startIndex},#{pageSize}
+	</select>
+	
+	<select id="findDetailCountForPartner" parameterType="dwz.business.partner.SearchConsumeVO" resultType="java.lang.Integer">
+	    SELECT 
+	        COUNT(*) 
+	    FROM 
+	        BAL_CONSUME T1,PRO_PROVIDER_PRODUCT T2 
+	    WHERE 
+	        T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND 
+	        T1.ORG_ID = #{orgId} AND 
+	        T1.BUSI_TYPE IN <foreach item="item" index="index" collection="busiTypeList" open="(" separator="," close=")">#{item}</foreach> AND 
+	        T1.TARGET_ID = #{targetId} AND 
+	        T1.VALID_FLAG = #{validFlag}
+	</select>
+	
+	<select id="getTotalBusiPrice" parameterType="java.util.Map" resultType="java.lang.Integer">
+	    SELECT 
+            IFNULL(SUM(T.PRICE),0) TOTAL_BUSI_PRICE 
+        FROM 
+           BAL_CONSUME T 
+        WHERE 
+            T.ORG_ID = #{orgId} AND 
+            T.TARGET_ID = #{targetId} AND 
+            T.BUSI_TYPE IN <foreach item="item" index="index" collection="busiTypeList" open="(" separator="," close=")">#{item}</foreach> AND
+            T.VALID_FLAG = #{validFlag} AND 
+            T.CONSUME_TIME > #{billFinishTime}
+	</select>
+	
+</mapper>
+

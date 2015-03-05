@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.SysProductMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.SysProduct">
+        <result property="sysProductId" jdbcType="INTEGER" column="SYS_PRODUCT_ID"/>
+        <result property="productId" jdbcType="INTEGER" column="PRODUCT_ID"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="engLetter" jdbcType="VARCHAR" column="ENG_LETTER"/>
+        <result property="productEngName" jdbcType="VARCHAR" column="PRODUCT_ENG_NAME"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+	</resultMap>
+	
+	<select id="findForCache" resultMap="rm">
+		SELECT *
+		FROM sys_product
+	</select>
+	
+</mapper>
+

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constants>
+    <constant constantDef="PAPER_TYPE">
+    	<constantName value="TZ">调账单</constantName>
+    	<constantName value="CG">采购单</constantName>
+    	<constantName value="XS">销售单</constantName>
+    	<constantName value="PK">盘库单</constantName>
+    	<constantName value="JY">交易流水</constantName>
+    	<constantName value="RC">入仓单</constantName>
+    	<constantName value="ZX">装箱单</constantName>
+    	<constantName value="JZ">结账单</constantName>
+    	<constantName value="XT">销售退货单</constantName>
+    	<constantName value="CT">采购退货单</constantName>
+	</constant>
+    <constant constantDef="ACCOUNT_TYPE">
+    	<constantName value="1">现金</constantName>
+    	<constantName value="2">银行卡</constantName>
+	</constant>
+	<constant constantDef="BUSI_TYPE">
+    	<constantName value="02">库存盘点</constantName>
+    	<constantName value="03">采购到货</constantName>
+    	<constantName value="04">装箱单备货</constantName>
+    	<constantName value="05">装箱单发货</constantName>
+    	<constantName value="06">客户对账</constantName>
+<!--    	<constantName value="07">销售收款</constantName>-->
+<!--    	<constantName value="08">采购付款</constantName>-->
+    	<constantName value="09">销售单强制结束</constantName>
+    	<constantName value="10">销售单修改</constantName>
+<!--    	<constantName value="11">定金收款</constantName>-->
+    	<constantName value="12">收支录入</constantName>
+    	<constantName value="13">装箱单取消</constantName>
+    	<constantName value="14">装箱单产品删除</constantName>
+    	<constantName value="15">销售退货</constantName>
+    	<constantName value="16">返厂</constantName>
+	</constant>
+	<constant constantDef="SEX">
+    	<constantName value="0">未知</constantName>
+    	<constantName value="1">男</constantName>
+    	<constantName value="2">女</constantName>
+	</constant>
+	<constant constantDef="OPER_STATUS">
+    	<constantName value="0">停用</constantName>
+    	<constantName value="1">可用</constantName>
+	</constant>
+	<constant constantDef="ACCOUNT_STATUS">
+    	<constantName value="0">停用</constantName>
+    	<constantName value="1">启用</constantName>
+	</constant>
+	<constant constantDef="CONSUMER_TYPE">
+    	<constantName value="1">外贸客户</constantName>
+    	<constantName value="2">市场客户</constantName>
+    	<constantName value="3">外地发货</constantName>
+    	<constantName value="4">其他客户</constantName>
+	</constant>
+	<constant constantDef="CONSUMER_PROP">
+    	<constantName value="1">个人客户</constantName>
+    	<constantName value="2">单位客户</constantName>
+	</constant>
+	<constant constantDef="CONSUMER_STATUS">
+	    <constantName value="0">停用</constantName>
+    	<constantName value="1">可用</constantName>
+	</constant>
+	<constant constantDef="GOT_PRICE_FLAG">
+	    <constantName value="0">未收款</constantName>
+    	<constantName value="1">已部分收款</constantName>
+    	<constantName value="2">已收款</constantName>
+	</constant>
+	<constant constantDef="SALE_STATUS">
+	    <constantName value="7">待收取定金</constantName>
+    	<constantName value="1">待审核</constantName>
+    	<constantName value="8">新订单</constantName>
+    	<constantName value="2">备货中</constantName>
+    	<constantName value="4">待发货</constantName>
+    	<constantName value="5">已完成</constantName>
+    	<constantName value="6">强制结束</constantName>
+    	<constantName value="3">审核不通过</constantName>
+	</constant>
+	<constant constantDef="PROVIDER_TYPE">
+    	<constantName value="1">异地供应商</constantName>
+    	<constantName value="2">市场供应商</constantName>
+	</constant>
+	<constant constantDef="PROVIDER_PROP">
+    	<constantName value="1">个人</constantName>
+    	<constantName value="2">单位</constantName>
+	</constant>
+	<constant constantDef="PROVIDER_STATUS">
+    	<constantName value="0">停用</constantName>
+    	<constantName value="1">可用</constantName>
+	</constant>
+	<constant constantDef="PAY_PRICE_FLAG">
+	    <constantName value="0">未付款</constantName>
+    	<constantName value="1">已部分付款</constantName>
+    	<constantName value="2">已付款</constantName>
+	</constant>
+	<constant constantDef="PAY_FLAG">
+	    <constantName value="0">未支付</constantName>
+    	<constantName value="1">已支付</constantName>
+	</constant>
+	<constant constantDef="PURCHASE_STATUS">
+    	<constantName value="1">待审核</constantName>
+    	<constantName value="2">待收货</constantName>
+    	<constantName value="4">部分收货</constantName>
+    	<constantName value="5">全部收货</constantName>
+    	<constantName value="6">强制结束</constantName>
+    	<constantName value="3">审核不通过</constantName>
+	</constant>
+	<constant constantDef="STOCK_CHANGE_ACTION">
+	    <constantName value="1">增加</constantName>
+    	<constantName value="2">减少</constantName>
+    	<constantName value="3">锁定</constantName>
+    	<constantName value="4">解锁</constantName>
+	</constant>
+	<constant constantDef="STOCK_TAKING_STATUS">
+    	<constantName value="1">新盘点单</constantName>
+    	<constantName value="2">盘库成功</constantName>
+    	<constantName value="3">盘库失败</constantName>
+    	<constantName value="0">取消</constantName>
+	</constant>
+	<constant constantDef="PLAT_SERVICE_TYPE">
+    	<constantName value="0">试用</constantName>
+    	<constantName value="1">包月</constantName>
+    	<constantName value="2">包季</constantName>
+    	<constantName value="3">包年</constantName>
+    	<constantName value="4">永久</constantName>
+	</constant>
+	<constant constantDef="PAY_WAY">
+    	<constantName value="1">现金</constantName>
+    	<constantName value="2">转账</constantName>
+	</constant>
+	<constant constantDef="DELIVER_STATUS">
+    	<constantName value="0">待发货</constantName>
+    	<constantName value="1">已发货</constantName>
+    	<constantName value="2">已取消</constantName>
+	</constant>
+	<constant constantDef="CONSUME_VALID_FLAG">
+    	<constantName value="0">无效</constantName>
+    	<constantName value="1">有效</constantName>
+	</constant>
+	<constant constantDef="ARRIVAL_STATUS">
+    	<constantName value="0">待收货确认</constantName>
+    	<constantName value="1">已收货确认</constantName>
+	</constant>
+	<constant constantDef="BILL_TYPE">
+    	<constantName value="1">销售货款</constantName>
+    	<constantName value="3">销售定金</constantName>
+    	<constantName value="2">采购货款</constantName>
+    	<constantName value="4">销售退货退款</constantName>
+    	<constantName value="5">返厂回款</constantName>
+	</constant>
+	<constant constantDef="TRANS_ITEM">
+	    <constantName value="09">货款</constantName>
+    	<constantName value="01">工资</constantName>
+    	<constantName value="02">档口费</constantName>
+    	<constantName value="03">仓库费</constantName>
+    	<constantName value="04">租金水电</constantName>
+    	<constantName value="05">报销费</constantName>
+    	<constantName value="06">货车费</constantName>
+    	<constantName value="07">装货费</constantName>
+    	<constantName value="08">其他</constantName>
+	</constant>
+	<constant constantDef="PURCHASE_PROP">
+    	<constantName value="1">销售单采购</constantName>
+    	<constantName value="2">库存采购</constantName>
+	</constant>
+	<constant constantDef="DEPOSIT_FLAG">
+    	<constantName value="0">否</constantName>
+    	<constantName value="1">是</constantName>
+	</constant>
+	<constant constantDef="SALE_TYPE">
+    	<constantName value="1">外贸订单</constantName>
+    	<constantName value="2">市场订单</constantName>
+    	<constantName value="3">外地订单</constantName>
+    	<constantName value="4">其他订单</constantName>
+	</constant>
+	<constant constantDef="PRICE_ACTION">
+    	<constantName value="1">收入</constantName>
+    	<constantName value="2">支出</constantName>
+	</constant>
+	<constant constantDef="TRANS_DIRE">
+    	<constantName value="1">收入</constantName>
+    	<constantName value="2">支出</constantName>
+	</constant>
+	<constant constantDef="SALE_BACK_STATUS">
+    	<constantName value="1">待处理</constantName>
+    	<constantName value="2">已完成</constantName>
+    	<constantName value="3">已取消</constantName>
+	</constant>
+	<constant constantDef="SALE_BACK_TYPE">
+    	<constantName value="1">外贸退货</constantName>
+    	<constantName value="2">市场退货</constantName>
+    	<constantName value="3">外地退货</constantName>
+    	<constantName value="4">其他退货</constantName>
+	</constant>
+</constants>

@@ -1,0 +1,533 @@
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper
+END
+ConsumerMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ConsumerMapper.java
+END
+StockLockMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockLockMapper.java
+END
+ProductMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ProductMapper.xml
+END
+ArrivalMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ArrivalMapper.java
+END
+LogMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/LogMapper.xml
+END
+PaperGenMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PaperGenMapper.java
+END
+PlatAssessMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PlatAssessMapper.xml
+END
+PlatSuggestMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PlatSuggestMapper.java
+END
+PurchaseCollMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PurchaseCollMapper.xml
+END
+StockTakingDetailMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockTakingDetailMapper.java
+END
+StockChangeMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockChangeMapper.xml
+END
+RoleResourceMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/RoleResourceMapper.java
+END
+ConsumeMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ConsumeMapper.java
+END
+ProviderProductMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ProviderProductMapper.xml
+END
+BankMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/BankMapper.java
+END
+StockLockMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockLockMapper.xml
+END
+PurchasePriceMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PurchasePriceMapper.xml
+END
+SaleCollMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleCollMapper.xml
+END
+ArrivalMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ArrivalMapper.xml
+END
+SaleImportMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleImportMapper.java
+END
+RoleMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/RoleMapper.xml
+END
+LogMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/LogMapper.java
+END
+ArrivalDetailMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ArrivalDetailMapper.java
+END
+StockTakingDetailMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 182
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockTakingDetailMapper.xml
+END
+SaleMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleMapper.java
+END
+StockTakingTempMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockTakingTempMapper.xml
+END
+TransMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/TransMapper.java
+END
+SaleBackDetailMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleBackDetailMapper.java
+END
+PurchaseMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PurchaseMapper.xml
+END
+PlatPayMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PlatPayMapper.xml
+END
+StockChangeMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockChangeMapper.java
+END
+ProviderMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ProviderMapper.java
+END
+ProfitCollMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ProfitCollMapper.xml
+END
+PurchasePriceMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PurchasePriceMapper.java
+END
+SaleBackCollMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleBackCollMapper.xml
+END
+StandardMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StandardMapper.java
+END
+StockTakingMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockTakingMapper.xml
+END
+RoleMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/RoleMapper.java
+END
+StockMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockMapper.xml
+END
+AccAccountMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/AccAccountMapper.java
+END
+SaleMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleMapper.xml
+END
+OrgMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/OrgMapper.xml
+END
+SaleBackDetailMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleBackDetailMapper.xml
+END
+SaleDetailMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleDetailMapper.java
+END
+DeliverMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/DeliverMapper.xml
+END
+ConsumerMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ConsumerMapper.xml
+END
+ProfitCollMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ProfitCollMapper.java
+END
+StandardMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StandardMapper.xml
+END
+StockTakingMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockTakingMapper.java
+END
+PlatAssessMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PlatAssessMapper.java
+END
+SaleBackMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleBackMapper.xml
+END
+ResourceMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ResourceMapper.java
+END
+OperRoleMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/OperRoleMapper.java
+END
+BankMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/BankMapper.xml
+END
+SaleCollMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleCollMapper.java
+END
+SaleImportMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleImportMapper.xml
+END
+ArrivalDetailMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ArrivalDetailMapper.xml
+END
+SaleBackMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleBackMapper.java
+END
+TransMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/TransMapper.xml
+END
+PurchaseMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PurchaseMapper.java
+END
+PlatPayMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PlatPayMapper.java
+END
+PurchaseDetailMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PurchaseDetailMapper.xml
+END
+PlatSuggestMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PlatSuggestMapper.xml
+END
+AccAccountMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/AccAccountMapper.xml
+END
+OperMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/OperMapper.xml
+END
+SaleDetailMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleDetailMapper.xml
+END
+DeliverMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/DeliverMapper.java
+END
+ProviderProductMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ProviderProductMapper.java
+END
+DeliverDetailMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/DeliverDetailMapper.xml
+END
+PurchaseDetailMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PurchaseDetailMapper.java
+END
+ResChapterMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ResChapterMapper.java
+END
+ResBookMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ResBookMapper.java
+END
+OperMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/OperMapper.java
+END
+ResourceMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ResourceMapper.xml
+END
+OperRoleMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/OperRoleMapper.xml
+END
+StockTakingTempMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockTakingTempMapper.java
+END
+ProviderMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ProviderMapper.xml
+END
+DeliverDetailMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/DeliverDetailMapper.java
+END
+SaleBackCollMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/SaleBackCollMapper.java
+END
+ResChapterMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ResChapterMapper.xml
+END
+ProductMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ProductMapper.java
+END
+PaperGenMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PaperGenMapper.xml
+END
+ResBookMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ResBookMapper.xml
+END
+StockMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/StockMapper.java
+END
+PurchaseCollMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/PurchaseCollMapper.java
+END
+OrgMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/OrgMapper.java
+END
+RoleResourceMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/RoleResourceMapper.xml
+END
+ConsumeMapper.xml
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/mapper/ConsumeMapper.xml
+END

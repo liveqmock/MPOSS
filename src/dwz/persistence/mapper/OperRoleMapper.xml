@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.OperRoleMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.SysOperRole">
+        <result property="operRoleId" jdbcType="INTEGER" column="OPER_ROLE_ID"/>
+        <result property="operId" jdbcType="INTEGER" column="OPER_ID"/>
+        <result property="roleId" jdbcType="INTEGER" column="ROLE_ID"/>
+	</resultMap>
+	
+    <select id="findCountByRole" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM SYS_OPER_ROLE T WHERE T.ROLE_ID = #{roleId}
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="operRoleId">
+        INSERT INTO SYS_OPER_ROLE (OPER_ROLE_ID,OPER_ID,ROLE_ID) VALUES (#{operRoleId},#{operId},#{roleId})
+    </insert>
+    
+    <delete id="deleteByOper" parameterType="java.lang.Integer">
+        DELETE FROM SYS_OPER_ROLE WHERE OPER_ID = #{operId}
+    </delete>
+    
+    <select id="findRoleByOper" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT T.ROLE_ID FROM SYS_OPER_ROLE T WHERE T.OPER_ID = #{operId}
+    </select>
+    
+    <delete id="deleteByOperAndRole" parameterType="dwz.persistence.beans.SysOperRole">
+        DELETE FROM SYS_OPER_ROLE WHERE OPER_ID = #{operId} AND ROLE_ID = #{roleId}
+    </delete>
+    
+    <select id="findCheckedRoleByOper" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT T.ROLE_ID FROM SYS_OPER_ROLE T WHERE T.OPER_ID = #{operId}
+    </select>
+	
+</mapper>
+

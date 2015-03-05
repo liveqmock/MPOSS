@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.PlatAssessMapper">
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="assessId">
+	    INSERT INTO PLA_ASSESS (
+	        ASSESS_ID,
+	        ORG_ID,
+	        OPER_ID,
+	        ASSESS_TIME,
+	        ASSESS_CONTENT
+	    ) VALUES (
+	        #{assessId},
+	        #{orgId},
+	        #{operId},
+	        #{assessTime},
+	        #{assessContent}
+	    )
+    </insert>
+    
+</mapper>
+

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/system
+END
+Log.java
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/system/Log.java
+END
+Role.java
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/system/Role.java
+END
+Oper.java
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/system/Oper.java
+END
+Org.java
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/system/Org.java
+END
+Resource.java
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/system/Resource.java
+END
+LogServiceMgr.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/system/LogServiceMgr.java
+END
+RoleServiceMgr.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/system/RoleServiceMgr.java
+END
+OperServiceMgr.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/system/OperServiceMgr.java
+END
+SearchLogVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/system/SearchLogVO.java
+END

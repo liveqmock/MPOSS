@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase
+END
+Arrival.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/Arrival.java
+END
+ArrivalExportUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/ArrivalExportUtil.java
+END
+PurchaseRptBO.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/PurchaseRptBO.java
+END
+PurchaseServiceMgr.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/PurchaseServiceMgr.java
+END
+SearchSaleDetailVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/SearchSaleDetailVO.java
+END
+ArrivalDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/ArrivalDetail.java
+END
+SearchPurchaseVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/SearchPurchaseVO.java
+END
+ArrivalRptBO.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/ArrivalRptBO.java
+END
+AddPurchaseVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/AddPurchaseVO.java
+END
+Purchase.java
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/Purchase.java
+END
+PurchaseExportUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/PurchaseExportUtil.java
+END
+PurchaseDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/PurchaseDetail.java
+END
+PurchasePrice.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/PurchasePrice.java
+END
+SearchPurProviderProductVO.java
+K 25
+svn:wc:ra_dav:version-url
+V 185
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/business/purchase/SearchPurProviderProductVO.java
+END

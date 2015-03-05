@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.OperMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.SysOper">
+        <result property="operId" jdbcType="INTEGER" column="OPER_ID"/>
+        <result property="userName" jdbcType="VARCHAR" column="USER_NAME"/>
+        <result property="passwd" jdbcType="VARCHAR" column="PASSWD"/>
+        <result property="realName" jdbcType="VARCHAR" column="REAL_NAME"/>
+        <result property="sex" jdbcType="VARCHAR" column="SEX"/>
+        <result property="age" jdbcType="INTEGER" column="AGE"/>
+        <result property="phone" jdbcType="VARCHAR" column="PHONE"/>
+        <result property="email" jdbcType="VARCHAR" column="EMAIL"/>
+        <result property="qq" jdbcType="VARCHAR" column="QQ"/>
+        <result property="weixin" jdbcType="VARCHAR" column="WEIXIN"/>
+        <result property="address" jdbcType="VARCHAR" column="ADDRESS"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="status" jdbcType="VARCHAR" column="STATUS"/>
+	</resultMap>
+	
+	<select id="findForCache" resultMap="rm">
+    	SELECT 
+	        OPER_ID,
+	        REAL_NAME
+	    FROM sys_oper
+    </select>
+    
+    <select id="findByOrg" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT * FROM SYS_OPER T WHERE T.ORG_ID = #{orgId} ORDER BY T.OPER_ID
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="operId">
+        INSERT INTO SYS_OPER (OPER_ID,USER_NAME,PASSWD,REAL_NAME,SEX,AGE,PHONE,EMAIL,QQ,WEIXIN,ADDRESS,ORG_ID,CREATE_TIME,STATUS) VALUES (#{operId},#{userName},#{passwd},#{realName},#{sex},#{age},#{phone},#{email},#{qq},#{weixin},#{address},#{orgId},#{createTime},#{status})
+    </insert>
+    
+    <select id="getByUserNameOrRealName" parameterType="dwz.persistence.beans.SysOper" resultMap="rm">
+        SELECT * FROM SYS_OPER T WHERE T.ORG_ID = #{orgId} AND (T.USER_NAME = #{userName} OR T.REAL_NAME = #{realName})
+    </select>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM SYS_OPER WHERE OPER_ID = #{operId}
+    </delete>
+    
+    <update id="update" parameterType="dwz.persistence.beans.SysOper">
+        UPDATE SYS_OPER T SET T.REAL_NAME = #{realName},T.SEX = #{sex},T.AGE = #{age},T.PHONE = #{phone},T.EMAIL = #{email},T.QQ = #{qq},T.WEIXIN = #{weixin},T.ADDRESS = #{address} WHERE T.OPER_ID = #{operId}
+    </update>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM SYS_OPER T WHERE T.OPER_ID = #{operId}
+    </select>
+    
+    <update id="updateStatus" parameterType="dwz.persistence.beans.SysOper">
+        UPDATE SYS_OPER T SET T.STATUS = #{status} WHERE T.OPER_ID = #{operId}
+    </update>
+    
+    <select id="findOperByLogin" parameterType="dwz.persistence.beans.SysOper" resultMap="rm">
+    	SELECT * FROM SYS_OPER T WHERE T.USER_NAME = #{userName} AND T.PASSWD = #{passwd}
+    </select>
+    
+    <update id="updatePwd" parameterType="dwz.business.system.Oper">
+        UPDATE SYS_OPER T SET T.PASSWD = #{newPasswd} WHERE T.OPER_ID = #{operId}
+    </update>
+	
+</mapper>
+

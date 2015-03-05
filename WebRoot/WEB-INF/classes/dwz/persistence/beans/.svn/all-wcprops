@@ -1,0 +1,281 @@
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans
+END
+SysPaperGen.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SysPaperGen.java
+END
+PurPurchase.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/PurPurchase.java
+END
+SalSaleBack.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SalSaleBack.java
+END
+SysRoleResource.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SysRoleResource.java
+END
+ProProviderProduct.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/ProProviderProduct.java
+END
+SalSaleImport.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SalSaleImport.java
+END
+StoStockChange.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/StoStockChange.java
+END
+AccBank.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/AccBank.java
+END
+SalSale.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SalSale.java
+END
+PurPurchaseDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/PurPurchaseDetail.java
+END
+SysOrg.java
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SysOrg.java
+END
+PurArrival.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/PurArrival.java
+END
+SalSaleBackDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SalSaleBackDetail.java
+END
+SalDeliver.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SalDeliver.java
+END
+PlaService.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/PlaService.java
+END
+StoStockTakingTemp.java
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/StoStockTakingTemp.java
+END
+ParConsumer.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/ParConsumer.java
+END
+PlaAssess.java
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/PlaAssess.java
+END
+ResChapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/ResChapter.java
+END
+SysRole.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SysRole.java
+END
+ProProduct.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/ProProduct.java
+END
+RptProfitColl.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/RptProfitColl.java
+END
+AccAccount.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/AccAccount.java
+END
+ResBook.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/ResBook.java
+END
+SysOper.java
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SysOper.java
+END
+RptSaleBackColl.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/RptSaleBackColl.java
+END
+SalSaleDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SalSaleDetail.java
+END
+StoStockTaking.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/StoStockTaking.java
+END
+StoStock.java
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/StoStock.java
+END
+RptPurchaseColl.java
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/RptPurchaseColl.java
+END
+PurArrivalDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/PurArrivalDetail.java
+END
+SalDeliverDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SalDeliverDetail.java
+END
+PlaSuggest.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/PlaSuggest.java
+END
+SysLog.java
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SysLog.java
+END
+ProStandard.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/ProStandard.java
+END
+StoStockLock.java
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/StoStockLock.java
+END
+RptSaleColl.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/RptSaleColl.java
+END
+PurPurchasePrice.java
+K 25
+svn:wc:ra_dav:version-url
+V 175
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/PurPurchasePrice.java
+END
+PlaPay.java
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/PlaPay.java
+END
+SysOperRole.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SysOperRole.java
+END
+SysResource.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/SysResource.java
+END
+BalConsume.java
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/BalConsume.java
+END
+StoStockTakingDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 179
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/StoStockTakingDetail.java
+END
+StoStockDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/StoStockDetail.java
+END
+ParProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/ParProvider.java
+END
+AccTrans.java
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svn/ProjectWorkspace/!svn/ver/7188/ctms/%E5%BC%80%E5%8F%91%E5%BA%93/050%E7%BC%96%E7%A0%81/050%E6%BA%90%E4%BB%A3%E7%A0%81/MPOSS/src/dwz/persistence/beans/AccTrans.java
+END

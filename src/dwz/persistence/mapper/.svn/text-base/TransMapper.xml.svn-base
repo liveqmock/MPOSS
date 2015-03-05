@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.TransMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.AccTrans">
+        <result property="transId" jdbcType="INTEGER" column="TRANS_ID"/>
+        <result property="transNo" jdbcType="VARCHAR" column="TRANS_NO"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="accountId" jdbcType="INTEGER" column="ACCOUNT_ID"/>
+        <result property="accountType" jdbcType="VARCHAR" column="ACCOUNT_TYPE"/>
+        <result property="bankId" jdbcType="INTEGER" column="BANK_ID"/>
+        <result property="accountName" jdbcType="VARCHAR" column="ACCOUNT_NAME"/>
+        <result property="accountNo" jdbcType="VARCHAR" column="ACCOUNT_NO"/>
+        <result property="transItem" jdbcType="VARCHAR" column="TRANS_ITEM"/>
+        <result property="billType" jdbcType="VARCHAR" column="BILL_TYPE"/>
+        <result property="transTime" jdbcType="TIMESTAMP" column="TRANS_TIME"/>
+        <result property="transPrice" jdbcType="INTEGER" column="TRANS_PRICE"/>
+        <result property="afterPrice" jdbcType="INTEGER" column="AFTER_PRICE"/>
+        <result property="targetId" jdbcType="INTEGER" column="TARGET_ID"/>
+        <result property="targetName" jdbcType="VARCHAR" column="TARGET_NAME"/>
+        <result property="transMemo" jdbcType="VARCHAR" column="TRANS_MEMO"/>
+        <result property="regOperId" jdbcType="INTEGER" column="REG_OPER_ID"/>
+        <result property="regTime" jdbcType="TIMESTAMP" column="REG_TIME"/>
+        
+        <result property="transDate" jdbcType="VARCHAR" column="TRANS_DATE"/>
+        <result property="transDire" jdbcType="VARCHAR" column="TRANS_DIRE"/>
+        <result property="sumTransPrice" jdbcType="INTEGER" column="SUM_TRANS_PRICE"/>
+	</resultMap>
+	
+    <insert id="insert" useGeneratedKeys="true" keyProperty="transId">
+        INSERT INTO acc_trans(
+            TRANS_ID,
+            TRANS_NO,
+            ORG_ID,
+            ACCOUNT_ID,
+            ACCOUNT_TYPE,
+            BANK_ID,
+            ACCOUNT_NAME,
+            ACCOUNT_NO,
+            TRANS_ITEM,
+            BILL_TYPE,
+            TRANS_TIME,
+            TRANS_PRICE,
+            AFTER_PRICE,
+            TARGET_ID,
+            TARGET_NAME,
+            TRANS_MEMO,
+            REG_OPER_ID,
+            REG_TIME
+        ) VALUES (
+            #{transId},
+            #{transNo},
+            #{orgId},
+            #{accountId},
+            #{accountType},
+            #{bankId},
+            #{accountName},
+            #{accountNo},
+            #{transItem},
+            #{billType},
+            #{transTime},
+            #{transPrice},
+            #{afterPrice},
+            #{targetId},
+            #{targetName},
+            #{transMemo},
+            #{regOperId},
+            #{regTime}
+        )
+    </insert>
+    
+	<select id="findCountByQC" parameterType="dwz.business.account.SearchTransVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) 
+	    FROM acc_trans 
+	    WHERE ORG_ID = #{orgId}
+	    <if test="transItem != null and transItem != ''">
+	    AND TRANS_ITEM = #{transItem}
+	    </if>
+	    <if test="accountType != null and accountType != ''">
+	    AND ACCOUNT_TYPE = #{accountType}
+	    </if>
+	    <if test="accountNo != null and accountNo != ''">
+	    AND ACCOUNT_NO = #{accountNo}
+	    </if>
+	    AND TRANS_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day) 
+    </select>
+	
+	<select id="findByQC" parameterType="dwz.business.account.SearchTransVO" resultMap="rm">
+    	SELECT *
+	    FROM acc_trans 
+	    WHERE ORG_ID = #{orgId}
+	    <if test="transItem != null and transItem != ''">
+	    AND TRANS_ITEM = #{transItem}
+	    </if>
+	    <if test="accountType != null and accountType != ''">
+	    AND ACCOUNT_TYPE = #{accountType}
+	    </if>
+	    <if test="accountNo != null and accountNo != ''">
+	    AND ACCOUNT_NO = #{accountNo}
+	    </if>
+	    AND TRANS_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day) 
+	    ORDER BY TRANS_ID DESC LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findCostColl" parameterType="dwz.business.rpt.SearchCostCollVO" resultMap="rm">
+        SELECT 
+		    DATE_FORMAT(T.TRANS_TIME,'%Y-%m-%d') TRANS_DATE,
+		    T.TRANS_ITEM,
+		    1 TRANS_DIRE,
+		    SUM(T.TRANS_PRICE) SUM_TRANS_PRICE
+		FROM 
+		    ACC_TRANS T
+		WHERE 
+		    T.ORG_ID = #{orgId} 
+		    <if test="transItem != null and transItem != ''">
+		    AND T.TRANS_ITEM = #{transItem} 
+		    </if>
+		    AND T.TRANS_PRICE > 0
+		    AND T.TRANS_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day)
+		GROUP BY TRANS_DATE,T.TRANS_ITEM
+		
+		UNION ALL 
+		
+		SELECT 
+		    DATE_FORMAT(T.TRANS_TIME,'%Y-%m-%d') TRANS_DATE,
+		    T.TRANS_ITEM ,
+		    2 TRANS_DIRE,
+		    SUM(T.TRANS_PRICE) SUM_TRANS_PRICE
+		FROM 
+		    ACC_TRANS T
+		WHERE 
+		    T.ORG_ID = #{orgId} 
+		    <if test="transItem != null and transItem != ''">
+		    AND T.TRANS_ITEM = #{transItem} 
+		    </if>
+		    AND T.TRANS_PRICE &lt; 0
+		    AND T.TRANS_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day)
+		GROUP BY TRANS_DATE,T.TRANS_ITEM
+		ORDER BY TRANS_DATE DESC,TRANS_ITEM
+    </select>
+    
+    <select id="findCostCollDetail" parameterType="java.util.Map" resultMap="rm">
+        SELECT 
+            * 
+        FROM 
+            ACC_TRANS T 
+        WHERE 
+            DATE_FORMAT(T.TRANS_TIME,'%Y-%m-%d') = #{transDate} 
+            AND T.TRANS_ITEM = #{transItem}
+	        <if test="transDire == 1">
+		    AND T.TRANS_PRICE > 0
+		    </if>
+		    <if test="transDire == 2">
+		    AND T.TRANS_PRICE &lt; 0
+		    </if>
+		ORDER BY T.TRANS_TIME DESC
+    </select>
+    
+    <select id="findForSaleBill" parameterType="java.util.Map" resultMap="rm">
+	    SELECT 
+	        T2.TARGET_ID,
+	        T2.TARGET_NAME,
+	        SUM(T2.TRANS_PRICE) SUM_TRANS_PRICE 
+	    FROM 
+	        PAR_CONSUMER T1,
+	        ACC_TRANS T2
+	    WHERE 
+	        T1.ORG_ID = #{orgId} AND
+	        T1.CONSUMER_ID = T2.TARGET_ID AND 
+	        T2.BILL_TYPE IN 
+	        <foreach item="item" index="index" collection="billTypeList" open="(" separator="," close=")">#{item}</foreach>
+	        AND T2.REG_TIME > T1.BILL_FINISH_TIME
+	    GROUP BY 
+            T2.TARGET_ID,
+            T2.TARGET_NAME
+        ORDER BY 
+            T2.TARGET_ID
+	</select>
+	
+	<select id="findForPurchaseBill" parameterType="java.util.Map" resultMap="rm">
+	    SELECT 
+	        T2.TARGET_ID,
+	        T2.TARGET_NAME,
+	        (0-SUM(T2.TRANS_PRICE)) SUM_TRANS_PRICE 
+	    FROM 
+	        PAR_PROVIDER T1,
+	        ACC_TRANS T2
+	    WHERE 
+	        T1.ORG_ID = #{orgId} AND
+	        T1.PROVIDER_ID = T2.TARGET_ID AND 
+	        T2.BILL_TYPE IN 
+	        <foreach item="item" index="index" collection="billTypeList" open="(" separator="," close=")">#{item}</foreach>
+	        AND T2.REG_TIME > T1.BILL_FINISH_TIME
+	    GROUP BY 
+            T2.TARGET_ID,
+            T2.TARGET_NAME
+        ORDER BY 
+            T2.TARGET_ID
+	</select>
+	
+	<select id="findHisTrans" parameterType="java.util.Map" resultMap="rm">
+	    SELECT 
+	        T1.TARGET_ID,
+	        T1.TARGET_NAME,
+	        T1.TRANS_ITEM,
+	        T1.BILL_TYPE,
+	        T1.TRANS_PRICE,
+	        T1.AFTER_PRICE,
+	        T1.TRANS_TIME,
+	        T1.REG_OPER_ID,
+	        T1.REG_TIME,
+	        T1.TRANS_MEMO,
+	        T2.ACCOUNT_TYPE,
+	        T2.ACCOUNT_NO 
+	    FROM 
+	        ACC_TRANS T1,
+	        ACC_ACCOUNT T2 
+	    WHERE 
+	        T1.ACCOUNT_ID = T2.ACCOUNT_ID AND 
+	        T1.ORG_ID = #{orgId} AND 
+	        T1.TARGET_ID = #{targetId} AND 
+	        T1.BILL_TYPE IN <foreach item="item" index="index" collection="billTypeList" open="(" separator="," close=")">#{item}</foreach> 
+	        AND T1.REG_TIME > DATE_FORMAT(#{billFinishTime},'%Y-%m-%d %H:%i:s')
+	    ORDER BY T1.TRANS_ID
+	</select>
+	
+	<select id="getTotalPayPrice" parameterType="java.util.Map" resultType="java.lang.Integer">
+	    SELECT 
+	        SUM(T.TRANS_PRICE) SUM_TRANS_PRICE 
+	    FROM 
+	        ACC_TRANS T
+	    WHERE 
+	        T.ORG_ID = #{orgId} AND
+	        T.TARGET_ID = #{targetId} AND 
+	        T.BILL_TYPE IN <foreach item="item" index="index" collection="billTypeList" open="(" separator="," close=")">#{item}</foreach> AND
+	        T.REG_TIME > DATE_FORMAT(#{billFinishTime},'%Y-%m-%d %H:%i:s')
+	</select>
+	
+</mapper>
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+	<description>处理EL转换的自定义函数</description>
+	<tlib-version>1.0</tlib-version>
+	<short-name>my-functions</short-name>
+	<uri>/my-functions</uri>
+	
+	<function>
+		<description>分转元</description>
+		<name>fromF2Y</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.lang.String fromF2Y(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>格式化重量</description>
+		<name>formatWeight</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.lang.String formatWeight(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>格式化金额</description>
+		<name>formatVolume</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.lang.String formatVolume(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>分转元(显示结果千位包含逗号)</description>
+		<name>fromF2YForShow</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.lang.String fromF2YForShow(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>获取常量显示名</description>
+		<name>getConstantName</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.lang.String getConstantName(java.lang.String, java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>获取常量Map</description>
+		<name>getConstantMap</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.util.Map getConstantMap(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>获取列值</description>
+		<name>getColumnValue</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.lang.String getColumnValue(java.lang.String, java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>获取列Map</description>
+		<name>getColumnMap</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.util.Map getColumnMap(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		<description>获取外部资源父子关系Map</description>
+		<name>getOuterResourceMap</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.util.Map getOuterResourceMap(java.lang.String)</function-signature>
+	</function>
+	<function>
+		<description>获取本日日期</description>
+		<name>getTodayDate</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.lang.String getTodayDate()</function-signature>
+	</function>
+	<function>
+		<description>字符串截取</description>
+		<name>substring</name>
+		<function-class>dwz.common.util.ParameterUtil</function-class>
+		<function-signature>java.lang.String substring(java.lang.String)</function-signature>
+	</function>
+	
+</taglib>

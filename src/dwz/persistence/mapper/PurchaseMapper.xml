@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.PurchaseMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.PurPurchase">
+        <result property="purchaseId" jdbcType="INTEGER" column="PURCHASE_ID"/>
+        <result property="purchaseNo" jdbcType="VARCHAR" column="PURCHASE_NO"/>
+        <result property="purchaseProp" jdbcType="VARCHAR" column="PURCHASE_PROP"/>
+        <result property="saleNos" jdbcType="VARCHAR" column="SALE_NOS"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="providerId" jdbcType="INTEGER" column="PROVIDER_ID"/>
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="contractNo" jdbcType="VARCHAR" column="CONTRACT_NO"/>
+        <result property="totalPrice" jdbcType="INTEGER" column="TOTAL_PRICE"/>
+        <result property="createOperId" jdbcType="INTEGER" column="CREATE_OPER_ID"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="CREATE_TIME"/>
+        <result property="createDesc" jdbcType="VARCHAR" column="CREATE_DESC"/>
+        <result property="confOperId" jdbcType="INTEGER" column="CONF_OPER_ID"/>
+        <result property="confTime" jdbcType="TIMESTAMP" column="CONF_TIME"/>
+        <result property="confDesc" jdbcType="VARCHAR" column="CONF_DESC"/>
+        <result property="status" jdbcType="VARCHAR" column="STATUS"/>
+	</resultMap>
+	
+    <select id="findForDo" parameterType="java.util.Map" resultMap="rm">
+    	SELECT * FROM pur_purchase  
+	    WHERE ORG_ID = #{orgId} AND STATUS IN 
+	    <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach> 
+	    ORDER BY PURCHASE_ID
+    </select>
+    
+    <select id="findArrivalByPurchaseNo" parameterType="dwz.business.purchase.SearchPurchaseVO" resultMap="rm">
+    	SELECT * FROM pur_purchase  
+	    WHERE ORG_ID = #{orgId} AND STATUS IN 
+	    <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach> 
+	    AND PURCHASE_NO = #{purchaseNo}
+    </select>
+    
+    <select id="findForArrival" parameterType="dwz.business.purchase.SearchPurchaseVO" resultMap="rm">
+    	SELECT * FROM pur_purchase  
+	    WHERE ORG_ID = #{orgId} AND STATUS IN 
+	    <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach> 
+	    <if test="provider != null and provider.providerId != null">
+	    AND PROVIDER_ID = #{provider.providerId}
+	    </if>
+	    ORDER BY PURCHASE_ID
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="purchaseId">
+        INSERT INTO PUR_PURCHASE(
+            PURCHASE_ID,
+            PURCHASE_NO,
+            PURCHASE_PROP,
+            ORG_ID,
+            PROVIDER_ID,
+            PROVIDER_NAME,
+            CONTRACT_NO,
+            TOTAL_PRICE,
+            CREATE_OPER_ID,
+            CREATE_TIME,
+            CREATE_DESC,
+            SALE_NOS,
+            STATUS
+        ) VALUES (
+            #{purchaseId},
+            #{purchaseNo},
+            #{purchaseProp},
+            #{orgId},
+            #{providerId},
+            #{providerName},
+            #{contractNo},
+            #{totalPrice},
+            #{createOperId},
+            #{createTime},
+            #{createDesc},
+            #{saleNos},
+            #{status}
+        )
+    </insert>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM PUR_PURCHASE WHERE PURCHASE_ID = #{purchaseId}
+    </select>
+    
+    <update id="updateForConf" parameterType="dwz.persistence.beans.PurPurchase">
+        UPDATE PUR_PURCHASE T SET T.STATUS = #{status},T.CONF_DESC = #{confDesc} WHERE T.PURCHASE_ID = #{purchaseId}
+    </update>
+    
+    <select id="findCountByQC" parameterType="dwz.business.purchase.SearchPurchaseVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM PUR_PURCHASE T1 
+	    WHERE T1.ORG_ID = #{orgId} 
+	    <if test="provider != null and provider.providerId != null">
+	    AND T1.PROVIDER_ID = #{provider.providerId}
+	    </if>
+	    <if test="product != null and product.productId != null">
+	    AND EXISTS (
+	        SELECT 1 FROM PUR_PURCHASE_DETAIL T2 
+	        WHERE T2.PURCHASE_ID = T1.PURCHASE_ID 
+	        AND T2.PROVIDER_PRODUCT_ID IN (
+	            SELECT T3.PROVIDER_PRODUCT_ID 
+	            FROM PRO_PROVIDER_PRODUCT T3 
+	            WHERE T3.PRODUCT_ID = #{product.productId}))
+	    </if>
+	    <if test="status != null and status != ''">
+	    AND T1.STATUS = #{status} 
+	    </if>
+	    AND T1.CREATE_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day) 
+    </select>
+    
+    <select id="findByQC" parameterType="dwz.business.purchase.SearchPurchaseVO" resultMap="rm">
+    	SELECT * FROM PUR_PURCHASE T1 
+	    WHERE T1.ORG_ID = #{orgId} 
+	    <if test="provider != null and provider.providerId != null">
+	    AND T1.PROVIDER_ID = #{provider.providerId}
+	    </if>
+	    <if test="product != null and product.productId != null">
+	    AND EXISTS (
+	        SELECT 1 FROM PUR_PURCHASE_DETAIL T2 
+	        WHERE T2.PURCHASE_ID = T1.PURCHASE_ID 
+	        AND T2.PROVIDER_PRODUCT_ID IN (
+	            SELECT T3.PROVIDER_PRODUCT_ID 
+	            FROM PRO_PROVIDER_PRODUCT T3 
+	            WHERE T3.PRODUCT_ID = #{product.productId}))
+	    </if>
+	    <if test="status != null and status != ''">
+	    AND T1.STATUS = #{status} 
+	    </if>
+	    AND T1.CREATE_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day) 
+	    ORDER BY T1.PURCHASE_ID DESC LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findCountBySaleNo" parameterType="dwz.business.purchase.SearchPurchaseVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM PUR_PURCHASE T1 
+	    WHERE T1.ORG_ID = #{orgId} AND EXISTS (SELECT 1 FROM PUR_PURCHASE_DETAIL T2 WHERE T2.PURCHASE_ID = T1.PURCHASE_ID AND T2.SALE_NO = #{saleNo})
+    </select>
+    
+    <select id="findBySaleNo" parameterType="dwz.business.purchase.SearchPurchaseVO" resultMap="rm">
+    	SELECT * FROM PUR_PURCHASE T1 
+	    WHERE T1.ORG_ID = #{orgId} AND EXISTS (SELECT 1 FROM PUR_PURCHASE_DETAIL T2 WHERE T2.PURCHASE_ID = T1.PURCHASE_ID AND T2.SALE_NO = #{saleNo})
+	    LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <update id="updateStatus" parameterType="dwz.persistence.beans.PurPurchase">
+        UPDATE PUR_PURCHASE T SET T.STATUS = #{status} WHERE T.PURCHASE_ID = #{purchaseId}
+    </update>
+    
+    <update id="updateSaleNos" parameterType="dwz.persistence.beans.PurPurchase">
+        UPDATE PUR_PURCHASE T SET T.SALE_NOS = #{saleNos} WHERE T.PURCHASE_ID = #{purchaseId}
+    </update>
+    
+    <select id="getPurchaseCountByProvider" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM PUR_PURCHASE T WHERE T.PROVIDER_ID = #{providerId}
+    </select>
+    
+    <select id="getPurchase" parameterType="java.util.Map" resultMap="rm">
+        SELECT * FROM PUR_PURCHASE T WHERE T.ORG_ID = #{orgId} AND T.PURCHASE_PROP = #{purchaseProp} AND T.PROVIDER_ID = #{providerId} AND T.STATUS = #{status}
+    </select>
+    
+    <update id="updateByContinuePur" parameterType="dwz.persistence.beans.PurPurchase">
+        UPDATE PUR_PURCHASE T SET T.TOTAL_PRICE = T.TOTAL_PRICE + #{totalPrice} WHERE T.PURCHASE_ID = #{purchaseId}
+    </update>
+    
+</mapper>
+

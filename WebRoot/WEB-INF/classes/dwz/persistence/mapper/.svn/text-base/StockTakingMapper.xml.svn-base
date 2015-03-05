@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.StockTakingMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.StoStockTaking">
+        <result property="stockTakingId" jdbcType="INTEGER" column="STOCK_TAKING_ID"/>
+        <result property="stockTakingNo" jdbcType="VARCHAR" column="STOCK_TAKING_NO"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="regOperId" jdbcType="INTEGER" column="REG_OPER_ID"/>
+        <result property="regTime" jdbcType="TIMESTAMP" column="REG_TIME"/>
+        <result property="regDesc" jdbcType="VARCHAR" column="REG_DESC"/>
+        <result property="confOperId" jdbcType="INTEGER" column="CONF_OPER_ID"/>
+        <result property="confTime" jdbcType="TIMESTAMP" column="CONF_TIME"/>
+        <result property="confDesc" jdbcType="VARCHAR" column="CONF_DESC"/>
+        <result property="status" jdbcType="VARCHAR" column="STATUS"/>
+	</resultMap>
+	
+	<select id="findCountByQC" parameterType="dwz.business.stock.SearchStockTakingVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM sto_stock_taking t1 
+    	WHERE t1.ORG_ID = #{orgId} 
+	    <if test="provider != null and provider.providerId != null">
+	    AND EXISTS (SELECT 1 FROM sto_stock_taking_detail t2 WHERE t2.STOCK_TAKING_ID = t1.STOCK_TAKING_ID AND t2.PROVIDER_PRODUCT_ID IN (SELECT t3.PROVIDER_PRODUCT_ID FROM PRO_PROVIDER_PRODUCT t3 WHERE t3.PROVIDER_ID = #{provider.providerId}
+	    <if test="product != null and product.productId != null">
+	    AND t3.PRODUCT_ID = #{product.productId}
+	    </if>
+	    ))
+	    </if>
+	    <if test="status != null and status != ''">
+	    AND t1.STATUS = #{status}
+	    </if>
+	    AND t1.REG_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day) 
+    </select>
+	
+	<select id="findByQC" parameterType="dwz.business.stock.SearchStockTakingVO" resultMap="rm">
+    	SELECT * FROM sto_stock_taking t1 
+    	WHERE t1.ORG_ID = #{orgId} 
+	    <if test="provider != null and provider.providerId != null">
+	    AND EXISTS (SELECT 1 FROM sto_stock_taking_detail t2 WHERE t2.STOCK_TAKING_ID = t1.STOCK_TAKING_ID AND t2.PROVIDER_PRODUCT_ID IN (SELECT t3.PROVIDER_PRODUCT_ID FROM PRO_PROVIDER_PRODUCT t3 WHERE t3.PROVIDER_ID = #{provider.providerId}
+	    <if test="product != null and product.productId != null">
+	    AND t3.PRODUCT_ID = #{product.productId}
+	    </if>
+	    ))
+	    </if>
+	    <if test="status != null and status != ''">
+	    AND t1.STATUS = #{status}
+	    </if>
+	    AND t1.REG_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day) 
+	    ORDER BY t1.REG_TIME DESC LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findCountByNo" parameterType="dwz.business.stock.SearchStockTakingVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM sto_stock_taking t1 
+    	WHERE t1.ORG_ID = #{orgId} 
+	    AND t1.STOCK_TAKING_NO = #{stockTakingNo}
+    </select>
+	
+	<select id="findByNo" parameterType="dwz.business.stock.SearchStockTakingVO" resultMap="rm">
+    	SELECT * FROM sto_stock_taking t1 
+    	WHERE t1.ORG_ID = #{orgId} 
+	    AND t1.STOCK_TAKING_NO = #{stockTakingNo} LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findForConf" parameterType="dwz.persistence.beans.StoStockTaking" resultMap="rm">
+    	SELECT * FROM sto_stock_taking t1 
+    	WHERE t1.ORG_ID = #{orgId} 
+	    AND t1.STATUS = #{status}
+	    ORDER BY t1.REG_TIME
+    </select>
+    
+    <update id="update" parameterType="dwz.persistence.beans.StoStockTaking">
+        UPDATE sto_stock_taking 
+        SET CONF_OPER_ID = #{confOperId},CONF_TIME = #{confTime},CONF_DESC = #{confDesc},STATUS = #{status} 
+        WHERE ORG_ID = #{orgId} AND STOCK_TAKING_ID = #{stockTakingId}
+    </update>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM sto_stock_taking WHERE STOCK_TAKING_ID = #{stockTakingId}
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="stockTakingId">
+        INSERT INTO sto_stock_taking (
+            STOCK_TAKING_ID,
+            STOCK_TAKING_NO,
+            ORG_ID,
+            REG_OPER_ID,
+            REG_TIME,
+            REG_DESC,
+            STATUS
+        ) VALUES (
+            #{stockTakingId},
+            #{stockTakingNo},
+            #{orgId},
+            #{regOperId},
+            #{regTime},
+            #{regDesc},
+            #{status}
+        )
+    </insert>
+    
+</mapper>
+

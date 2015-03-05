@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.ProviderMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.ParProvider">
+        <result property="providerId" jdbcType="INTEGER" column="PROVIDER_ID"/>
+        <result property="providerType" jdbcType="VARCHAR" column="PROVIDER_TYPE"/>
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="providerProp" jdbcType="VARCHAR" column="PROVIDER_PROP"/>
+        <result property="engLetter" jdbcType="VARCHAR" column="ENG_LETTER"/>
+        <result property="linkMan" jdbcType="VARCHAR" column="LINK_MAN"/>
+        <result property="phone" jdbcType="VARCHAR" column="PHONE"/>
+        <result property="address" jdbcType="VARCHAR" column="ADDRESS"/>
+        <result property="email" jdbcType="VARCHAR" column="EMAIL"/>
+        <result property="qq" jdbcType="VARCHAR" column="QQ"/>
+        <result property="msn" jdbcType="VARCHAR" column="MSN"/>
+        <result property="overTimes" jdbcType="INTEGER" column="OVER_TIMES"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="CREATE_TIME"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="billFinishTime" jdbcType="TIMESTAMP" column="BILL_FINISH_TIME"/>
+        <result property="status" jdbcType="VARCHAR" column="STATUS"/>
+        
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="unitPrice" jdbcType="INTEGER" column="UNIT_PRICE"/>
+	</resultMap>
+	
+	<select id="findCountByQC" parameterType="dwz.business.partner.SearchProviderVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) 
+	    FROM par_provider
+	    WHERE ORG_ID = #{orgId} 
+	    <if test="providerType != null and providerType != ''">
+	    AND PROVIDER_TYPE = #{providerType}
+	    </if>
+	    <if test="provider != null and provider.providerId != null">
+	    AND PROVIDER_ID = #{provider.providerId}
+	    </if>
+    </select>
+	
+	<select id="findByQC" parameterType="dwz.business.partner.SearchProviderVO" resultMap="rm">
+    	SELECT *
+	    FROM par_provider
+	    WHERE ORG_ID = #{orgId} 
+	    <if test="providerType != null and providerType != ''">
+	    AND PROVIDER_TYPE = #{providerType}
+	    </if>
+	    <if test="provider != null and provider.providerId != null">
+	    AND PROVIDER_ID = #{provider.providerId}
+	    </if>
+	    ORDER BY OVER_TIMES DESC,PROVIDER_ID DESC LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findCountByOrder" parameterType="dwz.business.partner.SearchProviderVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) 
+	    FROM PAR_PROVIDER T1 
+	    WHERE T1.ORG_ID = #{orgId} AND EXISTS (SELECT 1 FROM PUR_PURCHASE T2 WHERE T2.PROVIDER_ID = T1.PROVIDER_ID AND T2.PURCHASE_NO = #{orderNo})
+    </select>
+	
+	<select id="findByOrder" parameterType="dwz.business.partner.SearchProviderVO" resultMap="rm">
+    	SELECT *
+	    FROM PAR_PROVIDER T1
+	    WHERE T1.ORG_ID = #{orgId} AND EXISTS (SELECT 1 FROM PUR_PURCHASE T2 WHERE T2.PROVIDER_ID = T1.PROVIDER_ID AND T2.PURCHASE_NO = #{orderNo})
+	    LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="loadProvider" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT PROVIDER_ID,PROVIDER_TYPE,PROVIDER_NAME,LINK_MAN,PHONE,ADDRESS,ENG_LETTER
+	    FROM par_provider 
+	    WHERE ORG_ID = #{orgId} 
+	    ORDER BY ENG_LETTER
+    </select>
+    
+    <select id="loadProviderName" parameterType="java.lang.Integer" resultType="java.lang.String">
+    	SELECT PROVIDER_NAME  
+	    FROM par_provider 
+	    WHERE ORG_ID = #{orgId} 
+	    ORDER BY ENG_LETTER
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="providerId">
+        INSERT INTO par_provider (
+            PROVIDER_ID,
+            PROVIDER_TYPE,
+            PROVIDER_NAME,
+            PROVIDER_PROP,
+            ENG_LETTER,
+            LINK_MAN,
+            PHONE,
+            ADDRESS,
+            EMAIL,
+            QQ,
+            MSN,
+            OVER_TIMES,
+            CREATE_TIME,
+            ORG_ID,
+            BILL_FINISH_TIME,
+            STATUS
+        ) VALUES (
+            #{providerId},
+            #{providerType},
+            #{providerName},
+            #{providerProp},
+            #{engLetter},
+            #{linkMan},
+            #{phone},
+            #{address},
+            #{email},
+            #{qq},
+            #{msn},
+            #{overTimes},
+            #{createTime},
+            #{orgId},
+            #{billFinishTime},
+            #{status}
+        )
+        
+    </insert>
+    
+    <insert id="update" parameterType="dwz.persistence.beans.ParConsumer">
+        UPDATE par_provider 
+        SET LINK_MAN = #{linkMan}, PHONE = #{phone}, ADDRESS = #{address},EMAIL = #{email}, QQ = #{qq}, MSN = #{msn} 
+        WHERE PROVIDER_ID = #{providerId}
+    </insert>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+		SELECT *
+	    FROM par_provider 
+	    WHERE 
+	        PROVIDER_ID = #{providerId} 
+	</select>
+	
+	<select id="getByProviderName" parameterType="dwz.persistence.beans.ParProvider" resultMap="rm">
+		SELECT *
+	    FROM par_provider 
+	    WHERE 
+	        ORG_ID = #{orgId} AND PROVIDER_NAME = #{providerName}
+	</select>
+	
+    <insert id="updateBillFinishTime" parameterType="java.util.Map">
+	    UPDATE PAR_PROVIDER SET BILL_FINISH_TIME = #{billFinishTime} WHERE PROVIDER_ID = #{providerId}
+	</insert>
+	
+    <select id="findProviderForBak" parameterType="java.util.Map" resultMap="rm">
+	    SELECT 
+	        T1.PROVIDER_ID,
+	        T1.PROVIDER_NAME,
+	        T2.PROVIDER_PRODUCT_ID,
+	        T2.UNIT_PRICE
+	    FROM 
+	        PAR_PROVIDER T1,
+	        PUR_PURCHASE_PRICE T2 
+	    WHERE 
+	        T1.PROVIDER_ID = T2.PROVIDER_ID AND 
+	        T1.ORG_ID = #{orgId} AND 
+	        T2.PRODUCT_ID = #{productId} 
+	        AND T2.STANDARD = #{standard}
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+	    DELETE FROM PAR_PROVIDER WHERE PROVIDER_ID = #{providerId}
+	</delete>
+	
+	<select id="findExistProvider" parameterType="java.lang.Integer" resultType="java.lang.String">
+	    SELECT T.PROVIDER_NAME FROM PAR_PROVIDER T WHERE T.ORG_ID = #{orgId}
+	</select>
+    
+</mapper>
+

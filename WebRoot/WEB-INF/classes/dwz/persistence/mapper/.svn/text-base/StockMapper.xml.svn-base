@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.StockMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.StoStock">
+        <result property="stockId" jdbcType="INTEGER" column="STOCK_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="totalQuantity" jdbcType="INTEGER" column="TOTAL_QUANTITY"/>
+        <result property="lockQuantity" jdbcType="INTEGER" column="LOCK_QUANTITY"/>
+        <result property="providerQuantity" jdbcType="INTEGER" column="PROVIDER_QUANTITY"/>
+        
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="productEngName" jdbcType="VARCHAR" column="PRODUCT_ENG_NAME"/>
+        <result property="pic" jdbcType="VARCHAR" column="PIC"/>
+        <result property="unitPrice" jdbcType="INTEGER" column="UNIT_PRICE"/>
+        <result property="packQuantity" jdbcType="INTEGER" column="PACK_QUANTITY"/>
+        <result property="packWeight" jdbcType="DOUBLE" column="PACK_WEIGHT"/>
+        <result property="packVolume" jdbcType="DOUBLE" column="PACK_VOLUME"/>
+        
+        <result property="productId" jdbcType="INTEGER" column="PRODUCT_ID"/>
+        <result property="sumCanUseQuantity" jdbcType="INTEGER" column="SUM_CAN_USE_QUANTITY"/>
+	</resultMap>
+	
+	<select id="findMergeCountByQC" parameterType="dwz.business.stock.SearchStockVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM (
+	    SELECT t1.PROVIDER_PRODUCT_ID,t2.PROVIDER_NAME,SUM(t1.TOTAL_QUANTITY) TOTAL_QUANTITY,SUM(t1.LOCK_QUANTITY) LOCK_QUANTITY,SUM(t1.PROVIDER_QUANTITY) PROVIDER_QUANTITY,t2.PRODUCT_MODEL,t2.PRODUCT_NAME,t2.PRODUCT_ENG_NAME 
+	    FROM sto_stock t1,pro_provider_product t2
+	    WHERE 
+	    t1.PROVIDER_PRODUCT_ID = t2.PROVIDER_PRODUCT_ID 
+	    AND t1.ORG_ID = #{orgId} 
+	    AND t1.TOTAL_QUANTITY > 0
+	    <if test="provider != null and provider.providerId != null">
+	    AND t2.PROVIDER_ID = #{provider.providerId}
+	    </if>
+	    <if test="product != null and product.productModel != ''">
+	    AND t2.PRODUCT_MODEL = #{product.productModel}
+	    </if>
+	    <if test="product != null and product.productName != ''">
+	    AND t2.PRODUCT_NAME = #{product.productName}
+	    </if>
+	    GROUP BY t1.PROVIDER_PRODUCT_ID,t2.PROVIDER_NAME,t2.PRODUCT_MODEL,t2.PRODUCT_NAME,t2.PRODUCT_ENG_NAME) TEMP_STOCK
+    </select>
+	
+	<select id="findMergeByQC" parameterType="dwz.business.stock.SearchStockVO" resultMap="rm">
+    	SELECT t1.PROVIDER_PRODUCT_ID,t2.PROVIDER_NAME,SUM(t1.TOTAL_QUANTITY) TOTAL_QUANTITY,SUM(t1.LOCK_QUANTITY) LOCK_QUANTITY,SUM(t1.PROVIDER_QUANTITY) PROVIDER_QUANTITY,t2.PRODUCT_MODEL,t2.PRODUCT_NAME,t2.PRODUCT_ENG_NAME
+	    FROM sto_stock t1,pro_provider_product t2
+	    WHERE 
+	    t1.PROVIDER_PRODUCT_ID = t2.PROVIDER_PRODUCT_ID 
+	    AND t1.ORG_ID = #{orgId} 
+	    AND t1.TOTAL_QUANTITY > 0
+	    <if test="provider != null and provider.providerId != null">
+	    AND t2.PROVIDER_ID = #{provider.providerId}
+	    </if>
+	    <if test="product != null and product.productModel != ''">
+	    AND t2.PRODUCT_MODEL = #{product.productModel}
+	    </if>
+	    <if test="product != null and product.productName != ''">
+	    AND t2.PRODUCT_NAME = #{product.productName}
+	    </if>
+	    GROUP BY t1.PROVIDER_PRODUCT_ID,t2.PROVIDER_NAME,t2.PRODUCT_MODEL,t2.PRODUCT_NAME,t2.PRODUCT_ENG_NAME
+	    ORDER BY t2.PROVIDER_ID,t2.PRODUCT_MODEL,t2.PRODUCT_NAME LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findCountForTakingByQC" parameterType="dwz.business.stock.SearchStockVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM 
+		    (SELECT 
+		        T1.STOCK_ID,
+		        T2.PROVIDER_ID,
+		        T2.PROVIDER_NAME,
+		        T1.PROVIDER_PRODUCT_ID,
+		        T2.PRODUCT_MODEL,
+		        T2.PRODUCT_NAME,
+		        T2.PRODUCT_ENG_NAME,
+		        T2.PIC,
+		        T1.STANDARD,
+		        T1.TOTAL_QUANTITY,
+		        T1.LOCK_QUANTITY,
+		        T1.PROVIDER_QUANTITY
+		    FROM 
+		        STO_STOCK T1,
+		        PRO_PROVIDER_PRODUCT T2 
+		    WHERE 
+		        T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND 
+		        T1.ORG_ID = #{orgId}
+		        <if test="provider != null and provider.providerId != null">
+			    AND T2.PROVIDER_ID = #{provider.providerId}
+			    </if>
+			    <if test="product != null and product.productModel != ''">
+			    AND T2.PRODUCT_MODEL = #{product.productModel}
+			    </if>
+			    <if test="product != null and product.productName != ''">
+			    AND T2.PRODUCT_NAME = #{product.productName}
+			    </if>
+		
+		    UNION ALL 
+		    
+		    SELECT
+		        0 STOCK_ID, 
+		        T1.PROVIDER_ID,
+		        T1.PROVIDER_NAME,
+		        T1.PROVIDER_PRODUCT_ID,
+		        T1.PRODUCT_MODEL,
+		        T1.PRODUCT_NAME,
+		        T1.PRODUCT_ENG_NAME,
+		        T1.PIC,
+		        '' STANDARD,
+		        0 TOTAL_QUANTITY,
+		        0 LOCK_QUANAITY,
+		        0 PROVIDER_QUANTITY
+		    FROM 
+		        PRO_PROVIDER_PRODUCT T1        
+            WHERE 
+		        T1.ORG_ID = #{orgId} 
+			    <if test="provider != null and provider.providerId != null">
+			    AND T1.PROVIDER_ID = #{provider.providerId}
+			    </if>
+			    <if test="product != null and product.productModel != ''">
+			    AND T1.PRODUCT_MODEL = #{product.productModel}
+			    </if>
+			    <if test="product != null and product.productName != ''">
+			    AND T1.PRODUCT_NAME = #{product.productName}
+			    </if>
+			    AND NOT EXISTS (
+                    SELECT 1 FROM STO_STOCK T2 WHERE T2.PROVIDER_PRODUCT_ID = T1.PROVIDER_PRODUCT_ID AND T2.STANDARD = '')
+
+            UNION ALL
+		            
+		    SELECT
+		        0 STOCK_ID, 
+		        T1.PROVIDER_ID,
+		        T1.PROVIDER_NAME,
+		        T1.PROVIDER_PRODUCT_ID,
+		        T1.PRODUCT_MODEL,
+		        T1.PRODUCT_NAME,
+		        T1.PRODUCT_ENG_NAME,
+		        T1.PIC,
+		        T2.STANDARD,
+		        0 TOTAL_QUANTITY,
+		        0 LOCK_QUANAITY,
+		        0 PROVIDER_QUANTITY
+		    FROM 
+		        PRO_PROVIDER_PRODUCT T1
+		    RIGHT JOIN
+		        PRO_STANDARD T2 
+		    ON 
+		        T1.PRODUCT_ID = T2.PRODUCT_ID
+		    WHERE 
+		        T1.ORG_ID = #{orgId} 
+		        <if test="provider != null and provider.providerId != null">
+			    AND T1.PROVIDER_ID = #{provider.providerId}
+			    </if>
+			    <if test="product != null and product.productModel != ''">
+			    AND T1.PRODUCT_MODEL = #{product.productModel}
+			    </if>
+			    <if test="product != null and product.productName != ''">
+			    AND T1.PRODUCT_NAME = #{product.productName}
+			    </if>
+		        AND NOT EXISTS (
+		            SELECT 1 FROM STO_STOCK T3 WHERE T3.PROVIDER_PRODUCT_ID = T1.PROVIDER_PRODUCT_ID AND T3.STANDARD = T2.STANDARD
+		    )) T
+    </select>
+	
+	<select id="findForTakingByQC" parameterType="dwz.business.stock.SearchStockVO" resultMap="rm">
+    	SELECT * FROM 
+		    (SELECT 
+		        T1.STOCK_ID,
+		        T2.PROVIDER_ID,
+		        T2.PROVIDER_NAME,
+		        T1.PROVIDER_PRODUCT_ID,
+		        T2.PRODUCT_MODEL,
+		        T2.PRODUCT_NAME,
+		        T2.PRODUCT_ENG_NAME,
+		        T2.PIC,
+		        T1.STANDARD,
+		        T1.TOTAL_QUANTITY,
+		        T1.LOCK_QUANTITY,
+		        T1.PROVIDER_QUANTITY
+		    FROM 
+		        STO_STOCK T1,
+		        PRO_PROVIDER_PRODUCT T2 
+		    WHERE 
+		        T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND 
+		        T1.ORG_ID = #{orgId}
+		        <if test="provider != null and provider.providerId != null">
+			    AND T2.PROVIDER_ID = #{provider.providerId}
+			    </if>
+			    <if test="product != null and product.productModel != ''">
+			    AND T2.PRODUCT_MODEL = #{product.productModel}
+			    </if>
+			    <if test="product != null and product.productName != ''">
+			    AND T2.PRODUCT_NAME = #{product.productName}
+			    </if>
+		
+		    UNION ALL 
+		    
+		    SELECT
+		        0 STOCK_ID, 
+		        T1.PROVIDER_ID,
+		        T1.PROVIDER_NAME,
+		        T1.PROVIDER_PRODUCT_ID,
+		        T1.PRODUCT_MODEL,
+		        T1.PRODUCT_NAME,
+		        T1.PRODUCT_ENG_NAME,
+		        T1.PIC,
+		        '' STANDARD,
+		        0 TOTAL_QUANTITY,
+		        0 LOCK_QUANAITY,
+		        0 PROVIDER_QUANTITY
+		    FROM 
+		        PRO_PROVIDER_PRODUCT T1        
+            WHERE 
+		        T1.ORG_ID = #{orgId} 
+			    <if test="provider != null and provider.providerId != null">
+			    AND T1.PROVIDER_ID = #{provider.providerId}
+			    </if>
+			    <if test="product != null and product.productModel != ''">
+			    AND T1.PRODUCT_MODEL = #{product.productModel}
+			    </if>
+			    <if test="product != null and product.productName != ''">
+			    AND T1.PRODUCT_NAME = #{product.productName}
+			    </if>
+			    AND NOT EXISTS (
+                    SELECT 1 FROM STO_STOCK T2 WHERE T2.PROVIDER_PRODUCT_ID = T1.PROVIDER_PRODUCT_ID AND T2.STANDARD = '')
+
+            UNION ALL
+		            
+		    SELECT
+		        0 STOCK_ID, 
+		        T1.PROVIDER_ID,
+		        T1.PROVIDER_NAME,
+		        T1.PROVIDER_PRODUCT_ID,
+		        T1.PRODUCT_MODEL,
+		        T1.PRODUCT_NAME,
+		        T1.PRODUCT_ENG_NAME,
+		        T1.PIC,
+		        T2.STANDARD,
+		        0 TOTAL_QUANTITY,
+		        0 LOCK_QUANAITY,
+		        0 PROVIDER_QUANTITY
+		    FROM 
+		        PRO_PROVIDER_PRODUCT T1
+		    RIGHT JOIN
+		        PRO_STANDARD T2 
+		    ON 
+		        T1.PRODUCT_ID = T2.PRODUCT_ID
+		    WHERE 
+		        T1.ORG_ID = #{orgId} 
+		        <if test="provider != null and provider.providerId != null">
+			    AND T1.PROVIDER_ID = #{provider.providerId}
+			    </if>
+			    <if test="product != null and product.productModel != ''">
+			    AND T1.PRODUCT_MODEL = #{product.productModel}
+			    </if>
+			    <if test="product != null and product.productName != ''">
+			    AND T1.PRODUCT_NAME = #{product.productName}
+			    </if>
+		        AND NOT EXISTS (
+		            SELECT 1 FROM STO_STOCK T3 WHERE T3.PROVIDER_PRODUCT_ID = T1.PROVIDER_PRODUCT_ID AND T3.STANDARD = T2.STANDARD)
+		    ) T
+		ORDER BY T.PROVIDER_ID,T.PRODUCT_MODEL,T.PRODUCT_NAME
+		LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <update id="updateStockByTaking" parameterType="dwz.business.stock.Stock">
+        UPDATE sto_stock 
+        SET TOTAL_QUANTITY = TOTAL_QUANTITY + #{changeQuantity} 
+        WHERE ORG_ID = #{orgId} AND PROVIDER_PRODUCT_ID = #{providerProductId} AND STANDARD = #{standard}
+    </update>
+    
+    <insert id="insertByTaking" parameterType="dwz.business.stock.Stock" useGeneratedKeys="true" keyProperty="stockId">
+        INSERT INTO STO_STOCK (
+            STOCK_ID,
+            ORG_ID, 
+            PROVIDER_PRODUCT_ID, 
+            STANDARD,
+            TOTAL_QUANTITY, 
+            LOCK_QUANTITY,
+            PROVIDER_QUANTITY
+        ) VALUES (
+            #{stockId},
+            #{orgId},
+            #{providerProductId},
+            #{standard},
+            #{changeQuantity},
+            0,
+            0
+        )
+    </insert>
+    
+    <select id="findOneStock" parameterType="dwz.business.stock.Stock" resultMap="rm">
+        SELECT * FROM STO_STOCK T WHERE T.ORG_ID = #{orgId} AND T.PROVIDER_PRODUCT_ID = #{providerProductId} AND T.STANDARD = #{standard}
+    </select>
+    
+    <insert id="insert" parameterType="dwz.persistence.beans.StoStock" useGeneratedKeys="true" keyProperty="stockId">
+        INSERT INTO STO_STOCK (
+            STOCK_ID,
+            ORG_ID, 
+            PROVIDER_PRODUCT_ID, 
+            STANDARD,
+            TOTAL_QUANTITY, 
+            LOCK_QUANTITY,
+            PROVIDER_QUANTITY
+        ) VALUES (
+            #{stockId},
+            #{orgId},
+            #{providerProductId},
+            #{standard},
+            #{totalQuantity},
+            #{lockQuantity},
+            #{providerQuantity}
+        )
+    </insert>
+    
+    <update id="incStock" parameterType="dwz.business.stock.Stock">
+        UPDATE STO_STOCK T SET T.TOTAL_QUANTITY = T.TOTAL_QUANTITY + #{incTotalQuantity}, T.LOCK_QUANTITY = T.LOCK_QUANTITY + #{incLockQuantity}, T.PROVIDER_QUANTITY = T.PROVIDER_QUANTITY + #{incProviderQuantity} WHERE T.STOCK_ID = #{stockId}
+    </update>
+    
+    <update id="decStock" parameterType="dwz.business.stock.Stock">
+        UPDATE STO_STOCK T SET T.TOTAL_QUANTITY = T.TOTAL_QUANTITY - #{decTotalQuantity}, T.LOCK_QUANTITY = T.LOCK_QUANTITY - #{decLockQuantity}, T.PROVIDER_QUANTITY = T.PROVIDER_QUANTITY - #{decProviderQuantity} WHERE T.STOCK_ID = #{stockId}
+    </update>
+    
+    <select id="findByProductId" parameterType="java.util.Map" resultMap="rm">
+        SELECT 
+            T1.PROVIDER_PRODUCT_ID,T1.TOTAL_QUANTITY,T1.LOCK_QUANTITY,T1.PROVIDER_QUANTITY,T2.PRODUCT_MODEL,T2.PRODUCT_NAME,T2.PRODUCT_ENG_NAME,T2.PIC,T2.PROVIDER_NAME,T2.UNIT_PRICE,T2.PACK_QUANTITY,T2.PACK_WEIGHT,T2.PACK_VOLUME
+            FROM STO_STOCK T1, PRO_PROVIDER_PRODUCT T2 
+            WHERE T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND T1.ORG_ID = #{orgId} AND T2.PRODUCT_ID = #{productId}
+    </select>
+    
+    <select id="findForPur" parameterType="java.util.Map" resultMap="rm">
+        SELECT 
+            T2.PRODUCT_ID,T1.STANDARD,
+            SUM(T1.TOTAL_QUANTITY - T1.LOCK_QUANTITY - T1.PROVIDER_QUANTITY) SUM_CAN_USE_QUANTITY 
+        FROM 
+            STO_STOCK T1,
+            PRO_PROVIDER_PRODUCT T2
+        WHERE 
+            T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND 
+            T2.PRODUCT_ID IN <foreach item="item" index="index" collection="productIdList" open="(" separator="," close=")">#{item}</foreach>
+         GROUP BY T2.PRODUCT_ID,T1.STANDARD
+    </select>
+    
+    <select id="getOneStock" parameterType="java.util.Map" resultMap="rm">
+        SELECT * FROM STO_STOCK T WHERE T.ORG_ID = #{orgId} AND T.PROVIDER_PRODUCT_ID = #{providerProductId} AND T.STANDARD = #{standard}
+    </select>
+    
+    <select id="getStockCountByProvider" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM STO_STOCK T1 WHERE T1.PROVIDER_PRODUCT_ID IN (SELECT T2.PROVIDER_PRODUCT_ID FROM PRO_PROVIDER_PRODUCT T2 WHERE T2.PROVIDER_ID = #{providerId})
+    </select>
+    
+    <select id="findByProviderProductId" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT t1.STOCK_ID,t1.PROVIDER_PRODUCT_ID,t1.STANDARD,t1.TOTAL_QUANTITY,t1.LOCK_QUANTITY,t1.PROVIDER_QUANTITY,t2.PROVIDER_NAME,t2.PRODUCT_MODEL,t2.PRODUCT_NAME,t2.PRODUCT_ENG_NAME,t2.PIC  
+	    FROM STO_STOCK t1,PRO_PROVIDER_PRODUCT t2
+	    WHERE t1.PROVIDER_PRODUCT_ID = t2.PROVIDER_PRODUCT_ID AND t2.PROVIDER_PRODUCT_ID = #{providerProductId}
+    </select>
+    
+    <select id="getQuantityForProvProd" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT IFNULL(SUM(T.TOTAL_QUANTITY),0) FROM STO_STOCK T WHERE T.PROVIDER_PRODUCT_ID = #{providerProductId}
+    </select>
+    
+    <delete id="deleteByProvProd" parameterType="java.lang.Integer">
+        DELETE FROM STO_STOCK WHERE PROVIDER_PRODUCT_ID = #{providerProductId}
+    </delete>
+    
+</mapper>
+

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.PurchaseDetailMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.PurPurchaseDetail">
+        <result property="purchaseDetailId" jdbcType="INTEGER" column="PURCHASE_DETAIL_ID"/>
+        <result property="purchaseId" jdbcType="INTEGER" column="PURCHASE_ID"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="purchaseQuantity" jdbcType="INTEGER" column="PURCHASE_QUANTITY"/>
+        <result property="purchaseUnitPrice" jdbcType="INTEGER" column="PURCHASE_UNIT_PRICE"/>
+        <result property="purchasePrice" jdbcType="INTEGER" column="PURCHASE_PRICE"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="saleNo" jdbcType="VARCHAR" column="SALE_NO"/>
+        <result property="saleDetailId" jdbcType="INTEGER" column="SALE_DETAIL_ID"/>
+        <result property="saleDetailNo" jdbcType="VARCHAR" column="SALE_DETAIL_NO"/>
+        <result property="arrivalQuantity" jdbcType="INTEGER" column="ARRIVAL_QUANTITY"/>
+        <result property="arrivalPrice" jdbcType="INTEGER" column="ARRIVAL_PRICE"/>
+        <result property="totalPurchaseQuantity" jdbcType="INTEGER" column="TOTAL_PURCHASE_QUANTITY"/>
+        <result property="totalArrivalQuantity" jdbcType="INTEGER" column="TOTAL_ARRIVAL_QUANTITY"/>
+        
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="pic" jdbcType="VARCHAR" column="PIC"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+        
+	</resultMap>
+	
+    <insert id="insert" useGeneratedKeys="true" keyProperty="purchaseDetailId">
+        INSERT INTO PUR_PURCHASE_DETAIL(
+            PURCHASE_DETAIL_ID,
+            PURCHASE_ID,
+            PROVIDER_PRODUCT_ID,
+            PURCHASE_QUANTITY,
+            PURCHASE_UNIT_PRICE,
+            PURCHASE_PRICE,
+            STANDARD,
+            SALE_NO,
+            SALE_DETAIL_ID,
+            SALE_DETAIL_NO
+        ) VALUES (
+            #{purchaseDetailId},
+            #{purchaseId},
+            #{providerProductId},
+            #{purchaseQuantity},
+            #{purchaseUnitPrice},
+            #{purchasePrice},
+            #{standard},
+            #{saleNo},
+            #{saleDetailId},
+            #{saleDetailNo}
+        )
+    </insert>
+    
+    <select id="findPurchaseDetailByPurchaseId" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T1.PURCHASE_DETAIL_ID,
+            T1.PROVIDER_PRODUCT_ID,
+            T1.PURCHASE_QUANTITY,
+            T1.PURCHASE_UNIT_PRICE,
+            T1.PURCHASE_PRICE,
+            T1.STANDARD,
+            T1.SALE_NO,
+            T1.SALE_DETAIL_ID,
+            T1.SALE_DETAIL_NO,
+            T1.ARRIVAL_QUANTITY,
+            T1.ARRIVAL_PRICE,
+            T2.PRODUCT_MODEL,
+            T2.PRODUCT_NAME,
+            T2.PIC,
+            T2.UNIT 
+        FROM 
+            PUR_PURCHASE_DETAIL T1,
+            PRO_PROVIDER_PRODUCT T2 
+        WHERE 
+            T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND 
+            T1.PURCHASE_ID = #{purchaseId} 
+        ORDER BY T1.PURCHASE_DETAIL_ID
+    </select>
+    
+    <select id="findForDecSalePurchase" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T.PURCHASE_QUANTITY,
+            T.SALE_NO,
+            T.SALE_DETAIL_ID,
+            T.ARRIVAL_QUANTITY
+        FROM 
+            PUR_PURCHASE_DETAIL T
+        WHERE 
+            T.PURCHASE_ID = #{purchaseId} 
+    </select>
+    
+    <update id="updateByArrival" parameterType="dwz.persistence.beans.PurPurchaseDetail">
+        UPDATE PUR_PURCHASE_DETAIL T SET T.ARRIVAL_QUANTITY = T.ARRIVAL_QUANTITY + #{arrivalQuantity},T.ARRIVAL_PRICE = T.ARRIVAL_PRICE + #{arrivalPrice} WHERE T.PURCHASE_DETAIL_ID = #{purchaseDetailId}
+    </update>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM PUR_PURCHASE_DETAIL T WHERE T.PURCHASE_DETAIL_ID = #{purchaseDetailId}
+    </select>
+    
+    <select id="findForUpdatePurchaseStatus" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT SUM(T.PURCHASE_QUANTITY) TOTAL_PURCHASE_QUANTITY,SUM(T.ARRIVAL_QUANTITY) TOTAL_ARRIVAL_QUANTITY FROM PUR_PURCHASE_DETAIL T WHERE T.PURCHASE_ID = #{purchaseId}
+    </select>
+    
+    <select id="getCountForProvProd" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM PUR_PURCHASE_DETAIL T WHERE T.PROVIDER_PRODUCT_ID = #{providerProductId}
+    </select>
+    
+    <select id="getExistPurchaseDetail" parameterType="java.util.Map" resultMap="rm">
+        SELECT * FROM PUR_PURCHASE_DETAIL T WHERE T.PURCHASE_ID = #{purchaseId} AND T.PROVIDER_PRODUCT_ID = #{providerProductId} AND T.STANDARD = #{standard} AND T.PURCHASE_UNIT_PRICE = #{purchaseUnitPrice} AND T.SALE_DETAIL_ID = #{saleDetailId}
+    </select>
+    
+    <update id="incPurchaseQuantity" parameterType="dwz.persistence.beans.PurPurchaseDetail">
+        UPDATE PUR_PURCHASE_DETAIL T SET T.PURCHASE_QUANTITY = T.PURCHASE_QUANTITY + #{purchaseQuantity},T.PURCHASE_PRICE = T.PURCHASE_PRICE + #{purchasePrice} WHERE T.PURCHASE_DETAIL_ID = #{purchaseDetailId}
+    </update>
+    
+</mapper>
+

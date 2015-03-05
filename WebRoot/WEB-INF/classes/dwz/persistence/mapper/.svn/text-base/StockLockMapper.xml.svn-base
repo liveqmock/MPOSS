@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.StockLockMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.StoStockLock">
+        <result property="stockLockId" jdbcType="INTEGER" column="STOCK_LOCK_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="busiType" jdbcType="VARCHAR" column="BUSI_TYPE"/>
+        <result property="topId" jdbcType="INTEGER" column="TOP_ID"/>
+        <result property="targetLeafId" jdbcType="INTEGER" column="TARGET_LEAF_ID"/>
+        <result property="lockQuantity" jdbcType="INTEGER" column="LOCK_QUANTITY"/>
+        <result property="lockTime" jdbcType="TIMESTAMP" column="LOCK_TIME"/>
+        
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="productEngName" jdbcType="VARCHAR" column="PRODUCT_ENG_NAME"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+        <result property="pic" jdbcType="VARCHAR" column="PIC"/>
+	</resultMap>
+	
+	<select id="findByProviderProductId" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT t1.BUSI_TYPE,t1.TOP_ID,t1.TARGET_LEAF_ID,t1.LOCK_QUANTITY,t1.LOCK_TIME,t1.STANDARD,t2.PROVIDER_NAME,t2.PRODUCT_MODEL,t2.PRODUCT_NAME,t2.PRODUCT_ENG_NAME,t2.UNIT,t2.PIC 
+    	FROM sto_stock_lock t1,pro_provider_product t2 
+    	WHERE t1.PROVIDER_PRODUCT_ID = t2.PROVIDER_PRODUCT_ID 
+    	AND t1.PROVIDER_PRODUCT_ID = #{providerProductId} 
+    	ORDER BY t1.LOCK_TIME
+    </select>
+    
+    <insert id="insert" parameterType="dwz.persistence.beans.StoStockLock" useGeneratedKeys="true" keyProperty="stockLockId">
+        INSERT INTO STO_STOCK_LOCK (
+            STOCK_LOCK_ID,
+            ORG_ID, 
+            PROVIDER_PRODUCT_ID, 
+            STANDARD,
+            BUSI_TYPE,
+            TOP_ID,
+            TARGET_LEAF_ID,
+            LOCK_QUANTITY,
+            LOCK_TIME
+        ) VALUES (
+            #{stockLockId},
+            #{orgId},
+            #{providerProductId},
+            #{standard},
+            #{busiType},
+            #{topId},
+            #{targetLeafId},
+            #{lockQuantity},
+            #{lockTime}
+        )
+    </insert>
+    
+    <delete id="delete" parameterType="dwz.persistence.beans.StoStockLock">
+        DELETE FROM STO_STOCK_LOCK WHERE ORG_ID = #{orgId} AND BUSI_TYPE = #{busiType} AND TARGET_LEAF_ID = #{targetLeafId}
+    </delete>
+    
+    <select id="getByArrivalDetail" parameterType="java.util.Map" resultMap="rm">
+        SELECT STOCK_LOCK_ID,PROVIDER_PRODUCT_ID,LOCK_QUANTITY FROM STO_STOCK_LOCK WHERE ORG_ID = #{orgId} AND BUSI_TYPE = #{busiType} AND TARGET_LEAF_ID = #{targetLeafId}
+    </select>
+    
+    <delete id="deleteByPK" parameterType="java.lang.Integer">
+        DELETE FROM STO_STOCK_LOCK WHERE STOCK_LOCK_ID = #{stockLockId}
+    </delete>
+    
+    <delete id="updateLockQuantity" parameterType="java.util.Map">
+        UPDATE STO_STOCK_LOCK T SET T.LOCK_QUANTITY = #{lockQuantity} WHERE T.STOCK_LOCK_ID = #{stockLockId}
+    </delete>
+    
+</mapper>
+

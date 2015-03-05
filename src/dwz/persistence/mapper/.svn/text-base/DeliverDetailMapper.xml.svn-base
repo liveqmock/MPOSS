@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.DeliverDetailMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.SalDeliverDetail">
+        <result property="deliverDetailId" jdbcType="INTEGER" column="DELIVER_DETAIL_ID"/>
+        <result property="deliverId" jdbcType="INTEGER" column="DELIVER_ID"/>
+        <result property="saleDetailId" jdbcType="INTEGER" column="SALE_DETAIL_ID"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="bakQuantity" jdbcType="INTEGER" column="BAK_QUANTITY"/>
+        <result property="bakWeight" jdbcType="DOUBLE" column="BAK_WEIGHT"/>
+        <result property="bakVolume" jdbcType="DOUBLE" column="BAK_VOLUME"/>
+        <result property="packAmount" jdbcType="INTEGER" column="PACK_AMOUNT"/>
+        <result property="packNumber" jdbcType="VARCHAR" column="PACK_NUMBER"/>
+        <result property="saleUnitPrice" jdbcType="INTEGER" column="SALE_UNIT_PRICE"/>
+        <result property="costUnitPrice" jdbcType="INTEGER" column="COST_UNIT_PRICE"/>
+        <result property="costPrice" jdbcType="INTEGER" column="COST_PRICE"/>
+        <result property="bakOperId" jdbcType="INTEGER" column="BAK_OPER_ID"/>
+        <result property="bakTime" jdbcType="TIMESTAMP" column="BAK_TIME"/>
+        
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="productEngName" jdbcType="VARCHAR" column="PRODUCT_ENG_NAME"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+        <result property="pic" jdbcType="VARCHAR" column="PIC"/>
+	</resultMap>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="deliverDetailId">
+        INSERT INTO SAL_DELIVER_DETAIL (
+            DELIVER_DETAIL_ID,
+            DELIVER_ID,
+            SALE_NO,
+            SALE_DETAIL_ID,
+            SALE_DETAIL_NO,
+            PROVIDER_PRODUCT_ID,
+            STANDARD,
+            BAK_QUANTITY,
+            BAK_WEIGHT,
+            BAK_VOLUME,
+            PACK_AMOUNT,
+            PACK_NUMBER,
+            SALE_UNIT_PRICE,
+            COST_UNIT_PRICE,
+            COST_PRICE,
+            BAK_OPER_ID,
+            BAK_TIME
+        ) VALUES (
+            #{deliverDetailId},
+            #{deliverId},
+            #{saleNo},
+            #{saleDetailId},
+            #{saleDetailNo},
+            #{providerProductId},
+            #{standard},
+            #{bakQuantity},
+            #{bakWeight},
+            #{bakVolume},
+            #{packAmount},
+            #{packNumber},
+            #{saleUnitPrice},
+            #{costUnitPrice},
+            #{costPrice},
+            #{bakOperId},
+            #{bakTime}
+        )
+    </insert>
+    
+    <select id="findDeliverDetail" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T1.DELIVER_DETAIL_ID,
+            T1.DELIVER_ID,
+            T1.SALE_DETAIL_ID,
+            T1.PROVIDER_PRODUCT_ID,
+            T1.STANDARD,
+            T1.BAK_QUANTITY,
+            T1.BAK_WEIGHT,
+            T1.BAK_VOLUME,
+            T1.PACK_AMOUNT,
+            T1.PACK_NUMBER,
+            T1.SALE_UNIT_PRICE,
+            T1.COST_UNIT_PRICE,
+            T1.COST_PRICE,
+            T2.PROVIDER_NAME,
+            T2.PRODUCT_MODEL,
+            T2.PRODUCT_NAME,
+            T2.PRODUCT_ENG_NAME,
+            T2.UNIT,
+            T2.PIC
+        FROM 
+            SAL_DELIVER_DETAIL T1,
+            PRO_PROVIDER_PRODUCT T2 
+        WHERE 
+            T1.PROVIDER_PRODUCT_ID = T2.PROVIDER_PRODUCT_ID AND 
+            T1.DELIVER_ID = #{deliverId}
+        ORDER BY 
+            T1.DELIVER_DETAIL_ID
+    </select>
+    
+    <select id="findDeliverDetailForCancel" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T1.DELIVER_DETAIL_ID,
+            T1.DELIVER_ID,
+            T1.PROVIDER_PRODUCT_ID,
+            T1.STANDARD,
+            T1.SALE_DETAIL_ID,
+            T1.BAK_QUANTITY
+        FROM 
+            SAL_DELIVER_DETAIL T1
+        WHERE 
+            T1.DELIVER_ID = #{deliverId}
+    </select>
+    
+    <select id="findForOver" parameterType="java.util.Map" resultMap="rm">
+        SELECT T1.DELIVER_DETAIL_ID,T1.PROVIDER_PRODUCT_ID,T1.BAK_QUANTITY FROM SAL_DELIVER_DETAIL T1 WHERE T1.DELIVER_ID IN (SELECT T2.DELIVER_ID FROM SAL_DELIVER T2 WHERE T2.SALE_ID = #{saleId} AND T2.STATUS = #{status})
+    </select>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM SAL_DELIVER_DETAIL WHERE DELIVER_DETAIL_ID = #{deliverDetailId}
+    </delete>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT 
+            T1.DELIVER_DETAIL_ID,
+            T1.DELIVER_ID,
+            T1.PROVIDER_PRODUCT_ID,
+            T1.STANDARD,
+            T1.SALE_DETAIL_ID,
+            T1.BAK_QUANTITY
+        FROM 
+            SAL_DELIVER_DETAIL T1
+        WHERE 
+            T1.DELIVER_DETAIL_ID = #{deliverDetailId}
+    </select>
+    
+</mapper>
+

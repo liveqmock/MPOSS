@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.DeliverMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.SalDeliver">
+        <result property="deliverId" jdbcType="INTEGER" column="DELIVER_ID"/>
+        <result property="deliverNo" jdbcType="VARCHAR" column="DELIVER_NO"/>
+        <result property="saleId" jdbcType="INTEGER" column="SALE_ID"/>
+        <result property="createOperId" jdbcType="INTEGER" column="CREATE_OPER_ID"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="CREATE_TIME"/>
+        <result property="deliverOperId" jdbcType="INTEGER" column="DELIVER_OPER_ID"/>
+        <result property="deliverTime" jdbcType="TIMESTAMP" column="DELIVER_TIME"/>
+        <result property="status" jdbcType="VARCHAR" column="STATUS"/>
+        
+        <result property="saleNo" jdbcType="VARCHAR" column="SALE_NO"/>
+        <result property="saleType" jdbcType="VARCHAR" column="SALE_TYPE"/>
+        <result property="consumerName" jdbcType="VARCHAR" column="CONSUMER_NAME"/>
+        <result property="totalSalePrice" jdbcType="INTEGER" column="TOTAL_SALE_PRICE"/>
+        <result property="receAddress" jdbcType="VARCHAR" column="RECE_ADDRESS"/>
+        <result property="receMen" jdbcType="VARCHAR" column="RECE_MEN"/>
+        <result property="linkPhone" jdbcType="VARCHAR" column="LINK_PHONE"/>
+	</resultMap>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="deliverId">
+        INSERT INTO SAL_DELIVER (
+            DELIVER_ID,
+            DELIVER_NO,
+            SALE_ID,
+            CREATE_OPER_ID,
+            CREATE_TIME,
+            STATUS
+        ) VALUES (
+            #{deliverId},
+            #{deliverNo},
+            #{saleId},
+            #{createOperId},
+            #{createTime},
+            #{status}
+        )
+    </insert>
+    
+    <select id="getDeliverForBak" parameterType="java.util.Map" resultMap="rm">
+        SELECT * FROM SAL_DELIVER T WHERE T.SALE_ID = #{saleId} AND T.STATUS = #{status}
+    </select>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM SAL_DELIVER T WHERE T.DELIVER_ID = #{deliverId}
+    </select>
+    
+    <select id="findDeliverForDeliver" parameterType="java.util.Map" resultMap="rm">
+    	SELECT 
+    	    T1.DELIVER_ID,
+    	    T1.DELIVER_NO,
+    	    T1.SALE_ID,
+    	    T1.STATUS,
+    	    T2.SALE_NO,
+    	    T2.SALE_TYPE,
+    	    T2.CONSUMER_NAME,
+    	    T2.TOTAL_SALE_PRICE,
+    	    T2.RECE_MEN,
+    	    T2.LINK_PHONE,
+    	    T2.RECE_ADDRESS 
+   	    FROM 
+   	        SAL_DELIVER T1,
+   	        SAL_SALE T2 
+   	    WHERE 
+   	        T1.SALE_ID = T2.SALE_ID AND 
+   	        T2.ORG_ID = #{orgId} AND 
+   	        T1.STATUS = #{status} 
+   	    ORDER BY 
+   	        T1.DELIVER_ID
+    </select>
+    
+    <select id="findDeliverCountForBack" parameterType="dwz.business.sale.SearchFinishDeliverVO" resultType="java.lang.Integer">
+    	SELECT 
+    	    COUNT(*) 
+   	    FROM 
+   	        SAL_DELIVER T1,
+   	        SAL_SALE T2 
+   	    WHERE 
+   	        T1.SALE_ID = T2.SALE_ID AND 
+   	        T2.ORG_ID = #{orgId} AND 
+   	        T1.STATUS = #{status} 
+   	        <if test="deliverNo != null and deliverNo != ''">
+   	        AND T1.DELIVER_NO = #{deliverNo}
+   	        </if>
+   	        <if test="saleNo != null and saleNo != ''">
+   	        AND T2.SALE_NO = #{saleNo}
+   	        </if>
+   	        <if test="consumer != null and consumer.consumerId != null">
+   	        AND T2.CONSUMER_ID = #{consumer.consumerId}
+   	        </if>
+    </select>
+    
+    <select id="findDeliverForBack" parameterType="dwz.business.sale.SearchFinishDeliverVO" resultMap="rm">
+    	SELECT 
+    	    T1.DELIVER_ID,
+    	    T1.DELIVER_NO,
+    	    T1.SALE_ID,
+    	    T1.STATUS,
+    	    T2.SALE_NO,
+    	    T2.SALE_TYPE,
+    	    T2.CONSUMER_NAME,
+    	    T2.TOTAL_SALE_PRICE,
+    	    T2.RECE_MEN,
+    	    T2.LINK_PHONE,
+    	    T2.RECE_ADDRESS 
+   	    FROM 
+   	        SAL_DELIVER T1,
+   	        SAL_SALE T2 
+   	    WHERE 
+   	        T1.SALE_ID = T2.SALE_ID AND 
+   	        T2.ORG_ID = #{orgId} AND 
+   	        T1.STATUS = #{status} 
+   	        <if test="deliverNo != null and deliverNo != ''">
+   	        AND T1.DELIVER_NO = #{deliverNo}
+   	        </if>
+   	        <if test="saleNo != null and saleNo != ''">
+   	        AND T2.SALE_NO = #{saleNo}
+   	        </if>
+   	        <if test="consumer != null and consumer.consumerId != null">
+   	        AND T2.CONSUMER_ID = #{consumer.consumerId}
+   	        </if>
+   	    ORDER BY 
+   	        T1.DELIVER_ID DESC LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <update id="update" parameterType="dwz.persistence.beans.SalDeliver">
+        UPDATE SAL_DELIVER T SET T.DELIVER_OPER_ID = #{deliverOperId},T.DELIVER_TIME = #{deliverTime},T.STATUS = #{status} WHERE T.DELIVER_ID = #{deliverId}
+    </update>
+    
+    <update id="updateCreateTime" parameterType="dwz.persistence.beans.SalDeliver">
+        UPDATE SAL_DELIVER T SET T.CREATE_OPER_ID = #{createOperId},T.CREATE_TIME = #{createTime} WHERE T.DELIVER_ID = #{deliverId}
+    </update>
+    
+    <select id="findDeliver" parameterType="java.util.Map" resultMap="rm">
+    	SELECT 
+    	    T1.DELIVER_ID,
+    	    T1.DELIVER_NO,
+    	    T1.SALE_ID,
+    	    T1.CREATE_TIME,
+    	    T1.STATUS
+   	    FROM 
+   	        SAL_DELIVER T1
+   	    WHERE 
+   	        T1.SALE_ID = #{saleId}
+   	        AND T1.STATUS IN 
+	    	<foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach> 
+   	    ORDER BY 
+   	        T1.DELIVER_ID
+    </select>
+    
+    <update id="cancel" parameterType="dwz.persistence.beans.SalDeliver">
+        UPDATE SAL_DELIVER T SET T.STATUS = #{status} WHERE T.DELIVER_ID = #{deliverId}
+    </update>
+    
+    <update id="autoCancel" parameterType="dwz.persistence.beans.SalDeliver">
+        UPDATE SAL_DELIVER T1 SET T1.STATUS = #{status} WHERE T1.DELIVER_ID = #{deliverId} AND NOT EXISTS (SELECT 1 FROM SAL_DELIVER_DETAIL T2 WHERE T2.DELIVER_ID = #{deliverId})
+    </update>
+    
+</mapper>
+

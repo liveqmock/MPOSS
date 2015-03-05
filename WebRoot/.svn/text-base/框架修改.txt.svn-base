@@ -1,0 +1,19 @@
+1.BaseConditionVO的startDate和endDate类型由Date调整成了String
+2.combox的扩展(dwz.custom.js)
+  2.1.combox只读的调整:
+      default/images下增加search-bg-r.gif
+      default/style.css后面增加.combox_readonly样式[azure、green、purple、silver]
+  2.2.combox记忆：
+  
+a.custom {text-decoration:underline;color:#1859AD;}
+
+注释掉了style.css的.grid .error{background:#fb7e81;}
+
+dwz.custom.js
+if($(this).attr("bind")=="custom") return true;//continue
+  
+  
+
+DWZ调整需求：
+1.combox级联下拉框，查询返回后的记忆问题；
+2.combox下拉框不可编辑样式；

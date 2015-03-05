@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.SaleBackCollMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.RptSaleBackColl">
+        <result property="saleBackCollId" jdbcType="INTEGER" column="SALE_BACK_COLL_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="saleBackType" jdbcType="VARCHAR" column="SALE_BACK_TYPE"/>
+        <result property="transTime" jdbcType="TIMESTAMP" column="TRANS_TIME"/>
+        <result property="consumerId" jdbcType="INTEGER" column="CONSUMER_ID"/>
+        <result property="consumerName" jdbcType="VARCHAR" column="CONSUMER_NAME"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="quantity" jdbcType="INTEGER" column="QUANTITY"/>
+        <result property="price" jdbcType="INTEGER" column="PRICE"/>
+        <result property="amount" jdbcType="INTEGER" column="AMOUNT"/>
+        
+        <result property="transDate" jdbcType="VARCHAR" column="TRANS_DATE"/>
+        <result property="sumAmount" jdbcType="INTEGER" column="SUM_AMOUNT"/>
+	</resultMap>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="saleBackCollId">
+	    INSERT INTO RPT_SALE_BACK_COLL(
+	        SALE_BACK_COLL_ID,
+	        ORG_ID,
+	        SALE_BACK_TYPE,
+	        TRANS_TIME,
+	        CONSUMER_ID,
+	        CONSUMER_NAME,
+	        PRODUCT_MODEL,
+	        PRODUCT_NAME,
+	        STANDARD,
+	        QUANTITY,
+	        PRICE,
+	        AMOUNT
+	    )VALUES(
+	        #{saleBackCollId},
+	        #{orgId},
+	        #{saleBackType},
+	        #{transTime},
+	        #{consumerId},
+	        #{consumerName},
+	        #{productModel},
+	        #{productName},
+	        #{standard},
+	        #{quantity},
+	        #{price},
+	        #{amount}
+	    )
+	</insert>
+	
+	<select id="findByQC" parameterType="dwz.business.rpt.SearchSaleBackCollVO" resultMap="rm">
+    	SELECT 
+		    DATE_FORMAT(T.TRANS_TIME,'%Y-%m-%d') TRANS_DATE,
+		    T.CONSUMER_ID,
+		    T.CONSUMER_NAME,
+		    SUM(T.AMOUNT) SUM_AMOUNT
+		FROM 
+		    RPT_SALE_BACK_COLL T 
+		WHERE 
+		    T.ORG_ID = #{orgId}
+		    <if test="saleBackType != null and saleBackType != ''">
+		    AND T.SALE_BACK_TYPE = #{saleBackType}
+		    </if>
+		    <if test="consumer != null and consumer.consumerId != null">
+		    AND T.CONSUMER_ID = #{consumer.consumerId}
+		    </if>
+	        AND T.TRANS_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day)
+		GROUP BY TRANS_DATE,T.CONSUMER_ID,T.CONSUMER_NAME
+		ORDER BY TRANS_DATE DESC
+    </select>
+	
+	<select id="findDetail" parameterType="java.util.Map" resultMap="rm">
+    	SELECT * FROM RPT_SALE_BACK_COLL T WHERE T.ORG_ID = #{orgId}
+	    AND T.CONSUMER_ID = #{consumerId}
+	    AND DATE_FORMAT(T.TRANS_TIME,'%Y-%m-%d') = #{transDate}
+	    ORDER BY T.TRANS_TIME DESC
+    </select>
+    
+</mapper>

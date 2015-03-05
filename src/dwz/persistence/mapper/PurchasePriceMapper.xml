@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.PurchasePriceMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.PurPurchasePrice">
+        <result property="purchasePriceId" jdbcType="INTEGER" column="PURCHASE_PRICE_ID"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="providerId" jdbcType="INTEGER" column="PROVIDER_ID"/>
+        <result property="productId" jdbcType="INTEGER" column="PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="unitPrice" jdbcType="INTEGER" column="UNIT_PRICE"/>
+	</resultMap>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="purchasePriceId">
+	    INSERT INTO PUR_PURCHASE_PRICE (
+            PURCHASE_PRICE_ID,
+            PROVIDER_PRODUCT_ID,
+            PROVIDER_ID,
+            PRODUCT_ID,
+            STANDARD,
+            UNIT_PRICE
+        ) VALUES (
+            #{purchasePriceId},
+            #{providerProductId},
+            #{providerId},
+            #{productId},
+            #{standard},
+            #{unitPrice}
+        )
+	</insert>
+	
+	<delete id="deleteByProvProd" parameterType="java.lang.Integer">
+	    DELETE FROM PUR_PURCHASE_PRICE WHERE PROVIDER_PRODUCT_ID = #{providerProductId}
+	</delete>
+	
+	<insert id="insertOrUpdatePrice" parameterType="dwz.persistence.beans.PurPurchasePrice"  useGeneratedKeys="true" keyProperty="purchasePriceId">
+	    INSERT INTO PUR_PURCHASE_PRICE (
+            PURCHASE_PRICE_ID,
+            PROVIDER_PRODUCT_ID,
+            PROVIDER_ID,
+            PRODUCT_ID,
+            STANDARD,
+            UNIT_PRICE
+        ) VALUES (
+            #{purchasePriceId},
+            #{providerProductId},
+            #{providerId},
+            #{productId},
+            #{standard},
+            #{unitPrice}
+        ) ON DUPLICATE KEY UPDATE UNIT_PRICE = #{unitPrice}
+	</insert>
+	
+</mapper>
+

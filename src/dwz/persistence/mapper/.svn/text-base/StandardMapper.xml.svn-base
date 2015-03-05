@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.StandardMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.ProStandard">
+        <result property="standardId" jdbcType="INTEGER" column="STANDARD_ID"/>
+        <result property="productId" jdbcType="INTEGER" column="PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+	</resultMap>
+	
+    <select id="findCountByQC" parameterType="dwz.business.goods.SearchStandardVO" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM PRO_STANDARD T1,PRO_PRODUCT T2 WHERE T1.PRODUCT_ID = T2.PRODUCT_ID AND T2.ORG_ID = #{orgId} 
+        <if test="product != null and product.productModel != ''">
+	    AND T2.PRODUCT_MODEL = #{product.productModel}
+	    </if>
+	    <if test="product != null and product.productName != ''">
+	    AND T2.PRODUCT_NAME = #{product.productName}
+	    </if>
+    </select>
+    
+    <select id="findByQC" parameterType="dwz.business.goods.SearchStandardVO" resultMap="rm">
+        SELECT T1.STANDARD_ID,T1.STANDARD,T2.PRODUCT_MODEL,T2.PRODUCT_NAME FROM PRO_STANDARD T1,PRO_PRODUCT T2 WHERE T1.PRODUCT_ID = T2.PRODUCT_ID AND T2.ORG_ID = #{orgId} 
+        <if test="product != null and product.productModel != ''">
+	    AND T2.PRODUCT_MODEL = #{product.productModel}
+	    </if>
+	    <if test="product != null and product.productName != ''">
+	    AND T2.PRODUCT_NAME = #{product.productName}
+	    </if>
+	    ORDER BY T2.PRODUCT_MODEL,T2.PRODUCT_NAME LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="standardId">
+        INSERT INTO PRO_STANDARD (STANDARD_ID,PRODUCT_ID,STANDARD) VALUES (#{standardId},#{productId},#{standard})
+    </insert>
+    
+    <select id="getStandardForCheck" parameterType="java.util.Map" resultMap="rm">
+        SELECT * FROM PRO_STANDARD T WHERE T.PRODUCT_ID = #{productId} AND T.STANDARD = #{standard}
+    </select>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM PRO_STANDARD WHERE STANDARD_ID = #{standardId}
+    </delete>
+    
+    <select id="getProStandard" parameterType="dwz.persistence.beans.ProStandard" resultMap="rm">
+        SELECT * FROM PRO_STANDARD T WHERE T.PRODUCT_ID = #{productId} AND T.STANDARD = #{standard}
+    </select>
+    
+</mapper>
+

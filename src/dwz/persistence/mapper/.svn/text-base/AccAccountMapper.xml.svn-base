@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.AccAccountMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.AccAccount">
+        <result property="accountId" jdbcType="INTEGER" column="ACCOUNT_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="accountType" jdbcType="VARCHAR" column="ACCOUNT_TYPE"/>
+        <result property="bankId" jdbcType="INTEGER" column="BANK_ID"/>
+        <result property="openNet" jdbcType="VARCHAR" column="OPEN_NET"/>
+        <result property="accountName" jdbcType="VARCHAR" column="ACCOUNT_NAME"/>
+        <result property="accountNo" jdbcType="VARCHAR" column="ACCOUNT_NO"/>
+        <result property="price" jdbcType="INTEGER" column="PRICE"/>
+        <result property="status" jdbcType="INTEGER" column="STATUS"/>
+	</resultMap>
+	
+	<select id="findByOrg" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT 
+	        ACCOUNT_ID,
+	        ORG_ID,
+	        ACCOUNT_TYPE,
+	        BANK_ID,
+	        OPEN_NET,
+	        ACCOUNT_NAME,
+	        ACCOUNT_NO,
+	        PRICE,
+	        STATUS
+	    FROM acc_account
+	    WHERE ORG_ID = #{orgId} 
+	    ORDER BY ACCOUNT_ID
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="accountId">
+        INSERT INTO acc_account(
+            ACCOUNT_ID,
+            ACCOUNT_TYPE,
+            ORG_ID,
+            BANK_ID,
+            OPEN_NET,
+            ACCOUNT_NAME,
+            ACCOUNT_NO,
+            PRICE,
+            STATUS
+        ) VALUES (
+            #{accountId},
+            #{accountType},
+            #{orgId},
+            #{bankId},
+            #{openNet},
+            #{accountName},
+            #{accountNo},
+            #{price},
+            #{status}
+        )
+    </insert>
+    
+	<delete id="updateStatus" parameterType="dwz.persistence.beans.AccAccount">
+        UPDATE acc_account
+        SET STATUS = #{status}
+         WHERE 
+        ACCOUNT_ID = #{accountId} 
+    </delete>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+		SELECT 
+	        ACCOUNT_ID,
+	        ORG_ID,
+	        ACCOUNT_TYPE,
+	        BANK_ID,
+	        OPEN_NET,
+	        ACCOUNT_NAME,
+	        ACCOUNT_NO,
+	        PRICE,
+	        STATUS
+	    FROM acc_account 
+	    WHERE 
+	        ACCOUNT_ID = #{accountId} 
+	</select>
+	
+	<update id="update" parameterType="dwz.persistence.beans.AccAccount">
+        UPDATE acc_account SET
+	        PRICE = #{price} 
+        WHERE 
+	        ACCOUNT_ID = #{accountId} 
+	</update>
+	
+	<select id="findAccountNoForCombox" parameterType="dwz.persistence.beans.AccAccount" resultType="java.lang.String">
+		SELECT 
+	        ACCOUNT_NO 
+	    FROM acc_account 
+	    WHERE 
+	        ORG_ID = #{orgId} AND
+	        ACCOUNT_TYPE = #{accountType} 
+	    ORDER BY ACCOUNT_ID
+	</select>
+	
+	<select id="loadAccount" parameterType="java.util.Map" resultMap="rm">
+		SELECT 
+	        ACCOUNT_ID,
+	        ACCOUNT_TYPE,
+	        ACCOUNT_NAME,
+	        ACCOUNT_NO
+	    FROM acc_account 
+	    WHERE 
+	        ORG_ID = ${orgId} AND STATUS = #{status}
+	</select>
+	
+	<select id="getAccount" parameterType="dwz.persistence.beans.AccAccount" resultMap="rm">
+	    SELECT * FROM ACC_ACCOUNT T WHERE T.ORG_ID = #{orgId} 
+	    AND T.ACCOUNT_TYPE = #{accountType}
+	    <if test="accountNo != null and accountNo != ''">
+	    AND T.ACCOUNT_NO = #{accountNo}
+	    </if>
+	</select>
+	
+	<update id="inc" parameterType="java.util.Map">
+        UPDATE ACC_ACCOUNT SET
+	        PRICE = PRICE + #{incPrice} 
+        WHERE 
+	        ACCOUNT_ID = #{accountId} 
+	</update>
+	
+	<update id="dec" parameterType="java.util.Map">
+        UPDATE ACC_ACCOUNT SET
+	        PRICE = PRICE - #{decPrice} 
+        WHERE 
+	        ACCOUNT_ID = #{accountId} 
+	</update>
+	
+</mapper>
+

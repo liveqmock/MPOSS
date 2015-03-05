@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.ArrivalMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.PurArrival">
+        <result property="arrivalId" jdbcType="INTEGER" column="ARRIVAL_ID"/>
+        <result property="arrivalNo" jdbcType="VARCHAR" column="ARRIVAL_NO"/>
+        <result property="purchaseId" jdbcType="INTEGER" column="PURCHASE_ID"/>
+        <result property="arrivalQuantity" jdbcType="INTEGER" column="ARRIVAL_QUANTITY"/>
+        <result property="regOperId" jdbcType="INTEGER" column="REG_OPER_ID"/>
+        <result property="regTime" jdbcType="TIMESTAMP" column="REG_TIME"/>
+        <result property="regDesc" jdbcType="VARCHAR" column="REG_DESC"/>
+        <result property="arrivalOperId" jdbcType="INTEGER" column="ARRIVAL_OPER_ID"/>
+        <result property="arrivalTime" jdbcType="TIMESTAMP" column="ARRIVAL_TIME"/>
+        <result property="status" jdbcType="VARCHAR" column="STATUS"/>
+        
+        <result property="purchaseNo" jdbcType="VARCHAR" column="PURCHASE_NO"/>
+        <result property="purchaseProp" jdbcType="VARCHAR" column="PURCHASE_PROP"/>
+        <result property="providerId" jdbcType="INTEGER" column="PROVIDER_ID"/>
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="totalPrice" jdbcType="INTEGER" column="TOTAL_PRICE"/>
+	</resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="arrivalId">
+        INSERT INTO PUR_ARRIVAL(
+            ARRIVAL_ID,
+            ARRIVAL_NO,
+            PURCHASE_ID,
+            ARRIVAL_QUANTITY,
+            REG_OPER_ID,
+            REG_TIME,
+            REG_DESC,
+            STATUS
+        ) VALUES (
+            #{arrivalId},
+            #{arrivalNo},
+            #{purchaseId},
+            #{arrivalQuantity},
+            #{regOperId},
+            #{regTime},
+            #{regDesc},
+            #{status}
+        )
+    </insert>
+    
+    <select id="findArrivalForConf" parameterType="java.util.Map" resultMap="rm">
+    	SELECT 
+    	    T1.ARRIVAL_ID,
+    	    T1.ARRIVAL_NO,
+    	    T1.PURCHASE_ID,
+    	    T1.ARRIVAL_QUANTITY,
+    	    T1.ARRIVAL_PRICE,
+    	    T1.REG_OPER_ID,
+    	    T1.REG_TIME,
+    	    T1.REG_DESC,
+    	    T1.STATUS,
+    	    T2.PURCHASE_NO,
+    	    T2.PURCHASE_PROP,
+    	    T2.PROVIDER_ID,
+    	    T2.PROVIDER_NAME,
+    	    T2.TOTAL_PRICE
+    	FROM 
+    	    PUR_ARRIVAL T1,
+    	    PUR_PURCHASE T2 
+    	WHERE 
+    	    T1.PURCHASE_ID = T2.PURCHASE_ID AND 
+    	    T2.ORG_ID = #{orgId} AND 
+    	    T1.STATUS = #{status}
+    	ORDER BY T1.ARRIVAL_ID
+    </select>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM PUR_ARRIVAL T WHERE T.ARRIVAL_ID = #{arrivalId}
+    </select>
+    
+    <update id="update" parameterType="dwz.persistence.beans.PurArrival">
+        UPDATE PUR_ARRIVAL T SET T.ARRIVAL_OPER_ID = #{arrivalOperId},T.ARRIVAL_TIME = #{arrivalTime},T.STATUS = #{status} WHERE T.ARRIVAL_ID = #{arrivalId}
+    </update>
+    
+    <select id="findArrivalByPurchaseId" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT 
+    	    T1.ARRIVAL_ID,
+    	    T1.ARRIVAL_NO,
+    	    T1.PURCHASE_ID,
+    	    T1.REG_TIME,
+    	    T1.STATUS,
+    	    T2.PURCHASE_NO,
+    	    T2.PROVIDER_NAME,
+    	    T2.TOTAL_PRICE
+   	    FROM 
+   	        PUR_ARRIVAL T1,
+   	        PUR_PURCHASE T2 
+   	    WHERE 
+   	        T1.PURCHASE_ID = T2.PURCHASE_ID AND 
+   	        T2.PURCHASE_ID = #{purchaseId}
+   	    ORDER BY 
+   	        T1.ARRIVAL_ID
+    </select>
+    
+    <select id="getUnArrivalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM PUR_ARRIVAL T WHERE T.PURCHASE_ID = #{purchaseId} AND T.STATUS = #{status}
+    </select>
+    
+</mapper>

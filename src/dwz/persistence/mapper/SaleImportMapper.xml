@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.SaleImportMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.SalSaleImport">
+        <result property="saleImportId" jdbcType="INTEGER" column="SALE_IMPORT_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="operId" jdbcType="INTEGER" column="OPER_ID"/>
+        <result property="saleDetailNo" jdbcType="VARCHAR" column="SALE_DETAIL_NO"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="unit" jdbcType="VARCHAR" column="UNIT"/>
+        <result property="saleQuantity" jdbcType="INTEGER" column="SALE_QUANTITY"/>
+        <result property="saleUnitPrice" jdbcType="INTEGER" column="SALE_UNIT_PRICE"/>
+        <result property="saleDesc" jdbcType="VARCHAR" column="SALE_DESC"/>
+	</resultMap>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="saleImportId">
+        INSERT INTO SAL_SALE_IMPORT (
+            SALE_IMPORT_ID,
+            ORG_ID,
+            OPER_ID,
+            SALE_DETAIL_NO,
+            PRODUCT_MODEL,
+            PRODUCT_NAME,
+            SALE_QUANTITY,
+            STANDARD,
+            UNIT,
+            SALE_UNIT_PRICE,
+            SALE_DESC
+        )VALUES(
+            #{saleImportId},
+            #{orgId},
+            #{operId},
+            #{saleDetailNo},
+            #{productModel},
+            #{productName},
+            #{saleQuantity},
+            #{standard},
+            #{unit},
+            #{saleUnitPrice},
+            #{saleDesc}
+        )
+    </insert>
+    
+    <select id="findSaleImport" parameterType="dwz.business.common.SessionOper" resultMap="rm">
+        SELECT * FROM SAL_SALE_IMPORT T WHERE T.ORG_ID = #{orgId} AND T.OPER_ID = #{operId}
+    </select>
+    
+    <delete id="deleteByOper" parameterType="dwz.business.common.SessionOper">
+        DELETE FROM SAL_SALE_IMPORT WHERE ORG_ID = #{orgId} AND OPER_ID = #{operId}
+    </delete>
+	
+</mapper>
+

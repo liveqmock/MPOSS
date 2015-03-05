@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.BankMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.AccBank">
+        <result property="bankId" jdbcType="INTEGER" column="BANK_ID"/>
+        <result property="bankName" jdbcType="VARCHAR" column="BANK_NAME"/>
+	</resultMap>
+	
+	<select id="findForCache" resultMap="rm">
+    	SELECT 
+	        BANK_ID,
+	        BANK_NAME
+	    FROM acc_bank
+    </select>
+	
+</mapper>

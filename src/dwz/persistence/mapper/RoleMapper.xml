@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.RoleMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.SysRole">
+        <result property="roleId" jdbcType="INTEGER" column="ROLE_ID"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="roleName" jdbcType="VARCHAR" column="ROLE_NAME"/>
+        <result property="roleDesc" jdbcType="VARCHAR" column="ROLE_DESC"/>
+	</resultMap>
+	
+	<select id="findByOrg" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT * FROM SYS_ROLE T WHERE T.ORG_ID = #{orgId} ORDER BY T.ROLE_ID
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="roleId">
+        INSERT INTO SYS_ROLE (ROLE_ID,ORG_ID,ROLE_NAME,ROLE_DESC) VALUES (#{roleId},#{orgId},#{roleName},#{roleDesc})
+    </insert>
+    
+    <select id="getByRoleName" parameterType="dwz.persistence.beans.SysRole" resultMap="rm">
+        SELECT * FROM SYS_ROLE T WHERE T.ORG_ID = #{orgId} AND T.ROLE_NAME = #{roleName}
+    </select>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM SYS_ROLE WHERE ROLE_ID = #{roleId}
+    </delete>
+    
+    <update id="update" parameterType="dwz.persistence.beans.SysRole">
+        UPDATE SYS_ROLE T SET T.ROLE_DESC = #{roleDesc} WHERE T.ROLE_ID = #{roleId}
+    </update>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM SYS_ROLE T WHERE T.ROLE_ID = #{roleId}
+    </select>
+    
+    <select id="findByOper" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT * FROM SYS_ROLE T1 WHERE T1.ROLE_ID IN (SELECT T2.ROLE_ID FROM SYS_OPER_ROLE T2 WHERE T2.OPER_ID = #{operId})
+    </select>
+	
+</mapper>
+

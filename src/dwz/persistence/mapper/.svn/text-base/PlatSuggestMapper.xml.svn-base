@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.PlatSuggestMapper">
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="suggestId">
+	    INSERT INTO PLA_SUGGEST (
+	        SUGGEST_ID,
+	        ORG_ID,
+	        OPER_ID,
+	        PHONE,
+	        SUGGEST_TIME,
+	        SUGGEST_CONTENT
+	    ) VALUES (
+	        #{suggestId},
+	        #{orgId},
+	        #{operId},
+	        #{phone},
+	        #{suggestTime},
+	        #{suggestContent}
+	    )
+    </insert>
+    
+</mapper>
+

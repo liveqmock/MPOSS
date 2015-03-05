@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.OrgMapper">
+
+    <resultMap id="rm" type="dwz.persistence.beans.SysOrg">
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="orgName" jdbcType="VARCHAR" column="ORG_NAME"/>
+        <result property="engName" jdbcType="VARCHAR" column="ENG_NAME"/>
+        <result property="tel" jdbcType="VARCHAR" column="TEL"/>
+        <result property="fax" jdbcType="VARCHAR" column="FAX"/>
+        <result property="address" jdbcType="VARCHAR" column="ADDRESS"/>
+        <result property="engAddress" jdbcType="VARCHAR" column="ENG_ADDRESS"/>
+        <result property="currPlatServiceType" jdbcType="VARCHAR" column="CURR_PLAT_SERVICE_TYPE"/>
+        <result property="serviceEngDate" jdbcType="VARCHAR" column="SERVICE_ENG_DATE"/>
+        <result property="inTakingFlag" jdbcType="VARCHAR" column="IN_TAKING_FLAG"/>
+        <result property="logo" jdbcType="VARCHAR" column="LOGO"/>
+	</resultMap>
+
+    <update id="openTakingSwitch" parameterType="java.lang.Integer">
+    	UPDATE sys_org t1 SET t1.IN_TAKING_FLAG = '1' WHERE t1.ORG_ID = #{orgId} AND EXISTS (SELECT 1 FROM sto_stock_taking_temp t2 WHERE t2.ORG_ID = t1.ORG_ID)
+    </update>
+    
+    <update id="closeTakingSwitch" parameterType="java.lang.Integer">
+    	UPDATE sys_org t1 SET t1.IN_TAKING_FLAG = '0' WHERE t1.ORG_ID = #{orgId} AND NOT EXISTS (SELECT 1 FROM sto_stock_taking t2 WHERE t2.ORG_ID = t1.ORG_ID AND t2.STATUS = '1')
+    </update>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM SYS_ORG T WHERE T.ORG_ID = #{orgId}
+    </select>
+    
+</mapper>
+

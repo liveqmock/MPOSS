@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.SaleMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.SalSale">
+        <result property="saleId" jdbcType="INTEGER" column="SALE_ID"/>
+        <result property="saleNo" jdbcType="VARCHAR" column="SALE_NO"/>
+        <result property="saleType" jdbcType="VARCHAR" column="SALE_TYPE"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="consumerId" jdbcType="INTEGER" column="CONSUMER_ID"/>
+        <result property="consumerName" jdbcType="VARCHAR" column="CONSUMER_NAME"/>
+        <result property="totalSaleQuantity" jdbcType="INTEGER" column="TOTAL_SALE_QUANTITY"/>
+        <result property="totalCostPrice" jdbcType="INTEGER" column="TOTAL_COST_PRICE"/>
+        <result property="totalSalePrice" jdbcType="INTEGER" column="TOTAL_SALE_PRICE"/>
+        <result property="receAddress" jdbcType="VARCHAR" column="RECE_ADDRESS"/>
+        <result property="receMen" jdbcType="VARCHAR" column="RECE_MEN"/>
+        <result property="linkPhone" jdbcType="VARCHAR" column="LINK_PHONE"/>
+        <result property="depositFlag" jdbcType="VARCHAR" column="DEPOSIT_FLAG"/>
+        <result property="createOperId" jdbcType="INTEGER" column="CREATE_OPER_ID"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="CREATE_TIME"/>
+        <result property="createDesc" jdbcType="VARCHAR" column="CREATE_DESC"/>
+        <result property="arrivalDate" jdbcType="VARCHAR" column="ARRIVAL_DATE"/>
+        <result property="confOperId" jdbcType="INTEGER" column="CONF_OPER_ID"/>
+        <result property="confTime" jdbcType="TIMESTAMP" column="CONF_TIME"/>
+        <result property="confDesc" jdbcType="VARCHAR" column="CONF_DESC"/>
+        <result property="purchaseQuantity" jdbcType="INTEGER" column="PURCHASE_QUANTITY"/>
+        <result property="finishBakFlag" jdbcType="VARCHAR" column="FINISH_BAK_FLAG"/>
+        <result property="status" jdbcType="VARCHAR" column="STATUS"/>
+	</resultMap>
+	
+    <insert id="insert" useGeneratedKeys="true" keyProperty="saleId">
+        INSERT INTO SAL_SALE (
+            SALE_ID,
+            SALE_NO,
+            SALE_TYPE,
+            ORG_ID,
+            CONSUMER_ID,
+            CONSUMER_NAME,
+            TOTAL_SALE_QUANTITY,
+            TOTAL_COST_PRICE,
+            TOTAL_SALE_PRICE,
+            RECE_ADDRESS,
+            RECE_MEN,
+            LINK_PHONE,
+            DEPOSIT_FLAG,
+            CREATE_OPER_ID,
+            CREATE_TIME,
+            CREATE_DESC,
+            ARRIVAL_DATE,
+            CONF_OPER_ID,
+            CONF_TIME,
+            CONF_DESC,
+            PURCHASE_QUANTITY,
+            FINISH_BAK_FLAG,
+            STATUS
+        )VALUES(
+            #{saleId},
+            #{saleNo},
+            #{saleType},
+            #{orgId},
+            #{consumerId},
+            #{consumerName},
+            #{totalSaleQuantity},
+            #{totalCostPrice},
+            #{totalSalePrice},
+            #{receAddress},
+            #{receMen},
+            #{linkPhone},
+            #{depositFlag},
+            #{createOperId},
+            #{createTime},
+            #{createDesc},
+            #{arrivalDate},
+            #{confOperId},
+            #{confTime},
+            #{confDesc},
+            #{purchaseQuantity},
+            #{finishBakFlag},
+            #{status}
+        )
+    </insert>
+    
+    <select id="findForBak" parameterType="dwz.business.sale.SearchSaleVO" resultMap="rm">
+    	SELECT * FROM SAL_SALE  
+	    WHERE ORG_ID = #{orgId} 
+	    <if test="consumer != null and consumer.consumerId != null">
+	    AND CONSUMER_ID = #{consumer.consumerId}
+	    </if>
+	    AND STATUS IN 
+	    <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach>
+	    ORDER BY ARRIVAL_DATE,SALE_ID
+    </select>
+    
+    <select id="findForDo" parameterType="java.util.Map" resultMap="rm">
+    	SELECT * FROM SAL_SALE  
+	    WHERE ORG_ID = #{orgId} AND STATUS IN 
+	    <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach> 
+	    ORDER BY SALE_ID
+    </select>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+        SELECT * FROM SAL_SALE WHERE SALE_ID = #{saleId}
+    </select>
+    
+    <update id="updateForConf" parameterType="dwz.persistence.beans.SalSale">
+        UPDATE SAL_SALE T SET T.STATUS = #{status},T.CONF_OPER_ID = #{confOperId},T.CONF_TIME = #{confTime},T.CONF_DESC = #{confDesc} WHERE T.SALE_ID = #{saleId}
+    </update>
+    
+    <update id="finishBak" parameterType="java.util.Map">
+        UPDATE SAL_SALE T SET T.FINISH_BAK_FLAG = #{finishBakFlag},T.STATUS = #{status} WHERE T.SALE_ID = #{saleId}
+    </update>
+    
+    <update id="unfinishBak" parameterType="java.util.Map">
+        UPDATE SAL_SALE T SET T.FINISH_BAK_FLAG = #{finishBakFlag},T.STATUS = #{status} WHERE T.SALE_ID = #{saleId}
+    </update>
+    
+    <update id="updateByDeliver" parameterType="dwz.persistence.beans.SalSale">
+        UPDATE SAL_SALE T SET T.STATUS = #{status},T.TOTAL_COST_PRICE = #{totalCostPrice} WHERE T.SALE_ID = #{saleId}
+    </update>
+    
+    <select id="findCountByQC" parameterType="dwz.business.sale.SearchSaleVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM SAL_SALE T1 
+	    WHERE T1.ORG_ID = #{orgId} 
+	    <if test="consumer != null and consumer.consumerId != null">
+	    AND T1.CONSUMER_ID = #{consumer.consumerId}
+	    </if>
+	    <if test="product != null and product.productId != null">
+	    AND EXISTS (
+	        SELECT 1 FROM SAL_SALE_DETAIL T2 
+	        WHERE T2.SALE_ID = T1.SALE_ID 
+	        AND T2.PRODUCT_ID = #{product.productId})
+	    </if>
+	    <if test="status != null and status != ''">
+	    AND T1.STATUS = #{status} 
+	    </if>
+	    AND T1.CREATE_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day)
+    </select>
+    
+    <select id="findByQC" parameterType="dwz.business.sale.SearchSaleVO" resultMap="rm">
+    	SELECT * FROM SAL_SALE T1 
+	    WHERE T1.ORG_ID = #{orgId} 
+	    <if test="consumer != null and consumer.consumerId != null">
+	    AND T1.CONSUMER_ID = #{consumer.consumerId}
+	    </if>
+	    <if test="product != null and product.productId != null">
+	    AND EXISTS (
+	        SELECT 1 FROM SAL_SALE_DETAIL T2 
+	        WHERE T2.SALE_ID = T1.SALE_ID 
+	        AND T2.PRODUCT_ID = #{product.productId})
+	    </if>
+	    <if test="status != null and status != ''">
+	    AND T1.STATUS = #{status} 
+	    </if>
+	    AND T1.CREATE_TIME BETWEEN STR_TO_DATE(#{startDate},'%Y-%m-%d %H:%i:s') AND DATE_ADD(#{endDate},interval 1 day)
+	    ORDER BY T1.SALE_ID DESC LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findCountBySaleNo" parameterType="dwz.business.sale.SearchSaleVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM SAL_SALE T 
+	    WHERE T.ORG_ID = #{orgId} AND T.SALE_NO = #{saleNo} 
+    </select>
+    
+    <select id="findBySaleNo" parameterType="dwz.business.sale.SearchSaleVO" resultMap="rm">
+    	SELECT * FROM SAL_SALE T 
+	    WHERE T.ORG_ID = #{orgId} AND T.SALE_NO = #{saleNo} 
+	    LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findBakBySaleNo" parameterType="dwz.business.sale.SearchSaleVO" resultMap="rm">
+    	SELECT * FROM SAL_SALE T 
+	    WHERE T.ORG_ID = #{orgId} AND T.SALE_NO = #{saleNo} AND T.STATUS IN
+	    <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach>
+    </select>
+    
+    <select id="findBakByPurchaseNo" parameterType="dwz.business.sale.SearchSaleVO" resultMap="rm">
+    	SELECT * FROM SAL_SALE T1 
+	    WHERE T1.ORG_ID = #{orgId} AND T1.STATUS IN
+	    <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach>
+	    AND T1.SALE_NO IN (SELECT T2.SALE_NO FROM PUR_PURCHASE_DETAIL T2 WHERE T2.PURCHASE_ID = (SELECT T3.PURCHASE_ID FROM PUR_PURCHASE T3 WHERE T3.PURCHASE_NO = #{purchaseNo})) 
+    </select>
+    
+    <update id="updateForCustomer" parameterType="dwz.persistence.beans.SalSale">
+        UPDATE SAL_SALE T SET T.TOTAL_SALE_QUANTITY = #{totalSaleQuantity},T.TOTAL_SALE_PRICE = #{totalSalePrice},T.FINISH_BAK_FLAG = #{finishBakFlag},T.STATUS = #{status} WHERE T.SALE_ID = #{saleId}
+    </update>
+    
+    <select id="loadSaleForPur" parameterType="java.util.Map" resultMap="rm">
+        SELECT T.SALE_NO,T.CONSUMER_NAME FROM SAL_SALE T WHERE T.ORG_ID = #{orgId} AND T.STATUS IN <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach> ORDER BY T.SALE_ID
+    </select>
+    
+    <update id="forceOver" parameterType="java.util.Map">
+        UPDATE SAL_SALE T SET T.STATUS = #{status} WHERE T.SALE_ID = #{saleId}
+    </update>
+    
+    <update id="updateStatus" parameterType="dwz.persistence.beans.SalSale">
+        UPDATE SAL_SALE T SET T.STATUS = #{status} WHERE T.SALE_ID = #{saleId}
+    </update>
+    
+    <update id="incPurchaseQuantity" parameterType="dwz.persistence.beans.SalSale">
+        UPDATE SAL_SALE T SET T.PURCHASE_QUANTITY = T.PURCHASE_QUANTITY + #{purchaseQuantity} WHERE T.ORG_ID = #{orgId} AND T.SALE_NO = #{saleNo}
+    </update>
+    
+    <update id="decPurchaseQuantity" parameterType="dwz.persistence.beans.SalSale">
+        UPDATE SAL_SALE T SET T.PURCHASE_QUANTITY = T.PURCHASE_QUANTITY - #{purchaseQuantity} WHERE T.ORG_ID = #{orgId} AND T.SALE_NO = #{saleNo}
+    </update>
+    
+    <select id="getSaleCountByConsumer" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM SAL_SALE T WHERE T.CONSUMER_ID = #{consumerId}
+    </select>
+    
+    <select id="getSaleCountByProduct" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM SAL_SALE T1 WHERE EXISTS (SELECT 1 FROM SAL_SALE_DETAIL T2 WHERE T2.SALE_ID = T1.SALE_ID AND T2.PRODUCT_ID = #{productId})
+    </select>
+    
+    <update id="updateByDel" parameterType="dwz.persistence.beans.SalSale">
+        UPDATE SAL_SALE T SET T.TOTAL_SALE_QUANTITY = #{totalSaleQuantity}, T.TOTAL_SALE_PRICE = #{totalSalePrice}, T.STATUS = #{status} WHERE T.SALE_ID = #{saleId}
+    </update>
+    
+    <update id="countPurchaseQuantity" parameterType="dwz.persistence.beans.SalSale">
+        UPDATE SAL_SALE T1 SET T1.PURCHASE_QUANTITY = (SELECT SUM(T2.PURCHASE_QUANTITY) FROM SAL_SALE_DETAIL T2 WHERE T2.SALE_ID = T1.SALE_ID) WHERE T1.ORG_ID = #{orgId} AND T1.SALE_NO = #{saleNo}
+    </update>
+    
+    <select id="findCountByQCForPur" parameterType="dwz.business.sale.SearchSaleVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM SAL_SALE T1 
+	    WHERE T1.ORG_ID = #{orgId} 
+	    <if test="consumer != null and consumer.consumerId != null">
+	    AND T1.CONSUMER_ID = #{consumer.consumerId}
+	    </if>
+	    <if test="product != null and product.productId != null">
+	    AND EXISTS (
+	        SELECT 1 FROM SAL_SALE_DETAIL T2 
+	        WHERE T2.SALE_ID = T1.SALE_ID 
+	        AND T2.PRODUCT_ID = #{product.productId})
+	    </if>
+	    AND T1.STATUS IN <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach>
+	    AND T1.PURCHASE_QUANTITY &lt; T1.TOTAL_SALE_QUANTITY
+    </select>
+    
+    <select id="findByQCForPur" parameterType="dwz.business.sale.SearchSaleVO" resultMap="rm">
+    	SELECT * FROM SAL_SALE T1 
+	    WHERE T1.ORG_ID = #{orgId} 
+	    <if test="consumer != null and consumer.consumerId != null">
+	    AND T1.CONSUMER_ID = #{consumer.consumerId}
+	    </if>
+	    <if test="product != null and product.productId != null">
+	    AND EXISTS (
+	        SELECT 1 FROM SAL_SALE_DETAIL T2 
+	        WHERE T2.SALE_ID = T1.SALE_ID 
+	        AND T2.PRODUCT_ID = #{product.productId})
+	    </if>
+	    AND T1.STATUS IN <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach>
+	    AND T1.PURCHASE_QUANTITY &lt; T1.TOTAL_SALE_QUANTITY
+	    ORDER BY ARRIVAL_DATE,SALE_ID LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findCountBySaleNoForPur" parameterType="dwz.business.sale.SearchSaleVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM SAL_SALE T 
+	    WHERE T.ORG_ID = #{orgId} AND T.SALE_NO = #{saleNo} 
+	    AND T.STATUS IN <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach>
+	    AND T.PURCHASE_QUANTITY &lt; T.TOTAL_SALE_QUANTITY
+    </select>
+    
+    <select id="findBySaleNoForPur" parameterType="dwz.business.sale.SearchSaleVO" resultMap="rm">
+    	SELECT * FROM SAL_SALE T 
+	    WHERE T.ORG_ID = #{orgId} AND T.SALE_NO = #{saleNo} 
+	    AND T.STATUS IN <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">#{item}</foreach>
+	    AND T.PURCHASE_QUANTITY &lt; T.TOTAL_SALE_QUANTITY
+	    LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+</mapper>
+

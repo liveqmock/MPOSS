@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.StockTakingDetailMapper">
+
+	<resultMap id="rm" type="dwz.persistence.beans.StoStockTakingDetail">
+	    <result property="stockTakingDetailId" jdbcType="INTEGER" column="STOCK_TAKING_DETAIL_ID"/>
+        <result property="stockTakingId" jdbcType="INTEGER" column="STOCK_TAKING_ID"/>
+        <result property="providerProductId" jdbcType="INTEGER" column="PROVIDER_PRODUCT_ID"/>
+        <result property="standard" jdbcType="VARCHAR" column="STANDARD"/>
+        <result property="totalQuantity" jdbcType="INTEGER" column="TOTAL_QUANTITY"/>
+        <result property="lockQuantity" jdbcType="INTEGER" column="LOCK_QUANTITY"/>
+        <result property="takingQuantity" jdbcType="INTEGER" column="TAKING_QUANTITY"/>
+        
+        <result property="providerName" jdbcType="VARCHAR" column="PROVIDER_NAME"/>
+        <result property="productModel" jdbcType="VARCHAR" column="PRODUCT_MODEL"/>
+        <result property="productName" jdbcType="VARCHAR" column="PRODUCT_NAME"/>
+        <result property="productEngName" jdbcType="VARCHAR" column="PRODUCT_ENG_NAME"/>
+	</resultMap>
+	
+	<select id="findByStockTakingIdForShow" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT t1.STOCK_TAKING_DETAIL_ID,t1.STANDARD,t1.TOTAL_QUANTITY,t1.LOCK_QUANTITY,t1.TAKING_QUANTITY,t2.PROVIDER_NAME,t2.PRODUCT_MODEL,t2.PRODUCT_NAME,t2.PRODUCT_ENG_NAME FROM sto_stock_taking_detail t1,pro_provider_product t2 
+    	WHERE t1.PROVIDER_PRODUCT_ID = t2.PROVIDER_PRODUCT_ID AND t1.STOCK_TAKING_ID = #{stockTakingId} 
+    	ORDER BY t1.STOCK_TAKING_DETAIL_ID
+    </select>
+    
+    <select id="findByStockTakingId" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT * FROM sto_stock_taking_detail 
+    	WHERE STOCK_TAKING_ID = #{stockTakingId} 
+    	ORDER BY STOCK_TAKING_DETAIL_ID
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="stockTakingDetailId">
+        INSERT INTO sto_stock_taking_detail (
+            STOCK_TAKING_DETAIL_ID,
+            STOCK_TAKING_ID,
+            PROVIDER_PRODUCT_ID,
+            STANDARD,
+            TOTAL_QUANTITY,
+            LOCK_QUANTITY,
+            TAKING_QUANTITY
+        ) VALUES (
+            #{stockTakingDetailId},
+            #{stockTakingId},
+            #{providerProductId},
+            #{standard},
+            #{totalQuantity},
+            #{lockQuantity},
+            #{takingQuantity}
+        )
+    </insert>
+    
+</mapper>
+

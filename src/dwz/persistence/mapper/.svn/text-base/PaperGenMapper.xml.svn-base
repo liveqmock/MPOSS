@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.PaperGenMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.SysPaperGen">
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="paperType" jdbcType="VARCHAR" column="PAPER_TYPE"/>
+        <result property="year" jdbcType="VARCHAR" column="YEAR"/>
+        <result property="month" jdbcType="VARCHAR" column="MONTH"/>
+        <result property="day" jdbcType="VARCHAR" column="DAY"/>
+        <result property="no" jdbcType="INTEGER" column="NO"/>
+	</resultMap>
+	
+    <select id="getOne" parameterType="dwz.persistence.beans.SysPaperGen" resultMap="rm">
+    	SELECT *  
+            FROM SYS_PAPER_GEN  
+            WHERE ORG_ID = #{orgId} 
+            AND PAPER_TYPE = #{paperType} 
+            AND YEAR = #{year} 
+            AND MONTH = #{month} 
+            AND DAY = #{day}
+    </select>
+    
+    <insert id="insert" parameterType="dwz.persistence.beans.SysPaperGen">
+        INSERT INTO SYS_PAPER_GEN (
+            ORG_ID,PAPER_TYPE,YEAR,MONTH,DAY,NO
+        ) VALUES (
+            #{orgId},#{paperType},#{year},#{month},#{day},#{no}
+        )
+    </insert>
+    
+	<update id="update" parameterType="dwz.persistence.beans.SysPaperGen">
+        UPDATE SYS_PAPER_GEN  
+            SET NO = NO + 1 
+            WHERE ORG_ID = #{orgId} 
+            AND PAPER_TYPE = #{paperType} 
+            AND YEAR = #{year} 
+            AND MONTH = #{month} 
+            AND DAY = #{day}
+	</update>
+	
+</mapper>
+

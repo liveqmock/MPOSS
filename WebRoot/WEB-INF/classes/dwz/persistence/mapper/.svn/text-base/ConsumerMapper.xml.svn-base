@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dwz.persistence.mapper.ConsumerMapper">
+	<resultMap id="rm" type="dwz.persistence.beans.ParConsumer">
+        <result property="consumerId" jdbcType="INTEGER" column="CONSUMER_ID"/>
+        <result property="consumerType" jdbcType="VARCHAR" column="CONSUMER_TYPE"/>
+        <result property="consumerName" jdbcType="VARCHAR" column="CONSUMER_NAME"/>
+        <result property="consumerProp" jdbcType="VARCHAR" column="CONSUMER_PROP"/>
+        <result property="engLetter" jdbcType="VARCHAR" column="ENG_LETTER"/>
+        <result property="linkMan" jdbcType="VARCHAR" column="LINK_MAN"/>
+        <result property="phone" jdbcType="VARCHAR" column="PHONE"/>
+        <result property="address" jdbcType="VARCHAR" column="ADDRESS"/>
+        <result property="email" jdbcType="VARCHAR" column="EMAIL"/>
+        <result property="qq" jdbcType="VARCHAR" column="QQ"/>
+        <result property="msn" jdbcType="VARCHAR" column="MSN"/>
+        <result property="overTimes" jdbcType="INTEGER" column="OVER_TIMES"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="CREATE_TIME"/>
+        <result property="orgId" jdbcType="INTEGER" column="ORG_ID"/>
+        <result property="billFinishTime" jdbcType="TIMESTAMP" column="BILL_FINISH_TIME"/>
+        <result property="status" jdbcType="VARCHAR" column="STATUS"/>
+	</resultMap>
+	
+	<select id="findCountByQC" parameterType="dwz.business.partner.SearchConsumerVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) 
+	    FROM par_consumer
+	    WHERE ORG_ID = #{orgId} 
+	    <if test="consumerType != null and consumerType != ''">
+	    AND CONSUMER_TYPE = #{consumerType}
+	    </if>
+	    <if test="consumer != null and consumer.consumerId != null">
+	    AND CONSUMER_ID = #{consumer.consumerId}
+	    </if>
+    </select>
+	
+	<select id="findByQC" parameterType="dwz.business.partner.SearchConsumerVO" resultMap="rm">
+    	SELECT *
+	    FROM par_consumer
+	    WHERE ORG_ID = #{orgId} 
+	    <if test="consumerType != null and consumerType != ''">
+	    AND CONSUMER_TYPE = #{consumerType}
+	    </if>
+	    <if test="consumer != null and consumer.consumerId != null">
+	    AND CONSUMER_ID = #{consumer.consumerId}
+	    </if>
+	    ORDER BY OVER_TIMES DESC,CONSUMER_ID DESC LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="findCountByOrder" parameterType="dwz.business.partner.SearchConsumerVO" resultType="java.lang.Integer">
+    	SELECT COUNT(*) 
+	    FROM PAR_CONSUMER T1
+	    WHERE T1.ORG_ID = #{orgId} AND EXISTS (SELECT 1 FROM SAL_SALE T2 WHERE T2.CONSUMER_ID = T1.CONSUMER_ID AND T2.SALE_NO = #{orderNo})
+    </select>
+	
+	<select id="findByOrder" parameterType="dwz.business.partner.SearchConsumerVO" resultMap="rm">
+    	SELECT *
+	    FROM PAR_CONSUMER T1
+	    WHERE T1.ORG_ID = #{orgId} AND EXISTS (SELECT 1 FROM SAL_SALE T2 WHERE T2.CONSUMER_ID = T1.CONSUMER_ID AND T2.SALE_NO = #{orderNo})
+	    LIMIT #{startIndex},#{pageSize}
+    </select>
+    
+    <select id="loadConsumer" parameterType="java.lang.Integer" resultMap="rm">
+    	SELECT CONSUMER_ID,CONSUMER_NAME,ENG_LETTER,LINK_MAN,PHONE,ADDRESS 
+	    FROM par_consumer 
+	    WHERE ORG_ID = #{orgId} 
+	    ORDER BY ENG_LETTER
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="consumerId">
+        INSERT INTO par_consumer (
+            CONSUMER_ID,
+            CONSUMER_TYPE,
+            CONSUMER_NAME,
+            CONSUMER_PROP,
+            ENG_LETTER,
+            LINK_MAN,
+            PHONE,
+            ADDRESS,
+            EMAIL,
+            QQ,
+            MSN,
+            OVER_TIMES,
+            CREATE_TIME,
+            ORG_ID,
+            BILL_FINISH_TIME,
+            STATUS
+        ) VALUES (
+            #{consumerId},
+            #{consumerType},
+            #{consumerName},
+            #{consumerProp},
+            #{engLetter},
+            #{linkMan},
+            #{phone},
+            #{address},
+            #{email},
+            #{qq},
+            #{msn},
+            #{overTimes},
+            #{createTime},
+            #{orgId},
+            #{billFinishTime},
+            #{status}
+        )
+        
+    </insert>
+    
+    <insert id="update" parameterType="dwz.persistence.beans.ParConsumer">
+        UPDATE par_consumer 
+        SET LINK_MAN = #{linkMan}, PHONE = #{phone}, ADDRESS = #{address},EMAIL = #{email}, QQ = #{qq}, MSN = #{msn} 
+        WHERE CONSUMER_ID = #{consumerId}
+    </insert>
+    
+    <select id="load" parameterType="java.lang.Integer" resultMap="rm">
+		SELECT *
+	    FROM par_consumer 
+	    WHERE 
+	        CONSUMER_ID = #{consumerId} 
+	</select>
+	
+	<select id="getByConsumerName" parameterType="dwz.persistence.beans.ParConsumer" resultMap="rm">
+		SELECT *
+	    FROM par_consumer 
+	    WHERE 
+	        ORG_ID = #{orgId} AND CONSUMER_NAME = #{consumerName}
+	</select>
+	
+	<insert id="updateBillFinishTime" parameterType="java.util.Map">
+	    UPDATE PAR_CONSUMER SET BILL_FINISH_TIME = #{billFinishTime} WHERE CONSUMER_ID = #{consumerId}
+	</insert>
+	
+	<select id="loadConsumerName" parameterType="java.lang.Integer" resultType="java.lang.String">
+    	SELECT CONSUMER_NAME  
+	    FROM par_consumer 
+	    WHERE ORG_ID = #{orgId} 
+	    ORDER BY ENG_LETTER
+    </select>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM PAR_CONSUMER WHERE CONSUMER_ID = #{consumerId}
+    </delete>
+    
+    <select id="findExistConsumer" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT T.CONSUMER_NAME FROM PAR_CONSUMER T WHERE T.ORG_ID = #{orgId}
+    </select>
+    
+</mapper>
+
